@@ -91,6 +91,9 @@ class CenterViewController: BaseViewController {
             make.top.equalTo(descLabel.snp.bottom).offset(4)
             make.height.equalTo(15)
         }
+        
+        let dict = CommonParameter().toDictionary()
+        
         var previousView: CenterListView? = nil
         for (index, item) in imageArray.enumerated() {
             let listView = CenterListView()

@@ -19,7 +19,9 @@ enum MyService {
 
 extension MyService: TargetType {
     var baseURL: URL {
-        return URL(string: baseurl)!
+        let commonDict = CommonParameter().toDictionary()
+        let apiUrl = URLParameterHelper.appendQueryParameters(to: baseurl, parameters: commonDict)!
+        return URL(string: apiUrl)!
     }
     
     var path: String {

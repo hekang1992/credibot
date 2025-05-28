@@ -7,6 +7,14 @@
 
 import UIKit
 import SnapKit
+import AdSupport
+import KeychainAccess
+
+let orignStr = "o"
+let superStr = "s"
+
+let plageName = "credi"
+let apiName = "botapi"
 
 let screen_width = UIScreen.main.bounds.size.width
 let screen_height = UIScreen.main.bounds.size.height
@@ -63,3 +71,48 @@ extension UIColor {
     
 }
 
+
+class DeviceIdentifier {
+    
+    private static let keychain = Keychain(service: Bundle.main.bundleIdentifier ?? "com.credibot.app")
+    private static let idfvKey = "device_idfv"
+    
+    static func getIDFV() -> String {
+        if let saved = try? keychain.get(idfvKey), !saved.isEmpty {
+            return saved
+        }
+        
+        let newIDFV = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
+        
+        try? keychain.set(newIDFV, key: idfvKey)
+        
+        return newIDFV
+    }
+    
+    static func clearIDFV() {
+        try? keychain.remove(idfvKey)
+    }
+    
+    static func getIDFA() -> String {
+        return ASIdentifierManager.shared().advertisingIdentifier.uuidString
+    }
+    
+}
+
+class URLParameterHelper {
+    
+    static func appendQueryParameters(to url: String,
+                                      parameters: [String: String]) -> String? {
+        
+        guard var components = URLComponents(string: url) else {
+            return nil
+        }
+        
+        let queryItems = parameters.map {
+            URLQueryItem(name: $0.key, value: $0.value)
+        }
+        
+        components.queryItems = (components.queryItems ?? []) + queryItems
+        return components.url?.absoluteString
+    }
+}

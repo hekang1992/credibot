@@ -16,13 +16,14 @@
 		7359712B2DE5B63200CA01DC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7359712A2DE5B63200CA01DC /* LoginView.swift */; };
 		7359712D2DE5B63F00CA01DC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7359712C2DE5B63F00CA01DC /* HomeView.swift */; };
 		7359712F2DE5B64A00CA01DC /* CenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7359712E2DE5B64A00CA01DC /* CenterView.swift */; };
+		736936002DE6F94300B83A43 /* common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736935FF2DE6F93D00B83A43 /* common.swift */; };
 		739604232DE5BA4200818C9D /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739604222DE5BA4200818C9D /* FirstViewController.swift */; };
 		739604272DE5BCE800818C9D /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739604262DE5BCE800818C9D /* CustomTabBarController.swift */; };
 		739604292DE5BD9800818C9D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739604282DE5BD8B00818C9D /* HomeViewController.swift */; };
 		7396042C2DE5BDDC00818C9D /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7396042B2DE5BDDC00818C9D /* OrderViewController.swift */; };
 		7396042E2DE5BDEC00818C9D /* CenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7396042D2DE5BDEC00818C9D /* CenterViewController.swift */; };
 		739604302DE5BF0600818C9D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7396042F2DE5BF0600818C9D /* LoginViewController.swift */; };
-		739604322DE5BF2C00818C9D /* Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739604312DE5BF2600818C9D /* Other.swift */; };
+		739604322DE5BF2C00818C9D /* other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739604312DE5BF2600818C9D /* other.swift */; };
 		C4B7FBFE3993652EDB6338AC /* Pods_credibot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA7A9F57EFFE1F490F28FE0 /* Pods_credibot.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,13 +41,14 @@
 		7359712A2DE5B63200CA01DC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		7359712C2DE5B63F00CA01DC /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7359712E2DE5B64A00CA01DC /* CenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterView.swift; sourceTree = "<group>"; };
+		736935FF2DE6F93D00B83A43 /* common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = common.swift; sourceTree = "<group>"; };
 		739604222DE5BA4200818C9D /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		739604262DE5BCE800818C9D /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		739604282DE5BD8B00818C9D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		7396042B2DE5BDDC00818C9D /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
 		7396042D2DE5BDEC00818C9D /* CenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterViewController.swift; sourceTree = "<group>"; };
 		7396042F2DE5BF0600818C9D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		739604312DE5BF2600818C9D /* Other.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Other.swift; sourceTree = "<group>"; };
+		739604312DE5BF2600818C9D /* other.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = other.swift; sourceTree = "<group>"; };
 		FAA7A9F57EFFE1F490F28FE0 /* Pods_credibot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_credibot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -137,7 +139,8 @@
 		735971212DE5ADED00CA01DC /* other */ = {
 			isa = PBXGroup;
 			children = (
-				739604312DE5BF2600818C9D /* Other.swift */,
+				739604312DE5BF2600818C9D /* other.swift */,
+				736935FF2DE6F93D00B83A43 /* common.swift */,
 			);
 			path = other;
 			sourceTree = "<group>";
@@ -316,8 +319,9 @@
 				7396042E2DE5BDEC00818C9D /* CenterViewController.swift in Sources */,
 				7396042C2DE5BDDC00818C9D /* OrderViewController.swift in Sources */,
 				739604302DE5BF0600818C9D /* LoginViewController.swift in Sources */,
-				739604322DE5BF2C00818C9D /* Other.swift in Sources */,
+				739604322DE5BF2C00818C9D /* other.swift in Sources */,
 				739604272DE5BCE800818C9D /* CustomTabBarController.swift in Sources */,
+				736936002DE6F94300B83A43 /* common.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
