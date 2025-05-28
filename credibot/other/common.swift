@@ -73,4 +73,9 @@ extension CommonParameter {
     
 }
 
+class PhoneNumberManager {
+    static let shared = PhoneNumberManager()
+    var phoneNumber: String?
 
+    private init() {}
+}

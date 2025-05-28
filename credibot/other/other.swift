@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import AdSupport
 import KeychainAccess
+import KRProgressHUD
 
 let orignStr = "o"
 let superStr = "s"
@@ -71,6 +72,28 @@ extension UIColor {
     
 }
 
+extension UIControl {
+    
+    static func swizzleSendAction() {
+        guard let originalMethod = class_getInstanceMethod(UIControl.self, #selector(sendAction(_:to:for:))),
+              let swizzledMethod = class_getInstanceMethod(UIControl.self, #selector(my_sendAction(_:to:for:))) else {
+            return
+        }
+        method_exchangeImplementations(originalMethod, swizzledMethod)
+    }
+    
+    @objc func my_sendAction(_ action: Selector, to target: Any?, for event: UIEvent?) {
+        if let button = self as? UIButton, button.accessibilityIdentifier == "codeIntercept" {
+            print("🚀 click: \(button)")
+            guard let phone = PhoneNumberManager.shared.phoneNumber, !phone.isEmpty else {
+                KRProgressHUD.showMessage("Please enter your phone number first")
+                return
+            }
+        }
+        my_sendAction(action, to: target, for: event)
+    }
+    
+}
 
 class DeviceIdentifier {
     

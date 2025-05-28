@@ -32,10 +32,6 @@ class LoginViewController: BaseViewController {
                 return
             }
             let phone = loginView.phoneTx.text ?? ""
-            if phone.isEmpty {
-                KRProgressHUD.showMessage("Please enter your phone number first")
-                return
-            }
             Task {
                 await self.sendCodeInfo(with: codeBtn, phone: phone)
             }

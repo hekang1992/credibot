@@ -27,6 +27,19 @@ class BaseViewController: UIViewController {
 
 }
 
+extension UIViewController {
+    static func swizzleViewDidLoad() {
+        let original = class_getInstanceMethod(UIViewController.self, #selector(viewDidLoad))!
+        let swizzled = class_getInstanceMethod(UIViewController.self, #selector(swizzled_viewDidLoad))!
+        method_exchangeImplementations(original, swizzled)
+    }
+
+    @objc func swizzled_viewDidLoad() {
+        print("✅ \(self) did load")
+        swizzled_viewDidLoad()
+    }
+}
+
 class BaseView: UIView {
     let disposeBag = DisposeBag()
 }

@@ -31,7 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         IQKeyboardManager.shared.isEnabled = true
         IQKeyboardManager.shared.resignOnTouchOutside = true
-        
+        UIViewController.swizzleViewDidLoad()
+        UIButton.swizzleSendAction()
         window?.makeKeyAndVisible()
         return true
     }

@@ -24,7 +24,7 @@ class LoginView: BaseView {
         topImageView.image = UIImage(named: "loginimge")
         return topImageView
     }()
-
+    
     lazy var welcomeImageView: UIImageView = {
         let welcomeImageView = UIImageView()
         welcomeImageView.image = UIImage(named: "welcomeimge")
@@ -150,6 +150,7 @@ class LoginView: BaseView {
         codeBtn.addTarget(self, action: #selector(btnClick), for: .touchUpInside)
         codeBtn.setTitleColor(.white, for: .normal)
         codeBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        codeBtn.accessibilityIdentifier = "codeIntercept"
         return codeBtn
     }()
     
@@ -289,6 +290,14 @@ class LoginView: BaseView {
             self.block2?()
         }).disposed(by: disposeBag)
         
+        
+        phoneTx.rx.text
+            .orEmpty
+            .subscribe(onNext: { text in
+                print("🚀text=====\(text)")
+                PhoneNumberManager.shared.phoneNumber = text
+            })
+            .disposed(by: disposeBag)
     }
     
     @MainActor required init?(coder: NSCoder) {
@@ -309,6 +318,7 @@ extension LoginView: KAPinFieldDelegate {
             codePinField.resignFirstResponder()
             self.block1?()
         }
-      }
+    }
     
 }
+
