@@ -88,12 +88,12 @@
 				735971132DE5A71000CA01DC /* AppDelegate.swift */,
 				735971172DE5A71000CA01DC /* LaunchScreen.storyboard */,
 				735971212DE5ADED00CA01DC /* other */,
+				735971222DE5ADF000CA01DC /* requset */,
 				735971202DE5ADEB00CA01DC /* model */,
 				7359711F2DE5ADE000CA01DC /* center */,
 				7396042A2DE5BDB900818C9D /* order */,
 				7359711D2DE5ADCF00CA01DC /* home */,
 				7359711E2DE5ADDA00CA01DC /* login */,
-				735971222DE5ADF000CA01DC /* requset */,
 				735971232DE5B58B00CA01DC /* base */,
 			);
 			path = credibot;
@@ -284,13 +284,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-credibot/Pods-credibot-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-credibot/Pods-credibot-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

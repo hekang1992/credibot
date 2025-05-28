@@ -47,6 +47,7 @@ PODS:
     - IQKeyboardCore
   - IQTextView (1.0.5):
     - IQKeyboardToolbar/Placeholderable
+  - KAPinField (5.0.3)
   - KeychainAccess (4.2.2)
   - Kingfisher (8.3.2)
   - MJRefresh (3.7.9)
@@ -69,6 +70,7 @@ DEPENDENCIES:
   - DeviceKit
   - FBSDKCoreKit
   - IQKeyboardManagerSwift
+  - KAPinField
   - KeychainAccess
   - Kingfisher
   - MJRefresh
@@ -93,6 +95,7 @@ SPEC REPOS:
     - IQKeyboardToolbarManager
     - IQTextInputViewNotification
     - IQTextView
+    - KAPinField
     - KeychainAccess
     - Kingfisher
     - MJRefresh
@@ -117,6 +120,7 @@ SPEC CHECKSUMS:
   IQKeyboardToolbarManager: 6c693c8478d6327a7ef2107528d29698b3514dbb
   IQTextInputViewNotification: f5e954d8881fd9808b744e49e024cc0d4bcfe572
   IQTextView: ae13b4922f22e6f027f62c557d9f4f236b19d5c7
+  KAPinField: 7a57b50c49263e74d295b1819cda1d869205e212
   KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
   Kingfisher: 0621d0ac0c78fecb19f6dc5303bde2b52abaf2f5
   MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
@@ -127,6 +131,6 @@ SPEC CHECKSUMS:
   RxSwift: 31649ace6aceeb422e16ff71c60804f9c3281ed9
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
 
-PODFILE CHECKSUM: 4483dfd40f806da4f9c91fb57bd3d8a48cf4c2d2
+PODFILE CHECKSUM: 2cf26408060098704d85c87bb89d710ded10ff03
 
 COCOAPODS: 1.16.2

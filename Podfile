@@ -14,6 +14,7 @@ target 'credibot' do
   pod 'RxGesture'
   pod 'MJRefresh'
   pod 'DeviceKit'
+  pod 'KAPinField'
   pod 'Kingfisher'
   pod 'FBSDKCoreKit'
   pod 'KeychainAccess'
