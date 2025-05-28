@@ -41,9 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     
     @objc func changeVc(_ notification: Notification) {
-        
+        let needLogin = UserDefaults.standard.object(forKey: "token") as? String ?? ""
+        window?.rootViewController = needLogin.isEmpty ? BaseNavigationController(rootViewController: LoginViewController()) : BaseNavigationController(rootViewController: CustomTabBarController())
     }
-    
     
 }
 

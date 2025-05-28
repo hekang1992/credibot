@@ -13,6 +13,9 @@ class FirstViewController: BaseViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        NotificationCenter.default.post(name: NSNotification.Name("changeVc"), object: nil)
+        
     }
     
 

@@ -32,7 +32,7 @@ class CustomTabBarController: UITabBarController {
 
         // Configure tab bar appearance
         UITabBarItem.appearance().setTitleTextAttributes(
-            [.foregroundColor: UIColor.gray],
+            [.foregroundColor: UIColor.init(colorHex: "#A1A4AC")!],
             for: .normal
         )
         UITabBarItem.appearance().setTitleTextAttributes(

@@ -6,5 +6,12 @@
 //
 
 class BaseModel: Codable {
-    
+    var wanted: String?
+    var likesnake: String?
+    var floated: floatedModel?
+}
+
+class floatedModel: Codable {
+    var music: String?
+    var noise: String?
 }

@@ -19,5 +19,5 @@ target 'credibot' do
   pod 'FBSDKCoreKit'
   pod 'KeychainAccess'
   pod 'IQKeyboardManagerSwift'
-  
+  pod "KRProgressHUD"
 end

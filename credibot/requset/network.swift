@@ -19,20 +19,20 @@ enum MyService {
 
 extension MyService: TargetType {
     var baseURL: URL {
-        return URL(string: "https://api.example.com")! // 修改为你的地址
+        return URL(string: baseurl)!
     }
-
+    
     var path: String {
         switch self {
         case .getData(let endpoint, _),
-             .postData(let endpoint, _),
-             .uploadImage(let endpoint, _):
+                .postData(let endpoint, _),
+                .uploadImage(let endpoint, _):
             return endpoint
         case .downloadImage(let path):
             return path
         }
     }
-
+    
     var method: Moya.Method {
         switch self {
         case .getData, .downloadImage:
@@ -41,15 +41,18 @@ extension MyService: TargetType {
             return .post
         }
     }
-
+    
     var task: Task {
         switch self {
         case .getData(_, let parameters):
             return .requestParameters(parameters: parameters ?? [:], encoding: URLEncoding.default)
-
+            
         case .postData(_, let parameters):
-            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
-
+            let formData = parameters.map { key, value in
+                MultipartFormData(provider: .data("\(value)".data(using: .utf8)!), name: key)
+            }
+            return .uploadMultipart(formData)
+            
         case .uploadImage(_, let imageData):
             guard let imageData = imageData else {
                 return .requestPlain
@@ -61,12 +64,12 @@ extension MyService: TargetType {
                 mimeType: "image/jpeg"
             )
             return .uploadMultipart([formData])
-
+            
         case .downloadImage:
             return .requestPlain
         }
     }
-
+    
     var headers: [String : String]? {
         switch self {
         case .uploadImage:
@@ -75,7 +78,7 @@ extension MyService: TargetType {
             return ["Content-Type": "application/json", "Accept": "application/json"]
         }
     }
-
+    
     var sampleData: Data {
         return Data()
     }
@@ -84,10 +87,12 @@ extension MyService: TargetType {
 
 final class NetworkManager {
     
-    private let provider = MoyaProvider<MyService>()
-
-    private init() {}
-
+    private var provider = MoyaProvider<MyService>()
+    
+    init(provider: MoyaProvider<MyService> = MoyaProvider<MyService>()) {
+        self.provider = provider
+    }
+    
     func request<T: Decodable>(_ target: MyService, responseType: T.Type) async throws -> T {
         return try await withCheckedThrowingContinuation { continuation in
             provider.request(target) { result in
@@ -97,14 +102,14 @@ final class NetworkManager {
                         continuation.resume(returning: data)
                         return
                     }
-
+                    
                     do {
                         let decoded = try JSONDecoder().decode(T.self, from: response.data)
                         continuation.resume(returning: decoded)
                     } catch {
                         continuation.resume(throwing: error)
                     }
-
+                    
                 case .failure(let error):
                     continuation.resume(throwing: error)
                 }
