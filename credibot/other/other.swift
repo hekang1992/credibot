@@ -142,3 +142,48 @@ class URLParameterHelper {
     }
 }
 
+class StatusBarHelper {
+    
+    static let shared = StatusBarHelper()
+    
+    private init() {}
+    
+    var statusBarHeight: CGFloat {
+        if #available(iOS 13.0, *) {
+            return UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        } else {
+            return UIApplication.shared.statusBarFrame.height
+        }
+    }
+    
+    var topSafeAreaHeight: CGFloat {
+        return UIApplication.shared.keyWindow?.safeAreaInsets.top ?? statusBarHeight
+    }
+    
+    var bottomSafeAreaHeight: CGFloat {
+        return UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+    }
+    
+    func statusBarHeight(for orientation: UIInterfaceOrientation) -> CGFloat {
+        if orientation.isPortrait {
+            return statusBarHeight
+        } else {
+            return hasNotch ? 0 : statusBarHeight
+        }
+    }
+    
+    var hasNotch: Bool {
+        if #available(iOS 11.0, *) {
+            let bottom = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+            return bottom > 0
+        } else {
+            return false
+        }
+    }
+    
+    func navigationBarTotalHeight(navigationController: UINavigationController?) -> CGFloat {
+        let navBarHeight = navigationController?.navigationBar.frame.height ?? 44
+        return statusBarHeight + navBarHeight
+    }
+    
+}

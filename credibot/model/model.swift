@@ -23,6 +23,7 @@ class wriggledModel: Codable {
 }
 
 class skinnyModel: Codable {
+    var legs: String?
     var between: String?
     var clapping: String?
     var dropping: String?
@@ -32,4 +33,5 @@ class skinnyModel: Codable {
     var sliding: String?
     var throwing: String?
     var turnedquickly: String?
+    var loanRateUnit: String?
 }

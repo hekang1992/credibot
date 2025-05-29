@@ -23,7 +23,7 @@ class HomeViewController: BaseViewController {
             make.edges.equalToSuperview()
         }
         
-        self.drawerView.scrollView.mj_header = MJRefreshHeader(refreshingBlock: { [weak self] in
+        self.drawerView.scrollView.mj_header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
             guard let self = self else { return }
             Task {
                 await self.getHomeInfo()
@@ -65,8 +65,9 @@ extension HomeViewController {
                 }
                 //b
             }
+            await self.drawerView.scrollView.mj_header?.endRefreshing()
         } catch  {
-            
+            await self.drawerView.scrollView.mj_header?.endRefreshing()
         }
         
     }
@@ -77,6 +78,17 @@ extension HomeViewController {
     private func changHomeUI(with model: skinnyModel) {
         self.drawerView.appNameLabel.text = model.turnedquickly ?? ""
         self.drawerView.descLabel.text = model.orbreaking ?? ""
+        self.drawerView.moneyLabel.text = model.clapping ?? ""
+        let dropping = model.dropping ?? ""
+        let days = dropping.split(separator: "-").map { String($0) }
+        let dw = model.legs ?? ""
+        if days.count == 2 {
+            self.drawerView.minLabel.text = "\(days.first ?? "")\(dw)"
+            self.drawerView.maxLabel.text = "\(days.last ?? "")\(dw)"
+        }
+        self.drawerView.rate1Label.text = model.juggled ?? ""
+        self.drawerView.rate2Label.text = (model.throwing ?? "") + (model.loanRateUnit ?? "")
+        
     }
     
 }
