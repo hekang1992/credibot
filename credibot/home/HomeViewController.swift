@@ -16,6 +16,8 @@ class HomeViewController: BaseViewController {
         return drawerView
     }()
     
+   private var model: skinnyModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(drawerView)
@@ -29,6 +31,24 @@ class HomeViewController: BaseViewController {
                 await self.getHomeInfo()
             }
         })
+        
+        ///apply
+        self.drawerView.applyBlock = { [weak self] in
+            guard let self = self else { return }
+            if let productID = self.model?.grabbed {
+                
+                Task {
+                    await self.applyInfo(with: String(productID))
+                }
+                
+            }
+        }
+        
+        ///seaall
+        self.drawerView.selAllBlock = { [weak self] in
+            guard let self = self else { return }
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,6 +62,26 @@ class HomeViewController: BaseViewController {
 
 
 extension HomeViewController {
+    
+    private func applyInfo(with product: String) async {
+        let dict = ["test": product,
+                    "Valid": "0",
+                    "audience": "1",
+                    "invited": "1"]
+        KRProgressHUD.showMessage("loading...")
+        let man = NetworkManager()
+        do {
+            let result = try await man.request(.postData(endpoint: "/cbd/anyones", parameters: dict), responseType: BaseModel.self)
+            let wanted = result.wanted ?? ""
+            if wanted == "0" || wanted == "00" {
+//                cbd://my.my.app/xwatermelonS?test=2
+                let admiration = result.floated?.admiration ?? ""
+                
+            }
+        } catch  {
+            
+        }
+    }
     
     private func getHomeInfo() async {
         KRProgressHUD.showMessage("loading...")
@@ -58,6 +98,7 @@ extension HomeViewController {
                     let child = wriggled.child,
                     child == "mycbdb"  {
                     if let model = wriggled.skinny?.first {
+                        self.model = model
                         changHomeUI(with: model)
                     }
                 }else {

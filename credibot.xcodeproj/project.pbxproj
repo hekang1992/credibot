@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		731B86752DE7FBB000F4374F /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731B86742DE7FBB000F4374F /* EmptyView.swift */; };
+		731B86772DE8417000F4374F /* OngoingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731B86762DE8417000F4374F /* OngoingViewController.swift */; };
 		735971192DE5A71000CA01DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 735971142DE5A71000CA01DC /* Assets.xcassets */; };
 		7359711B2DE5A71000CA01DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 735971172DE5A71000CA01DC /* LaunchScreen.storyboard */; };
 		7359711C2DE5A71000CA01DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735971132DE5A71000CA01DC /* AppDelegate.swift */; };
@@ -33,6 +34,7 @@
 		09128FF3F3A376DACDB17C27 /* Pods-credibot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-credibot.release.xcconfig"; path = "Target Support Files/Pods-credibot/Pods-credibot.release.xcconfig"; sourceTree = "<group>"; };
 		67D48FDC88FA1B76A7542EBB /* Pods-credibot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-credibot.debug.xcconfig"; path = "Target Support Files/Pods-credibot/Pods-credibot.debug.xcconfig"; sourceTree = "<group>"; };
 		731B86742DE7FBB000F4374F /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		731B86762DE8417000F4374F /* OngoingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingViewController.swift; sourceTree = "<group>"; };
 		735970FB2DE5A6CC00CA01DC /* credibot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = credibot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		735971132DE5A71000CA01DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		735971142DE5A71000CA01DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 			children = (
 				7359712C2DE5B63F00CA01DC /* HomeView.swift */,
 				739604282DE5BD8B00818C9D /* HomeViewController.swift */,
+				731B86762DE8417000F4374F /* OngoingViewController.swift */,
 			);
 			path = home;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				739604302DE5BF0600818C9D /* LoginViewController.swift in Sources */,
 				739604322DE5BF2C00818C9D /* other.swift in Sources */,
 				739604272DE5BCE800818C9D /* CustomTabBarController.swift in Sources */,
+				731B86772DE8417000F4374F /* OngoingViewController.swift in Sources */,
 				736936002DE6F94300B83A43 /* common.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,6 +17,8 @@ let superStr = "s"
 let plageName = "credi"
 let apiName = "botapi"
 
+let lastSter = "pp/"
+
 let screen_width = UIScreen.main.bounds.size.width
 let screen_height = UIScreen.main.bounds.size.height
 

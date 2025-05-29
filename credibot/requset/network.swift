@@ -10,6 +10,8 @@ import Moya
 
 let baseurl = "http://8.212.151.134:10493/credibotapi"
 
+let baseCommonUrl = "y.my.a"
+
 enum MyService {
     case getData(endpoint: String, parameters: [String: Any]?)
     case postData(endpoint: String, parameters: [String: Any])

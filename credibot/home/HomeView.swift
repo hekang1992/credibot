@@ -7,7 +7,11 @@
 
 import UIKit
 
+typealias completeBlock = (() -> Void)
 class HomeView: BaseView {
+    
+    var applyBlock: completeBlock?
+    var selAllBlock: completeBlock?
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -149,7 +153,7 @@ class HomeView: BaseView {
         dwdLabel.text = "Go to Apply"
         return dwdLabel
     }()
-
+    
     lazy var descImageView: UIImageView = {
         let descImageView = UIImageView()
         descImageView.image = UIImage(named: "descigehome")
@@ -187,7 +191,7 @@ class HomeView: BaseView {
         quesImageView.isUserInteractionEnabled = true
         return quesImageView
     }()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(scrollView)
@@ -277,7 +281,7 @@ class HomeView: BaseView {
             make.size.equalTo(CGSize(width: 295.pix(), height: 52.pix()))
         }
         
-       
+        
         
         minLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
@@ -334,7 +338,7 @@ class HomeView: BaseView {
             make.size.equalTo(CGSize(width: 255.pix(), height: 20.pix()))
         }
         
-       
+        
         
         dataLabel.snp.makeConstraints { make in
             make.left.equalTo(headImageView.snp.left)
@@ -386,6 +390,34 @@ class HomeView: BaseView {
             make.top.equalTo(data1Label.snp.bottom).offset(15.pix())
             make.bottom.equalToSuperview().offset(-20)
         }
+        
+        headImageView
+            .rx
+            .tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.applyBlock?()
+            }).disposed(by: disposeBag)
+        
+        dwdLabel
+            .rx
+            .tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.applyBlock?()
+        }).disposed(by: disposeBag)
+        
+        dwd1Label
+            .rx
+            .tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.selAllBlock?()
+        }).disposed(by: disposeBag)
+        
     }
     
     @MainActor required init?(coder: NSCoder) {

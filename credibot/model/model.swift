@@ -14,6 +14,7 @@ class BaseModel: Codable {
 class floatedModel: Codable {
     var music: String?
     var noise: String?
+    var admiration: String?
     var wriggled: wriggledModel?
 }
 

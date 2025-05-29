@@ -7,6 +7,8 @@
 
 import UIKit
 
+let personalizedUrl = commUrl + baseCommonUrl + lastSter
+
 class EmptyView: BaseView {
     
     lazy var emptyImageView: UIImageView = {

@@ -5,10 +5,11 @@
 //  Created by emma on 2025/5/28.
 //
 
+import UIKit
 import Foundation
 import DeviceKit
 
-import UIKit
+let commUrl = "cbd://m"
 
 class CommonParameter {
     

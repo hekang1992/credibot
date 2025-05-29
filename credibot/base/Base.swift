@@ -19,7 +19,23 @@ class BaseNavigationController: UINavigationController {
 }
 
 class BaseViewController: UIViewController {
+    
+    lazy var backBtn: UIButton = {
+        let backBtn = UIButton(type: .custom)
+        backBtn.setImage(UIImage(named: "backimge"), for: .normal)
+        return backBtn
+    }()
+    
+    lazy var nameLabel: UILabel = {
+        let nameLabel = UILabel()
+        nameLabel.textColor = UIColor.init(colorHex: "Product Details")
+        nameLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        nameLabel.textAlignment = .center
+        return nameLabel
+    }()
+    
     let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
