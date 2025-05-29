@@ -83,16 +83,19 @@ extension UIControl {
     }
     
     @objc func my_sendAction(_ action: Selector, to target: Any?, for event: UIEvent?) {
-        if let button = self as? UIButton, button.accessibilityIdentifier == "codeIntercept" {
+        if let button = self as? UIButton {
             print("🚀 click: \(button)")
-            guard let phone = PhoneNumberManager.shared.phoneNumber, !phone.isEmpty else {
-                KRProgressHUD.showMessage("Please enter your phone number first")
-                return
+            if button.accessibilityIdentifier == "codeIntercept" {
+                guard let phone = PhoneNumberManager.shared.phoneNumber, !phone.isEmpty else {
+                    KRProgressHUD.showMessage("Please enter your phone number first")
+                    return
+                }
+                
             }
+            my_sendAction(action, to: target, for: event)
         }
-        my_sendAction(action, to: target, for: event)
+        
     }
-    
 }
 
 class DeviceIdentifier {
@@ -139,3 +142,4 @@ class URLParameterHelper {
         return components.url?.absoluteString
     }
 }
+
