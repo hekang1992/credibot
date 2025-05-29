@@ -90,7 +90,6 @@ extension UIControl {
                     KRProgressHUD.showMessage("Please enter your phone number first")
                     return
                 }
-                
             }
             
         }

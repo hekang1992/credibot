@@ -14,4 +14,22 @@ class BaseModel: Codable {
 class floatedModel: Codable {
     var music: String?
     var noise: String?
+    var wriggled: wriggledModel?
+}
+
+class wriggledModel: Codable {
+    var child: String?
+    var skinny: [skinnyModel]?
+}
+
+class skinnyModel: Codable {
+    var between: String?
+    var clapping: String?
+    var dropping: String?
+    var grabbed: Int?
+    var juggled: String?
+    var orbreaking: String?
+    var sliding: String?
+    var throwing: String?
+    var turnedquickly: String?
 }
