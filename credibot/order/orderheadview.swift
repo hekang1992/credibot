@@ -9,6 +9,11 @@ import UIKit
 
 class OrderHeadView: BaseView {
     
+    var block1: ((UIButton) -> Void)?
+    var block2: ((UIButton) -> Void)?
+    var block3: ((UIButton) -> Void)?
+    var block4: ((UIButton) -> Void)?
+    
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .clear
@@ -23,6 +28,8 @@ class OrderHeadView: BaseView {
         allBtn.setImage(UIImage(named: "allnor"), for: .normal)
         allBtn.setImage(UIImage(named: "allsel"), for: .selected)
         allBtn.accessibilityIdentifier = "allBtn"
+        allBtn.adjustsImageWhenHighlighted = false
+        allBtn.isSelected = true
         return allBtn
     }()
     
@@ -31,6 +38,7 @@ class OrderHeadView: BaseView {
         applyBtn.setImage(UIImage(named: "applynor"), for: .normal)
         applyBtn.setImage(UIImage(named: "applysel"), for: .selected)
         applyBtn.accessibilityIdentifier = "applyBtn"
+        applyBtn.adjustsImageWhenHighlighted = false
         return applyBtn
     }()
     
@@ -39,6 +47,7 @@ class OrderHeadView: BaseView {
         repaymentBtn.setImage(UIImage(named: "repaynor"), for: .normal)
         repaymentBtn.setImage(UIImage(named: "repaysel"), for: .selected)
         repaymentBtn.accessibilityIdentifier = "repaymentBtn"
+        repaymentBtn.adjustsImageWhenHighlighted = false
         return repaymentBtn
     }()
     
@@ -47,6 +56,7 @@ class OrderHeadView: BaseView {
         finishBtn.setImage(UIImage(named: "finishnor"), for: .normal)
         finishBtn.setImage(UIImage(named: "finishsel"), for: .selected)
         finishBtn.accessibilityIdentifier = "finishBtn"
+        finishBtn.adjustsImageWhenHighlighted = false
         return finishBtn
     }()
     
@@ -86,10 +96,44 @@ class OrderHeadView: BaseView {
             make.left.equalTo(repaymentBtn.snp.right).offset(10)
             make.right.equalToSuperview().offset(-15)
         }
+        
+        allBtn.rx.tap.subscribe(onNext: { [weak self] in
+            guard let self = self else { return }
+            reactBtns(to: allBtn)
+        }).disposed(by: disposeBag)
+        
+        applyBtn.rx.tap.subscribe(onNext: { [weak self] in
+            guard let self = self else { return }
+            reactBtns(to: applyBtn)
+        }).disposed(by: disposeBag)
+        
+        repaymentBtn.rx.tap.subscribe(onNext: { [weak self] in
+            guard let self = self else { return }
+            reactBtns(to: repaymentBtn)
+        }).disposed(by: disposeBag)
+        
+        finishBtn.rx.tap.subscribe(onNext: { [weak self] in
+            guard let self = self else { return }
+            reactBtns(to: finishBtn)
+        }).disposed(by: disposeBag)
+        
+        
     }
     
     @MainActor required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+extension OrderHeadView {
+    
+    private func reactBtns(to btn: UIButton) {
+        allBtn.isSelected = false
+        applyBtn.isSelected = false
+        repaymentBtn.isSelected = false
+        finishBtn.isSelected = false
+        btn.isSelected = true
     }
     
 }

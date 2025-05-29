@@ -92,9 +92,9 @@ extension UIControl {
                 }
                 
             }
-            my_sendAction(action, to: target, for: event)
+            
         }
-        
+        my_sendAction(action, to: target, for: event)
     }
 }
 
