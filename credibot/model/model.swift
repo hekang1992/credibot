@@ -5,6 +5,8 @@
 //  Created by emma on 2025/5/27.
 //
 
+let PRODUCT_DETAIL_PAGE = "xwatermelonS"
+
 class BaseModel: Codable {
     var wanted: String?
     var likesnake: String?
@@ -16,6 +18,8 @@ class floatedModel: Codable {
     var noise: String?
     var admiration: String?
     var wriggled: wriggledModel?
+    var americans: americansModel?
+    var huts: [hutsModel]?
 }
 
 class wriggledModel: Codable {
@@ -35,4 +39,15 @@ class skinnyModel: Codable {
     var throwing: String?
     var turnedquickly: String?
     var loanRateUnit: String?
+}
+
+class americansModel: Codable {
+    var process: String?
+}
+
+class hutsModel: Codable {
+    var wasthat: String?
+    var europeans: String?
+    var madetheir: String?
+    var testament: String?
 }

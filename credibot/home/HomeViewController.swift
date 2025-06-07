@@ -16,7 +16,7 @@ class HomeViewController: BaseViewController {
         return drawerView
     }()
     
-   private var model: skinnyModel?
+    private var model: skinnyModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,23 +68,29 @@ extension HomeViewController {
                     "Valid": "0",
                     "audience": "1",
                     "invited": "1"]
-        KRProgressHUD.showMessage("loading...")
+        KRProgressHUD.show(withMessage: "loading...")
         let man = NetworkManager()
         do {
             let result = try await man.request(.postData(endpoint: "/cbd/anyones", parameters: dict), responseType: BaseModel.self)
             let wanted = result.wanted ?? ""
             if wanted == "0" || wanted == "00" {
-//                cbd://my.my.app/xwatermelonS?test=2
                 let admiration = result.floated?.admiration ?? ""
-                
+                if admiration.contains(personalizedUrl) && admiration.contains(PRODUCT_DETAIL_PAGE) {
+                    let dict = SchemeUrlParameter.getParameters(from: admiration) ?? [:]
+                    let ongVc = OngoingViewController()
+                    let productID = dict["test"] ?? ""
+                    ongVc.productID.accept(productID)
+                    self.navigationController?.pushViewController(ongVc, animated: true)
+                }
             }
+            KRProgressHUD.dismiss()
         } catch  {
-            
+            KRProgressHUD.dismiss()
         }
     }
     
     private func getHomeInfo() async {
-        KRProgressHUD.showMessage("loading...")
+        KRProgressHUD.show(withMessage: "loading...")
         let man = NetworkManager()
         let dict = ["asfar": "1",
                     "chcek": "0",
@@ -95,8 +101,8 @@ extension HomeViewController {
             if wanted == "0" || wanted == "00" {
                 //a
                 if let wriggled = result.floated?.wriggled,
-                    let child = wriggled.child,
-                    child == "mycbdb"  {
+                   let child = wriggled.child,
+                   child == "mycbdb"  {
                     if let model = wriggled.skinny?.first {
                         self.model = model
                         changHomeUI(with: model)
@@ -106,8 +112,10 @@ extension HomeViewController {
                 }
                 //b
             }
+            KRProgressHUD.dismiss()
             await self.drawerView.scrollView.mj_header?.endRefreshing()
         } catch  {
+            KRProgressHUD.dismiss()
             await self.drawerView.scrollView.mj_header?.endRefreshing()
         }
         

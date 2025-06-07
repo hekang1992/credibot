@@ -189,3 +189,22 @@ class StatusBarHelper {
     }
     
 }
+
+class SchemeUrlParameter {
+    
+   static func getParameters(from urlString: String) -> [String: String]? {
+        guard let url = URL(string: urlString),
+              let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              let queryItems = components.queryItems else {
+            return nil
+        }
+        
+        var parameters = [String: String]()
+        for item in queryItems {
+            parameters[item.name] = item.value
+        }
+        
+        return parameters
+    }
+    
+}

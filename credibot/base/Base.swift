@@ -16,6 +16,14 @@ class BaseNavigationController: UINavigationController {
         self.navigationBar.isTranslucent = false
         self.interactivePopGestureRecognizer?.isEnabled = false
     }
+    
+    override func pushViewController(_ viewController: UIViewController, animated: Bool) {
+        if viewControllers.count > 0 {
+            viewController.hidesBottomBarWhenPushed = true
+        }
+        super.pushViewController(viewController, animated: animated)
+    }
+    
 }
 
 class BaseViewController: UIViewController {
@@ -28,9 +36,9 @@ class BaseViewController: UIViewController {
     
     lazy var nameLabel: UILabel = {
         let nameLabel = UILabel()
-        nameLabel.textColor = UIColor.init(colorHex: "Product Details")
         nameLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         nameLabel.textAlignment = .center
+        nameLabel.textColor = .black
         return nameLabel
     }()
     

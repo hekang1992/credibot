@@ -407,7 +407,15 @@ class HomeView: BaseView {
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.applyBlock?()
-        }).disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
+        
+        detailBtn
+            .rx
+            .tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.applyBlock?()
+            }).disposed(by: disposeBag)
         
         dwd1Label
             .rx
@@ -416,7 +424,7 @@ class HomeView: BaseView {
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.selAllBlock?()
-        }).disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
         
     }
     

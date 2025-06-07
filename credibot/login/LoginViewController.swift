@@ -68,7 +68,7 @@ extension LoginViewController {
     }
     
     private func sendCodeInfo(with codeBtn: UIButton, phone: String) async {
-        KRProgressHUD.showMessage("loading...")
+        KRProgressHUD.show(withMessage: "loading...")
         let man = NetworkManager()
         let dict = ["surprising": phone,
                     "queer": "en",
@@ -112,7 +112,7 @@ extension LoginViewController {
     }
     
     private func loginApiInfo(with phone: String, code: String) async {
-        KRProgressHUD.showMessage("loading...")
+        KRProgressHUD.show(withMessage: "loading...")
         let man = NetworkManager()
         let dict = ["music": phone,
                     "queer": code,
