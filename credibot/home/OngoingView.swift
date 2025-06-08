@@ -7,8 +7,11 @@
 
 import UIKit
 import RxRelay
+import Kingfisher
 
 class OngoingView: BaseView {
+    
+    var block: ((String, Int) -> Void)?
     
     var model = BehaviorRelay<floatedModel?>(value: nil)
     
@@ -43,9 +46,51 @@ class OngoingView: BaseView {
                                             OngoingListViewCell.self)) { row, model, cell in
                 cell.selectionStyle = .none
                 cell.backgroundColor = .clear
+                let logoUrl = model.europeans ?? ""
+                let logoSourceUrl = URL(string: logoUrl)
+                cell.logoImageView.kf.setImage(with: logoSourceUrl)
+                
+                cell.titleLabel.text = model.madetheir ?? ""
+                cell.descLabel.text = model.testament ?? ""
+                
+                let story = model.story ?? 0
+                
+                cell.typeImageView.image = story == 0 ? UIImage(named: "ongongimge") : UIImage(named: "complegeimge")
                 
         }.disposed(by: disposeBag)
         
+//        tableView.rx.itemSelected.asObservable().subscribe(onNext: { [weak self] indexPath in
+//            guard let self = self else { return }
+//        }).disposed(by: disposeBag)
+        
+        
+        tableView.rx.modelSelected(hutsModel.self).subscribe(onNext: { [weak self] model in
+            guard let self = self else { return }
+            
+            let wasthat = model.wasthat ?? ""
+            let story = model.story ?? 0
+            
+            switch wasthat {
+            case NextType.mycbdf:
+                self.block?("1", story)
+                break
+            case NextType.mycbdg:
+                self.block?("2", story)
+                break
+            case NextType.mycbdh:
+                self.block?("3", story)
+                break
+            case NextType.mycbdi:
+                self.block?("4", story)
+                break
+            case NextType.mycbdj:
+                self.block?("5", story)
+                break
+            default:
+                break
+            }
+            
+        }).disposed(by: disposeBag)
     }
     
     @MainActor required init?(coder: NSCoder) {
@@ -129,4 +174,38 @@ extension OngoingView: UITableViewDelegate {
         return 95.pix()
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 80.pix()
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if let huts = self.model.value?.huts, huts.count > 0 {
+            let footerView = UIView()
+            let btn = UIButton()
+            btn.backgroundColor = UIColor.init(colorHex: "#050647")
+            btn.layer.cornerRadius = 25.pix()
+            btn.layer.masksToBounds = true
+            btn.setTitle("Apply for a loan", for: .normal)
+            btn.setTitleColor(.white, for: .normal)
+            btn.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+            footerView.addSubview(btn)
+            
+            btn.snp.makeConstraints { make in
+                make.center.equalToSuperview()
+                make.size.equalTo(CGSize(width: 345.pix(), height: 50.pix()))
+            }
+            
+            return footerView
+        }
+        return nil
+    }
+    
+}
+
+class NextType {
+    static let mycbdf = "mycbdf"
+    static let mycbdg = "mycbdg"
+    static let mycbdh = "mycbdh"
+    static let mycbdi = "mycbdi"
+    static let mycbdj = "mycbdj"
 }

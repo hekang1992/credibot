@@ -50,4 +50,5 @@ class hutsModel: Codable {
     var europeans: String?
     var madetheir: String?
     var testament: String?
+    var story: Int?
 }

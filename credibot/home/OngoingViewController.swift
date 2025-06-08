@@ -45,6 +45,11 @@ class OngoingViewController: BaseViewController {
             make.top.equalTo(nameLabel.snp.bottom).offset(30.pix())
             make.left.right.bottom.equalToSuperview()
         }
+        
+        listView.block = { [weak self] nextStr, index in
+            self?.unlockPath(with: nextStr, index: index)
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,6 +63,28 @@ class OngoingViewController: BaseViewController {
 }
 
 extension OngoingViewController {
+    
+    private func unlockPath(with nextStr: String, index: Int) {
+        switch nextStr {
+        case "1":
+            getAhead()
+            break
+        case "2":
+            break
+        case "3":
+            break
+        case "4":
+            break
+        case "5":
+            break
+        default:
+            break
+        }
+    }
+    
+    private func getAhead() {
+        
+    }
     
     @objc private func btnClick() {
         self.navigationController?.popToRootViewController(animated: true)
