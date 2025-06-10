@@ -49,6 +49,7 @@
 		73AB540B2DF5CB8000EF94FC /* AboutBotSelectViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AB540A2DF5CB8000EF94FC /* AboutBotSelectViewCell.swift */; };
 		73AB540D2DF5D54B00EF94FC /* select.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AB540C2DF5D54400EF94FC /* select.swift */; };
 		73F175162DF7D6FA006DC588 /* RoutePesoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F175152DF7D6FA006DC588 /* RoutePesoViewCell.swift */; };
+		73F175182DF8024D006DC588 /* contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F175172DF80247006DC588 /* contact.swift */; };
 		C4B7FBFE3993652EDB6338AC /* Pods_credibot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA7A9F57EFFE1F490F28FE0 /* Pods_credibot.framework */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +100,7 @@
 		73AB540A2DF5CB8000EF94FC /* AboutBotSelectViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutBotSelectViewCell.swift; sourceTree = "<group>"; };
 		73AB540C2DF5D54400EF94FC /* select.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = select.swift; sourceTree = "<group>"; };
 		73F175152DF7D6FA006DC588 /* RoutePesoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePesoViewCell.swift; sourceTree = "<group>"; };
+		73F175172DF80247006DC588 /* contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contact.swift; sourceTree = "<group>"; };
 		FAA7A9F57EFFE1F490F28FE0 /* Pods_credibot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_credibot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -190,6 +192,7 @@
 		735971212DE5ADED00CA01DC /* other */ = {
 			isa = PBXGroup;
 			children = (
+				73F175172DF80247006DC588 /* contact.swift */,
 				73AB540C2DF5D54400EF94FC /* select.swift */,
 				73AB54042DF5B60400EF94FC /* timeConfig.swift */,
 				73AB53FE2DF58F3400EF94FC /* photo.swift */,
@@ -416,6 +419,7 @@
 				73AB53F72DF5845000EF94FC /* RecommendStepViewController.swift in Sources */,
 				739604232DE5BA4200818C9D /* FirstViewController.swift in Sources */,
 				73AB53EE2DF55D1300EF94FC /* RouteWebViewController.swift in Sources */,
+				73F175182DF8024D006DC588 /* contact.swift in Sources */,
 				735971252DE5B5C400CA01DC /* Base.swift in Sources */,
 				73AB540B2DF5CB8000EF94FC /* AboutBotSelectViewCell.swift in Sources */,
 				739604292DE5BD9800818C9D /* HomeViewController.swift in Sources */,

@@ -77,7 +77,6 @@ class RouteMenuViewController: BaseViewController {
             var resultDict: [String: String] = ["test": productID]
             for model in models {
                 guard let key = model.wanted else { continue }
-                
                 let value: String
                 if model.wares == "mycbdl" || model.wares == "mycbdm" {
                     value = model.noisy ?? ""

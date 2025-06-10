@@ -12,7 +12,14 @@ class PickerHelper {
         var result = [BRProvinceModel]()
         for (index, model) in dataSource.enumerated() {
             let provinceModel = BRProvinceModel()
-            provinceModel.code = String(model.child ?? 0)
+            if let child = model.child {
+                switch child {
+                case .int(let value):
+                    provinceModel.code = String(value)
+                case .string(let value):
+                    provinceModel.code = value
+                }
+            }
             provinceModel.name = model.biggest
             provinceModel.index = index
             result.append(provinceModel)

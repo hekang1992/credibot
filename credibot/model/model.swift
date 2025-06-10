@@ -35,8 +35,15 @@ class wanderModel: Codable {
 }
 
 class topickModel: Codable {
-    var biggest: String?
+    var biggest: String?//name
     var topick: [topickModel]?
+    var imagined: String?
+    var ofcinema: String?
+    var pictures: [calledtoModel]?
+    var relationText: String?
+    var jolly: String?//phone
+    var interesting: String?
+    
 }
 
 class babiesModel: Codable {
@@ -89,5 +96,34 @@ class traysModel: Codable {
 
 class calledtoModel: Codable {
     var biggest: String?
-    var child: Int?
+    var child: ChildType?
+    
+    enum ChildType: Codable {
+        case int(Int)
+        case string(String)
+        
+        init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            if let intVal = try? container.decode(Int.self) {
+                self = .int(intVal)
+            } else if let stringVal = try? container.decode(String.self) {
+                self = .string(stringVal)
+            } else {
+                throw DecodingError.typeMismatch(
+                    ChildType.self,
+                    DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Expected Int or String for child")
+                )
+            }
+        }
+        
+        func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+            switch self {
+            case .int(let value):
+                try container.encode(value)
+            case .string(let value):
+                try container.encode(value)
+            }
+        }
+    }
 }
