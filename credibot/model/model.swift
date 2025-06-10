@@ -28,6 +28,11 @@ class floatedModel: Codable {
     var trays: [traysModel]?
     var topick: [topickModel]?
     var wander: wanderModel?
+    var attendants: attendantsModel?
+}
+
+class attendantsModel: Codable {
+    var chant: String?
 }
 
 class wanderModel: Codable {
@@ -90,12 +95,39 @@ class traysModel: Codable {
     var wares: String?
     var passed: Int?
     var calledto: [calledtoModel]?
-    var noisy: String?//value
+    var noisy: String?
     var child: String?
+    var trays: [traysModel]?
+
+    enum CodingKeys: String, CodingKey {
+        case madetheir, testament, wanted, wares, passed, calledto, noisy, child, trays
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        madetheir = try? container.decode(String.self, forKey: .madetheir)
+        testament = try? container.decode(String.self, forKey: .testament)
+        wanted = try? container.decode(String.self, forKey: .wanted)
+        wares = try? container.decode(String.self, forKey: .wares)
+        passed = try? container.decode(Int.self, forKey: .passed)
+        calledto = try? container.decode([calledtoModel].self, forKey: .calledto)
+        noisy = try? container.decode(String.self, forKey: .noisy)
+        trays = try? container.decode([traysModel].self, forKey: .trays)
+
+        if let strValue = try? container.decode(String.self, forKey: .child) {
+            child = strValue
+        } else if let intValue = try? container.decode(Int.self, forKey: .child) {
+            child = String(intValue)
+        } else {
+            child = nil
+        }
+    }
 }
 
 class calledtoModel: Codable {
     var biggest: String?
+    var drawn: String?
     var child: ChildType?
     
     enum ChildType: Codable {

@@ -82,6 +82,12 @@ extension HomeViewController {
                     let productID = dict["test"] ?? ""
                     ongVc.productID.accept(productID)
                     self.navigationController?.pushViewController(ongVc, animated: true)
+                }else {
+                    let webVc = RouteWebViewController()
+                    let commonDict = CommonParameter().toDictionary()
+                    let apiUrl = URLParameterHelper.appendQueryParameters(to: admiration, parameters: commonDict)!
+                    webVc.pageUrl = apiUrl
+                    self.navigationController?.pushViewController(webVc, animated: true)
                 }
             }
             KRProgressHUD.dismiss()

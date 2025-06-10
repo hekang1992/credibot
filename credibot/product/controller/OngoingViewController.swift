@@ -124,7 +124,7 @@ extension OngoingViewController {
             break
         case "5":
             if index == 1 {
-                let pageVc = RouteWebViewController()
+                let pageVc = RouteWBViewController()
                 pageVc.productID = productID
                 self.navigationController?.pushViewController(pageVc, animated: true)
             }else {
@@ -192,7 +192,7 @@ extension OngoingViewController {
                         self.navigationController?.pushViewController(pageVc, animated: true)
                         break
                     case NextType.mycbdj:
-                        let pageVc = RouteWebViewController()
+                        let pageVc = RouteWBViewController()
                         pageVc.productID = productID
                         self.navigationController?.pushViewController(pageVc, animated: true)
                         break

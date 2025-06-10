@@ -9,10 +9,10 @@ import UIKit
 
 class OrderHeadView: BaseView {
     
-    var block1: ((UIButton) -> Void)?
-    var block2: ((UIButton) -> Void)?
-    var block3: ((UIButton) -> Void)?
-    var block4: ((UIButton) -> Void)?
+    var block1: ((String) -> Void)?
+    var block2: ((String) -> Void)?
+    var block3: ((String) -> Void)?
+    var block4: ((String) -> Void)?
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -100,21 +100,25 @@ class OrderHeadView: BaseView {
         allBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
             reactBtns(to: allBtn)
+            self.block1?("4")
         }).disposed(by: disposeBag)
         
         applyBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
             reactBtns(to: applyBtn)
+            self.block2?("7")
         }).disposed(by: disposeBag)
         
         repaymentBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
             reactBtns(to: repaymentBtn)
+            self.block3?("6")
         }).disposed(by: disposeBag)
         
         finishBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
             reactBtns(to: finishBtn)
+            self.block4?("5")
         }).disposed(by: disposeBag)
         
         

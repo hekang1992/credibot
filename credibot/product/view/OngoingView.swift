@@ -212,4 +212,5 @@ class NextType {
     static let mycbdh = "mycbdh"
     static let mycbdi = "mycbdi"
     static let mycbdj = "mycbdj"
+    static let mycbdk = ""
 }

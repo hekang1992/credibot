@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import MJRefresh
+import KRProgressHUD
 
 class OrderViewController: BaseViewController {
     
@@ -16,6 +17,13 @@ class OrderViewController: BaseViewController {
         let headView = OrderHeadView()
         return headView
     }()
+    
+    lazy var emptyView: EmptyView = {
+        let emptyView = EmptyView()
+        return emptyView
+    }()
+    
+    var flag: String = "4"
     
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -52,18 +60,85 @@ class OrderViewController: BaseViewController {
         
         self.tableView.mj_header = MJRefreshHeader(refreshingBlock: { [weak self] in
             guard let self = self else { return }
-            getDataInfo()
+            Task {
+                await self.getDataInfo(with: self.flag)
+            }
         })
         
-        getDataInfo()
+        headView.block1 = { [weak self] sloppy in
+            guard let self = self else { return }
+            Task {
+                self.flag = sloppy
+                await self.getDataInfo(with: sloppy)
+            }
+        }
+        
+        headView.block2 = { [weak self] sloppy in
+            guard let self = self else { return }
+            Task {
+                self.flag = sloppy
+                await self.getDataInfo(with: sloppy)
+            }
+        }
+        
+        headView.block3 = { [weak self] sloppy in
+            guard let self = self else { return }
+            Task {
+                self.flag = sloppy
+                await self.getDataInfo(with: sloppy)
+            }
+        }
+        
+        headView.block4 = { [weak self] sloppy in
+            guard let self = self else { return }
+            Task {
+                self.flag = sloppy
+                await self.getDataInfo(with: sloppy)
+            }
+        }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Task {
+            await getDataInfo(with: self.flag)
+        }
     }
 
 }
 
 extension OrderViewController {
     
-    private func getDataInfo() {
-        
+    private func getDataInfo(with sloppy: String) async {
+        KRProgressHUD.show(withMessage: "loading...")
+        let man = NetworkManager()
+        let dict = ["sloppy": sloppy]
+        do {
+            let result = try await man.request(.postData(endpoint: "/cbd/ennision", parameters: dict), responseType: BaseModel.self)
+            let wanted = result.wanted ?? ""
+            if wanted == "0" || wanted == "00" {
+                if let model = result.floated {
+                    let listArray = model.topick ?? []
+                    if listArray.isEmpty {
+                        self.view.addSubview(emptyView)
+                        emptyView.snp.makeConstraints { make in
+                            make.top.equalTo(headView.snp.bottom).offset(5)
+                            make.left.right.equalToSuperview()
+                            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-5)
+                        }
+                        emptyView.block = {
+                            NotificationCenter.default.post(name: NSNotification.Name("changeVc"), object: nil)
+                        }
+                    }else {
+                        self.emptyView.removeFromSuperview()
+                    }
+                }
+            }
+            KRProgressHUD.dismiss()
+        } catch {
+            KRProgressHUD.dismiss()
+        }
     }
     
 }

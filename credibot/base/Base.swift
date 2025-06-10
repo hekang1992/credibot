@@ -92,9 +92,17 @@ class BaseViewController: UIViewController {
                         self.navigationController?.pushViewController(pageVc, animated: true)
                         break
                     case NextType.mycbdj:
-                        let pageVc = RouteWebViewController()
+                        let pageVc = RouteWBViewController()
                         pageVc.productID = productID
                         self.navigationController?.pushViewController(pageVc, animated: true)
+                        break
+                    case NextType.mycbdk:
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                            let peolpeid = model.attendants?.chant ?? ""
+                            Task {
+//                                await self.sendToUplabubu(to: peolpeid)
+                            }
+                        }
                         break
                     default:
                         break
@@ -140,6 +148,30 @@ class BaseViewController: UIViewController {
         let pageVc = RecommendStepViewController()
         pageVc.productID = productID
         self.navigationController?.pushViewController(pageVc, animated: true)
+    }
+    
+    private func sendToUplabubu(to adcId: String) async {
+        KRProgressHUD.show(withMessage: "loading...")
+        let man = NetworkManager()
+        let dict = ["corner": adcId,
+                    "dressed": "1",
+                    "european": "1",
+                    "orderId": adcId]
+        do {
+          let result = try await man.request(.postData(endpoint: "/cbd/police", parameters: dict), responseType: BaseModel.self)
+            let wanted = result.wanted ?? ""
+            if wanted == "0" || wanted == "00" {
+                let pageUrl = result.floated?.admiration ?? ""
+                let webVc = RouteWebViewController()
+                let commonDict = CommonParameter().toDictionary()
+                let apiUrl = URLParameterHelper.appendQueryParameters(to: pageUrl, parameters: commonDict)!
+                webVc.pageUrl = apiUrl
+                self.navigationController?.pushViewController(webVc, animated: true)
+            }
+            KRProgressHUD.dismiss()
+        } catch  {
+            KRProgressHUD.dismiss()
+        }
     }
     
 }
