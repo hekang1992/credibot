@@ -30,7 +30,6 @@
 		739604302DE5BF0600818C9D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7396042F2DE5BF0600818C9D /* LoginViewController.swift */; };
 		739604322DE5BF2C00818C9D /* other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739604312DE5BF2600818C9D /* other.swift */; };
 		73AB53E32DF5544500EF94FC /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AB53E22DF5544500EF94FC /* RecommendViewController.swift */; };
-		73AB53E52DF5559000EF94FC /* PublicCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AB53E42DF5559000EF94FC /* PublicCardViewController.swift */; };
 		73AB53E82DF55CE900EF94FC /* StateMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AB53E72DF55CE900EF94FC /* StateMenuViewController.swift */; };
 		73AB53EA2DF55CFC00EF94FC /* RouteMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AB53E92DF55CFC00EF94FC /* RouteMenuViewController.swift */; };
 		73AB53EC2DF55D0800EF94FC /* RoutePhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AB53EB2DF55D0800EF94FC /* RoutePhoneViewController.swift */; };
@@ -49,6 +48,7 @@
 		73AB54092DF5CB7500EF94FC /* AboutBotNormalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AB54082DF5CB7500EF94FC /* AboutBotNormalViewCell.swift */; };
 		73AB540B2DF5CB8000EF94FC /* AboutBotSelectViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AB540A2DF5CB8000EF94FC /* AboutBotSelectViewCell.swift */; };
 		73AB540D2DF5D54B00EF94FC /* select.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AB540C2DF5D54400EF94FC /* select.swift */; };
+		73F175162DF7D6FA006DC588 /* RoutePesoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F175152DF7D6FA006DC588 /* RoutePesoViewCell.swift */; };
 		C4B7FBFE3993652EDB6338AC /* Pods_credibot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA7A9F57EFFE1F490F28FE0 /* Pods_credibot.framework */; };
 /* End PBXBuildFile section */
 
@@ -80,7 +80,6 @@
 		7396042F2DE5BF0600818C9D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		739604312DE5BF2600818C9D /* other.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = other.swift; sourceTree = "<group>"; };
 		73AB53E22DF5544500EF94FC /* RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
-		73AB53E42DF5559000EF94FC /* PublicCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicCardViewController.swift; sourceTree = "<group>"; };
 		73AB53E72DF55CE900EF94FC /* StateMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateMenuViewController.swift; sourceTree = "<group>"; };
 		73AB53E92DF55CFC00EF94FC /* RouteMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMenuViewController.swift; sourceTree = "<group>"; };
 		73AB53EB2DF55D0800EF94FC /* RoutePhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePhoneViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +98,7 @@
 		73AB54082DF5CB7500EF94FC /* AboutBotNormalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutBotNormalViewCell.swift; sourceTree = "<group>"; };
 		73AB540A2DF5CB8000EF94FC /* AboutBotSelectViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutBotSelectViewCell.swift; sourceTree = "<group>"; };
 		73AB540C2DF5D54400EF94FC /* select.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = select.swift; sourceTree = "<group>"; };
+		73F175152DF7D6FA006DC588 /* RoutePesoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePesoViewCell.swift; sourceTree = "<group>"; };
 		FAA7A9F57EFFE1F490F28FE0 /* Pods_credibot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_credibot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -251,6 +251,7 @@
 				73AB54062DF5C48600EF94FC /* AboutBotView.swift */,
 				73AB54082DF5CB7500EF94FC /* AboutBotNormalViewCell.swift */,
 				73AB540A2DF5CB8000EF94FC /* AboutBotSelectViewCell.swift */,
+				73F175152DF7D6FA006DC588 /* RoutePesoViewCell.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -262,7 +263,6 @@
 				73AB53E22DF5544500EF94FC /* RecommendViewController.swift */,
 				73AB53F62DF5845000EF94FC /* RecommendStepViewController.swift */,
 				73AB53E72DF55CE900EF94FC /* StateMenuViewController.swift */,
-				73AB53E42DF5559000EF94FC /* PublicCardViewController.swift */,
 				73AB53E92DF55CFC00EF94FC /* RouteMenuViewController.swift */,
 				73AB53EB2DF55D0800EF94FC /* RoutePhoneViewController.swift */,
 				73AB53ED2DF55D1300EF94FC /* RouteWebViewController.swift */,
@@ -429,11 +429,11 @@
 				73AB53FF2DF58F3800EF94FC /* photo.swift in Sources */,
 				73AB54052DF5B60D00EF94FC /* timeConfig.swift in Sources */,
 				73AB53F92DF585F300EF94FC /* RecommendStepView.swift in Sources */,
-				73AB53E52DF5559000EF94FC /* PublicCardViewController.swift in Sources */,
 				73AB54092DF5CB7500EF94FC /* AboutBotNormalViewCell.swift in Sources */,
 				73AB54072DF5C48600EF94FC /* AboutBotView.swift in Sources */,
 				73AB540D2DF5D54B00EF94FC /* select.swift in Sources */,
 				735971292DE5B61E00CA01DC /* model.swift in Sources */,
+				73F175162DF7D6FA006DC588 /* RoutePesoViewCell.swift in Sources */,
 				7396042E2DE5BDEC00818C9D /* CenterViewController.swift in Sources */,
 				7396042C2DE5BDDC00818C9D /* OrderViewController.swift in Sources */,
 				73AB53EC2DF55D0800EF94FC /* RoutePhoneViewController.swift in Sources */,

@@ -26,6 +26,17 @@ class floatedModel: Codable {
     var none: String?
     var biggest: String?
     var trays: [traysModel]?
+    var topick: [topickModel]?
+    var wander: wanderModel?
+}
+
+class wanderModel: Codable {
+    var topick: [topickModel]?
+}
+
+class topickModel: Codable {
+    var biggest: String?
+    var topick: [topickModel]?
 }
 
 class babiesModel: Codable {
@@ -72,6 +83,8 @@ class traysModel: Codable {
     var wares: String?
     var passed: Int?
     var calledto: [calledtoModel]?
+    var noisy: String?//value
+    var child: String?
 }
 
 class calledtoModel: Codable {

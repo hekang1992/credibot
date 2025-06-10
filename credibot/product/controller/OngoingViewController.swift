@@ -80,9 +80,9 @@ class OngoingViewController: BaseViewController {
 extension OngoingViewController {
     
     private func unlockPath(with nextStr: String, index: Int) async {
+        let productID = self.productID.value
         switch nextStr {
         case "1":
-            let productID = self.productID.value
             if index == 1 {
                 asaiFacePage(productID: productID)
             }else {
@@ -91,40 +91,44 @@ extension OngoingViewController {
             break
         case "2":
             if index == 1 {
-                
+                let pageVc = StateMenuViewController()
+                pageVc.productID = productID
+                self.navigationController?.pushViewController(pageVc, animated: true)
             }else {
                 Task {
-                    let productID = self.productID.value
                     await self.getProductGoVc(to: productID)
                 }
             }
             break
         case "3":
             if index == 1 {
-                
+                let pageVc = RouteMenuViewController()
+                pageVc.productID = productID
+                self.navigationController?.pushViewController(pageVc, animated: true)
             }else {
                 Task {
-                    let productID = self.productID.value
                     await self.getProductGoVc(to: productID)
                 }
             }
             break
         case "4":
             if index == 1 {
-               
+                let pageVc = RoutePhoneViewController()
+                pageVc.productID = productID
+                self.navigationController?.pushViewController(pageVc, animated: true)
             }else {
                 Task {
-                    let productID = self.productID.value
                     await self.getProductGoVc(to: productID)
                 }
             }
             break
         case "5":
             if index == 1 {
-                
+                let pageVc = RouteWebViewController()
+                pageVc.productID = productID
+                self.navigationController?.pushViewController(pageVc, animated: true)
             }else {
                 Task {
-                    let productID = self.productID.value
                     await self.getProductGoVc(to: productID)
                 }
             }

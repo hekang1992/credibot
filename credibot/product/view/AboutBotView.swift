@@ -12,6 +12,8 @@ class AboutBotView: BaseView {
     
     var listArray = BehaviorRelay<[traysModel]?>(value: nil)
     
+    var nextBtnBlock: (() -> Void)?
+    
     lazy var bgView: UIView = {
         let bgView = UIView()
         bgView.backgroundColor = UIColor.white
@@ -85,12 +87,16 @@ class AboutBotView: BaseView {
             let type = model.wares ?? ""
             let name = model.madetheir ?? ""
             let placeName = model.testament ?? ""
+            let passed = model.passed ?? 0
+            let noisy = model.noisy ?? ""
             if type == "mycbdk" || type == "mycbdm" {
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "AboutBotSelectViewCell", for: IndexPath(row: index, section: 0)) as? AboutBotSelectViewCell {
                     cell.nameLabel.text = name
-                    cell.imporyLabel.text = placeName
+                    
                     cell.selectionStyle = .none
                     cell.backgroundColor = .clear
+                    cell.imporyLabel.text = noisy.isEmpty ? placeName: noisy
+                    cell.imporyLabel.textColor = noisy.isEmpty ? UIColor.init(colorHex: "#999999"): .black
                     return cell
                 }
             }else {
@@ -99,16 +105,42 @@ class AboutBotView: BaseView {
                     cell.phoneTx.placeholder = placeName
                     cell.selectionStyle = .none
                     cell.backgroundColor = .clear
+                    if passed == 1 {
+                        cell.phoneTx.keyboardType = .numberPad
+                    }else {
+                        cell.phoneTx.keyboardType = .default
+                    }
+                    cell.phoneTx.rx.text
+                        .subscribe(onNext: { text in
+                            model.noisy = text
+                        })
+                        .disposed(by: self.disposeBag)
+                    if noisy.isEmpty {
+                        cell.phoneTx.placeholder = placeName
+                    }else {
+                        cell.phoneTx.text = noisy
+                    }
+                    model.noisy = noisy.isEmpty ? "" : noisy
                     return cell
                 }
             }
             return UITableViewCell()
         }.disposed(by: disposeBag)
         
+        
+        nextBtn.rx.tap.subscribe(onNext: { [weak self] in
+            self?.nextBtnBlock?()
+        }).disposed(by: disposeBag)
+        
     }
     
     @MainActor required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+}
+
+extension AboutBotView {
+    
     
 }
