@@ -2,7 +2,7 @@
 //  OngoingView.swift
 //  credibot
 //
-//  Created by 何康 on 2025/5/29.
+//  Created by Ava Martin on 2025/5/29.
 //
 
 import UIKit
@@ -12,6 +12,8 @@ import Kingfisher
 class OngoingView: BaseView {
     
     var block: ((String, Int) -> Void)?
+    
+    var appleBlock: (() -> Void)?
     
     var model = BehaviorRelay<floatedModel?>(value: nil)
     
@@ -194,7 +196,9 @@ extension OngoingView: UITableViewDelegate {
                 make.center.equalToSuperview()
                 make.size.equalTo(CGSize(width: 345.pix(), height: 50.pix()))
             }
-            
+            btn.rx.tap.subscribe(onNext: { [weak self] in
+                self?.appleBlock?()
+            }).disposed(by: disposeBag)
             return footerView
         }
         return nil

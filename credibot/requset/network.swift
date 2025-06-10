@@ -15,7 +15,7 @@ let baseCommonUrl = "y.my.a"
 enum MyService {
     case getData(endpoint: String, parameters: [String: Any]?)
     case postData(endpoint: String, parameters: [String: Any])
-    case uploadImage(endpoint: String, imageData: Data?)
+    case uploadImage(endpoint: String, imageData: Data?, parameters: [String: Any])
     case downloadImage(path: String)
 }
 
@@ -30,7 +30,7 @@ extension MyService: TargetType {
         switch self {
         case .getData(let endpoint, _),
                 .postData(let endpoint, _),
-                .uploadImage(let endpoint, _):
+                .uploadImage(let endpoint, _, _):
             return endpoint
         case .downloadImage(let path):
             return path
@@ -57,17 +57,31 @@ extension MyService: TargetType {
             }
             return .uploadMultipart(formData)
             
-        case .uploadImage(_, let imageData):
+        case .uploadImage(_, let imageData, let parameters):
             guard let imageData = imageData else {
                 return .requestPlain
             }
-            let formData = MultipartFormData(
+
+            var multipartData: [MultipartFormData] = []
+
+            let imageFormData = MultipartFormData(
                 provider: .data(imageData),
                 name: "fairs",
                 fileName: "fairs.jpg",
                 mimeType: "image/jpeg"
             )
-            return .uploadMultipart([formData])
+            multipartData.append(imageFormData)
+
+            for (key, value) in parameters {
+                let valueString = "\(value)"
+                if let data = valueString.data(using: .utf8) {
+                    let formData = MultipartFormData(provider: .data(data), name: key)
+                    multipartData.append(formData)
+                }
+            }
+
+            return .uploadMultipart(multipartData)
+
             
         case .downloadImage:
             return .requestPlain

@@ -1,5 +1,31 @@
 PODS:
   - Alamofire (5.10.2)
+  - BRPickerView (2.9.5):
+    - BRPickerView/All (= 2.9.5)
+  - BRPickerView/All (2.9.5):
+    - BRPickerView/Default
+    - BRPickerView/Deprecated
+  - BRPickerView/Core (2.9.5)
+  - BRPickerView/DatePicker (2.9.5):
+    - BRPickerView/Core
+  - BRPickerView/Default (2.9.5):
+    - BRPickerView/DatePicker
+    - BRPickerView/TextPicker
+  - BRPickerView/Deprecated (2.9.5):
+    - BRPickerView/Core
+    - BRPickerView/Deprecated/AddressPickerView (= 2.9.5)
+    - BRPickerView/Deprecated/Base (= 2.9.5)
+    - BRPickerView/Deprecated/StringPickerView (= 2.9.5)
+  - BRPickerView/Deprecated/AddressPickerView (2.9.5):
+    - BRPickerView/Core
+    - BRPickerView/Deprecated/Base
+  - BRPickerView/Deprecated/Base (2.9.5):
+    - BRPickerView/Core
+  - BRPickerView/Deprecated/StringPickerView (2.9.5):
+    - BRPickerView/Core
+    - BRPickerView/Deprecated/Base
+  - BRPickerView/TextPicker (2.9.5):
+    - BRPickerView/Core
   - DeviceKit (5.6.0)
   - FBAEMKit (18.0.0):
     - FBSDKCoreKit_Basics (= 18.0.0)
@@ -68,8 +94,10 @@ PODS:
     - RxSwift (= 6.9.0)
   - RxSwift (6.9.0)
   - SnapKit (5.7.1)
+  - TYAlertController (1.2.0)
 
 DEPENDENCIES:
+  - BRPickerView
   - DeviceKit
   - FBSDKCoreKit
   - IQKeyboardManagerSwift
@@ -83,10 +111,12 @@ DEPENDENCIES:
   - RxGesture
   - RxSwift
   - SnapKit
+  - TYAlertController
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - BRPickerView
     - DeviceKit
     - FBAEMKit
     - FBSDKCoreKit
@@ -111,9 +141,11 @@ SPEC REPOS:
     - RxRelay
     - RxSwift
     - SnapKit
+    - TYAlertController
 
 SPEC CHECKSUMS:
   Alamofire: 7193b3b92c74a07f85569e1a6c4f4237291e7496
+  BRPickerView: 6eb731d84385cc99c3ab4fec49af3336ed26c803
   DeviceKit: 9f2e0b68984a384f864b0f4e40a54bae43636bd8
   FBAEMKit: e34530df538b8eb8aeb53c35867715ba6c63ef0c
   FBSDKCoreKit: d3f479a69127acebb1c6aad91c1a33907bcf6c2f
@@ -138,7 +170,8 @@ SPEC CHECKSUMS:
   RxRelay: 6b0c930e5cef57d5fe2032571e5e65b78e3cbdb1
   RxSwift: 31649ace6aceeb422e16ff71c60804f9c3281ed9
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
+  TYAlertController: c121090edb0bea7426f987da94cdddd81eef4231
 
-PODFILE CHECKSUM: effe843ea7a371b71505d0d98302588a659796ab
+PODFILE CHECKSUM: 2c5b659fe2c91c7c26cebbd537695a2e797cdc84
 
 COCOAPODS: 1.16.2

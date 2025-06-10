@@ -20,4 +20,6 @@ target 'credibot' do
   pod 'KeychainAccess'
   pod 'IQKeyboardManagerSwift'
   pod "KRProgressHUD"
+  pod 'TYAlertController'
+  pod 'BRPickerView'
 end
