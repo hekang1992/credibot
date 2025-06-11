@@ -51,6 +51,8 @@
 		73F175162DF7D6FA006DC588 /* RoutePesoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F175152DF7D6FA006DC588 /* RoutePesoViewCell.swift */; };
 		73F175182DF8024D006DC588 /* contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F175172DF80247006DC588 /* contact.swift */; };
 		73F1751A2DF84EE8006DC588 /* RouteWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F175192DF84EE8006DC588 /* RouteWebViewController.swift */; };
+		73F1751C2DF85A80006DC588 /* RouteOrderListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F1751B2DF85A80006DC588 /* RouteOrderListCell.swift */; };
+		73F175202DF919A5006DC588 /* RouteOrderTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F1751F2DF919A5006DC588 /* RouteOrderTypeView.swift */; };
 		C4B7FBFE3993652EDB6338AC /* Pods_credibot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA7A9F57EFFE1F490F28FE0 /* Pods_credibot.framework */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +105,8 @@
 		73F175152DF7D6FA006DC588 /* RoutePesoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePesoViewCell.swift; sourceTree = "<group>"; };
 		73F175172DF80247006DC588 /* contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contact.swift; sourceTree = "<group>"; };
 		73F175192DF84EE8006DC588 /* RouteWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteWebViewController.swift; sourceTree = "<group>"; };
+		73F1751B2DF85A80006DC588 /* RouteOrderListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteOrderListCell.swift; sourceTree = "<group>"; };
+		73F1751F2DF919A5006DC588 /* RouteOrderTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteOrderTypeView.swift; sourceTree = "<group>"; };
 		FAA7A9F57EFFE1F490F28FE0 /* Pods_credibot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_credibot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -228,6 +232,8 @@
 			children = (
 				736936012DE707BA00B83A43 /* orderheadview.swift */,
 				7396042B2DE5BDDC00818C9D /* OrderViewController.swift */,
+				73F1751B2DF85A80006DC588 /* RouteOrderListCell.swift */,
+				73F1751F2DF919A5006DC588 /* RouteOrderTypeView.swift */,
 			);
 			path = order;
 			sourceTree = "<group>";
@@ -417,7 +423,9 @@
 				73AB53FB2DF589C700EF94FC /* RecommendListView.swift in Sources */,
 				7359712F2DE5B64A00CA01DC /* CenterView.swift in Sources */,
 				73AB53E32DF5544500EF94FC /* RecommendViewController.swift in Sources */,
+				73F1751C2DF85A80006DC588 /* RouteOrderListCell.swift in Sources */,
 				73AB54012DF5A8A800EF94FC /* EnumListView.swift in Sources */,
+				73F175202DF919A5006DC588 /* RouteOrderTypeView.swift in Sources */,
 				735971272DE5B61000CA01DC /* network.swift in Sources */,
 				73AB53F72DF5845000EF94FC /* RecommendStepViewController.swift in Sources */,
 				739604232DE5BA4200818C9D /* FirstViewController.swift in Sources */,

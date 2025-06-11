@@ -48,7 +48,21 @@ class topickModel: Codable {
     var relationText: String?
     var jolly: String?//phone
     var interesting: String?
-    
+    var women: Int?
+    var mostlydressed: mostlydressedModel?
+}
+
+class mostlydressedModel: Codable {
+    var soft: String?
+    var shorts: String?
+    var turnedquickly: String?
+    var curiously: String?
+    var soldgroceries: String?
+    var sorts: Int?
+    var drinks: String?
+    var cigarettes: String?
+    var purposes: String?
+    var sold: String?
 }
 
 class babiesModel: Codable {

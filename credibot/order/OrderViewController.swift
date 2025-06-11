@@ -20,6 +20,7 @@ class OrderViewController: BaseViewController {
     
     lazy var emptyView: EmptyView = {
         let emptyView = EmptyView()
+        emptyView.backgroundColor = .white
         return emptyView
     }()
     
@@ -29,7 +30,7 @@ class OrderViewController: BaseViewController {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
+        tableView.register(RouteOrderListCell.self, forCellReuseIdentifier: "RouteOrderListCell")
         tableView.estimatedRowHeight = 80
         tableView.showsVerticalScrollIndicator = false
         tableView.contentInsetAdjustmentBehavior = .never
@@ -40,6 +41,8 @@ class OrderViewController: BaseViewController {
         return tableView
     }()
 
+    var modelArray = BehaviorRelay<[topickModel]?>(value: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -58,7 +61,7 @@ class OrderViewController: BaseViewController {
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-5)
         }
         
-        self.tableView.mj_header = MJRefreshHeader(refreshingBlock: { [weak self] in
+        self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
             guard let self = self else { return }
             Task {
                 await self.getDataInfo(with: self.flag)
@@ -97,12 +100,57 @@ class OrderViewController: BaseViewController {
             }
         }
         
+        self.modelArray.compactMap { $0 }.asObservable().bind(to: tableView.rx.items(cellIdentifier: "RouteOrderListCell", cellType: RouteOrderListCell.self)) { row, model, cell in
+            cell.selectionStyle = .none
+            cell.backgroundColor = .clear
+            cell.model.accept(model)
+        }.disposed(by: disposeBag)
+        
+        tableView.rx.modelSelected(topickModel.self).subscribe(onNext: { [weak self] model in
+            let appid = model.women ?? 0
+            Task {
+                await self?.applyInfo(with: String(appid))
+            }
+        }).disposed(by: disposeBag)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Task {
             await getDataInfo(with: self.flag)
+        }
+    }
+    
+    private func applyInfo(with product: String) async {
+        let dict = ["test": product,
+                    "Valid": "0",
+                    "audience": "1",
+                    "invited": "1"]
+        KRProgressHUD.show(withMessage: "loading...")
+        let man = NetworkManager()
+        do {
+            let result = try await man.request(.postData(endpoint: "/cbd/anyones", parameters: dict), responseType: BaseModel.self)
+            let wanted = result.wanted ?? ""
+            if wanted == "0" || wanted == "00" {
+                let admiration = result.floated?.admiration ?? ""
+                if admiration.contains(personalizedUrl) && admiration.contains(PRODUCT_DETAIL_PAGE) {
+                    let dict = SchemeUrlParameter.getParameters(from: admiration) ?? [:]
+                    let ongVc = OngoingViewController()
+                    let productID = dict["test"] ?? ""
+                    ongVc.productID.accept(productID)
+                    self.navigationController?.pushViewController(ongVc, animated: true)
+                }else {
+                    let webVc = RouteWebViewController()
+                    let commonDict = CommonParameter().toDictionary()
+                    let apiUrl = URLParameterHelper.appendQueryParameters(to: admiration, parameters: commonDict)!
+                    webVc.pageUrl = apiUrl
+                    self.navigationController?.pushViewController(webVc, animated: true)
+                }
+            }
+            KRProgressHUD.dismiss()
+        } catch  {
+            KRProgressHUD.dismiss()
         }
     }
 
@@ -130,14 +178,18 @@ extension OrderViewController {
                         emptyView.block = {
                             NotificationCenter.default.post(name: NSNotification.Name("changeVc"), object: nil)
                         }
+                        self.modelArray.accept([])
                     }else {
                         self.emptyView.removeFromSuperview()
+                        self.modelArray.accept(listArray)
                     }
                 }
             }
             KRProgressHUD.dismiss()
+            await self.tableView.mj_header?.endRefreshing()
         } catch {
             KRProgressHUD.dismiss()
+            await self.tableView.mj_header?.endRefreshing()
         }
     }
     
