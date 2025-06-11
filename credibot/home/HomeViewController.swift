@@ -2,7 +2,7 @@
 //  HomeViewController.swift
 //  credibot
 //
-//  Created by emma on 2025/5/27.
+//  Created by Kevin Morgan on 2025/5/27.
 //
 
 import UIKit
@@ -60,12 +60,17 @@ class HomeViewController: BaseViewController {
             await self.getHomeInfo()
         }
         
+        let dict = CFPrivateEntry.returnDict()
+        
         locationFetcher = LocationFetcher()
         locationFetcher?.requestLocationOnce()
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { location in
-                if let loc = location {
+            .subscribe(onNext: { [weak self] location in
+                if let self = self, let loc = location {
                     print("✅ 🚀 home ==== Rx success======：\(loc.latitude ?? 0), \(loc.longitude ?? 0), \(loc.address ?? "")")
+                    Task {
+                        await self.builtInfo(with: loc)
+                    }
                 } else {
                     print("❌ Rx error")
                 }
@@ -78,6 +83,24 @@ class HomeViewController: BaseViewController {
 
 
 extension HomeViewController {
+    
+    private func builtInfo(with model: LocationModel) async {
+        let man = NetworkManager()
+        let dict = ["jerry": model.proviceCode ?? "",
+                    "masses": model.countryCode ?? "",
+                    "stored": model.country ?? "",
+                    "boards": model.latitude ?? 0.0,
+                    "false": model.longitude ?? 0.0,
+                    "built": model.address ?? "",
+                    "holding": model.latitude ?? 0.0,
+                    "oftimber": model.longitude ?? 0.0,
+                    "joists": model.city ?? ""] as [String : Any]
+        do {
+            let _ = try await man.request(.postData(endpoint: "/cbd/themcoughed", parameters: dict), responseType: BaseModel.self)
+        } catch  {
+            
+        }
+    }
     
     private func applyInfo(with product: String) async {
         let dict = ["test": product,

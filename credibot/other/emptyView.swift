@@ -2,7 +2,7 @@
 //  EmptyView.swift
 //  credibot
 //
-//  Created by emma on 2025/5/29.
+//  Created by Kevin Morgan on 2025/5/29.
 //
 
 import UIKit

@@ -2,7 +2,7 @@
 //  location.swift
 //  credibot
 //
-//  Created by 何康 on 2025/6/11.
+//  Created by Kevin Morgan on 2025/6/11.
 //
 
 import Foundation
@@ -10,10 +10,16 @@ import CoreLocation
 import RxSwift
 import RxCocoa
 
+let s1 = "i"
 struct LocationModel {
+    var countryCode: String?
+    var proviceCode: String?
+    var country: String?
+    var street: String?
     var latitude: Double?
     var longitude: Double?
     var address: String?
+    var city: String?
 }
 
 class LocationFetcher: NSObject, CLLocationManagerDelegate {
@@ -26,7 +32,7 @@ class LocationFetcher: NSObject, CLLocationManagerDelegate {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
-
+    
     func requestLocationOnce() -> Observable<LocationModel?> {
         checkAuthorizationStatus()
         
@@ -37,7 +43,7 @@ class LocationFetcher: NSObject, CLLocationManagerDelegate {
                 self?.locationManager.stopUpdatingLocation()
             })
     }
-
+    
     private func checkAuthorizationStatus() {
         switch locationManager.authorizationStatus {
         case .notDetermined:
@@ -52,30 +58,39 @@ class LocationFetcher: NSObject, CLLocationManagerDelegate {
             subject.onCompleted()
         }
     }
-
+    
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkAuthorizationStatus()
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else {
             subject.onNext(nil)
             subject.onCompleted()
             return
         }
-
+        
         CLGeocoder().reverseGeocodeLocation(location) { placemarks, _ in
-            let address = placemarks?.first?.name
+            guard let placemark = placemarks?.first else {
+                self.subject.onNext(nil)
+                self.subject.onCompleted()
+                return
+            }
             let model = LocationModel(
+                countryCode: placemark.isoCountryCode,
+                proviceCode: placemark.administrativeArea,
+                country: placemark.country,
+                street: placemark.thoroughfare,
                 latitude: location.coordinate.latitude,
                 longitude: location.coordinate.longitude,
-                address: address
+                address: placemark.thoroughfare,
+                city: placemark.locality ?? placemark.subAdministrativeArea
             )
             self.subject.onNext(model)
             self.subject.onCompleted()
         }
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("🚀==========: \(error.localizedDescription)")
         subject.onNext(nil)

@@ -2,13 +2,14 @@
 //  contact.swift
 //  credibot
 //
-//  Created by 何康 on 2025/6/10.
+//  Created by Kevin Morgan on 2025/6/10.
 //
 
 import Contacts
 import ContactsUI
 import UIKit
 
+let s3 = "s"
 protocol ContactManagerDelegate: AnyObject {
     func contactManagerDidSelect(contact: CNContact)
     func contactManagerDidDenyPermission()

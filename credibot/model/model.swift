@@ -2,7 +2,7 @@
 //  model.swift
 //  credibot
 //
-//  Created by emma on 2025/5/27.
+//  Created by Kevin Morgan on 2025/5/27.
 //
 
 let PRODUCT_DETAIL_PAGE = "xwatermelonS"

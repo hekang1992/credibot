@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  credibot
 //
-//  Created by emma on 2025/5/27.
+//  Created by Kevin Morgan on 2025/5/27.
 //
 
 import UIKit
@@ -42,8 +42,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     
     @objc func changeVc(_ notification: Notification) {
+        setupBatteryMonitoring()
         let needLogin = UserDefaults.standard.object(forKey: "token") as? String ?? ""
         window?.rootViewController = needLogin.isEmpty ? BaseNavigationController(rootViewController: LoginViewController()) : BaseNavigationController(rootViewController: CustomTabBarController())
+    }
+    
+    func setupBatteryMonitoring() {
+        UIDevice.current.isBatteryMonitoringEnabled = true
     }
     
 }
