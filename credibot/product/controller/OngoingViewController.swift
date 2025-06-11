@@ -55,7 +55,7 @@ class OngoingViewController: BaseViewController {
         listView.appleBlock = {
             Task {
                 let productID = self.productID.value
-                await self.getProdectDetailInfoToVc(to: productID)
+                await self.getProdectDetailInfoToVc(to: productID, type: "1")
             }
         }
         

@@ -53,6 +53,7 @@
 		73F1751A2DF84EE8006DC588 /* RouteWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F175192DF84EE8006DC588 /* RouteWebViewController.swift */; };
 		73F1751C2DF85A80006DC588 /* RouteOrderListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F1751B2DF85A80006DC588 /* RouteOrderListCell.swift */; };
 		73F175202DF919A5006DC588 /* RouteOrderTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F1751F2DF919A5006DC588 /* RouteOrderTypeView.swift */; };
+		73F175222DF92DF1006DC588 /* outdel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F175212DF92DE5006DC588 /* outdel.swift */; };
 		C4B7FBFE3993652EDB6338AC /* Pods_credibot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA7A9F57EFFE1F490F28FE0 /* Pods_credibot.framework */; };
 /* End PBXBuildFile section */
 
@@ -107,6 +108,7 @@
 		73F175192DF84EE8006DC588 /* RouteWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteWebViewController.swift; sourceTree = "<group>"; };
 		73F1751B2DF85A80006DC588 /* RouteOrderListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteOrderListCell.swift; sourceTree = "<group>"; };
 		73F1751F2DF919A5006DC588 /* RouteOrderTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteOrderTypeView.swift; sourceTree = "<group>"; };
+		73F175212DF92DE5006DC588 /* outdel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = outdel.swift; sourceTree = "<group>"; };
 		FAA7A9F57EFFE1F490F28FE0 /* Pods_credibot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_credibot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -198,6 +200,7 @@
 		735971212DE5ADED00CA01DC /* other */ = {
 			isa = PBXGroup;
 			children = (
+				73F175212DF92DE5006DC588 /* outdel.swift */,
 				73F175172DF80247006DC588 /* contact.swift */,
 				73AB540C2DF5D54400EF94FC /* select.swift */,
 				73AB54042DF5B60400EF94FC /* timeConfig.swift */,
@@ -430,6 +433,7 @@
 				73AB53F72DF5845000EF94FC /* RecommendStepViewController.swift in Sources */,
 				739604232DE5BA4200818C9D /* FirstViewController.swift in Sources */,
 				73AB53EE2DF55D1300EF94FC /* RouteWBViewController.swift in Sources */,
+				73F175222DF92DF1006DC588 /* outdel.swift in Sources */,
 				73F175182DF8024D006DC588 /* contact.swift in Sources */,
 				735971252DE5B5C400CA01DC /* Base.swift in Sources */,
 				73AB540B2DF5CB8000EF94FC /* AboutBotSelectViewCell.swift in Sources */,

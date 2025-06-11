@@ -60,7 +60,7 @@ class BaseViewController: UIViewController {
         }
     }
     
-    func getProdectDetailInfoToVc(to productID: String) async {
+    func getProdectDetailInfoToVc(to productID: String, type: String? = "") async {
         KRProgressHUD.show(withMessage: "loading...")
         let man = NetworkManager()
         let dict = ["test": productID,
@@ -97,11 +97,15 @@ class BaseViewController: UIViewController {
                         self.navigationController?.pushViewController(pageVc, animated: true)
                         break
                     case NextType.mycbdk:
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                            let peolpeid = model.attendants?.chant ?? ""
-                            Task {
-//                                await self.sendToUplabubu(to: peolpeid)
+                        if type == "1" {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                                let peolpeid = model.attendants?.chant ?? ""
+                                Task {
+                                    await self.sendToUplabubu(to: peolpeid)
+                                }
                             }
+                        }else {
+                            btnClick()
                         }
                         break
                     default:

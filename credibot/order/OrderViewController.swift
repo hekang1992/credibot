@@ -43,13 +43,23 @@ class OrderViewController: BaseViewController {
 
     var modelArray = BehaviorRelay<[topickModel]?>(value: nil)
     
+    var isShoeHead: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        if isShoeHead {
+            self.addHeadView()
+        }
+        
         view.addSubview(headView)
         headView.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            if isShoeHead {
+                make.top.equalTo(nameLabel.snp.bottom).offset(15.pix())
+            }else {
+                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            }
             make.left.right.equalToSuperview()
             make.height.equalTo(50)
         }
@@ -191,6 +201,29 @@ extension OrderViewController {
             KRProgressHUD.dismiss()
             await self.tableView.mj_header?.endRefreshing()
         }
+    }
+    
+}
+
+extension OrderViewController {
+    
+    private func addHeadView() {
+        view.addSubview(backBtn)
+        view.addSubview(nameLabel)
+        nameLabel.text = "Order"
+        backBtn.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: 18.pix(), height: 26.pix()))
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(5)
+            make.left.equalToSuperview().offset(12.pix())
+        }
+        
+        nameLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(backBtn.snp.centerY)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(20.pix())
+        }
+        
+        backBtn.addTarget(self, action: #selector(btnClick), for: .touchUpInside)
     }
     
 }

@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import TYAlertController
+import KRProgressHUD
 
 class CenterViewController: BaseViewController {
+    
+    var isClickSure: Bool = false
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -20,6 +24,7 @@ class CenterViewController: BaseViewController {
     
     lazy var deleteBtn: UIButton = {
         let deleteBtn = UIButton(type: .custom)
+        deleteBtn.adjustsImageWhenHighlighted = false
         deleteBtn.setImage(UIImage(named: "delaccountigme"), for: .normal)
         return deleteBtn
     }()
@@ -52,10 +57,10 @@ class CenterViewController: BaseViewController {
     let imageArray = ["orderimge", "emailimge", "privacyimge", "exitimge"]
     
     let titleArray = ["Order", "Online service", "Privacy agreement", "Exit the app"]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         view.addSubview(deleteBtn)
         deleteBtn.snp.makeConstraints { make in
@@ -98,6 +103,11 @@ class CenterViewController: BaseViewController {
         for (index, item) in imageArray.enumerated() {
             let listView = CenterListView()
             scrollView.addSubview(listView)
+            listView.tag = 10 + index
+            listView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.click(to: 10 + index)
+            }).disposed(by: disposeBag)
             listView.namelabel.text = titleArray[index]
             listView.logoImageView.image = UIImage(named: item)
             listView.snp.makeConstraints { make in
@@ -116,17 +126,119 @@ class CenterViewController: BaseViewController {
             previousView = listView
         }
         
+        deleteBtn.rx.tap.subscribe(onNext: { [weak self] in
+            guard let self = self else { return }
+            let deleteView = LogDeleteView(frame: self.view.bounds)
+            let alertVc = TYAlertController(alert: deleteView, preferredStyle: .actionSheet)!
+            self.present(alertVc, animated: true)
+            
+            deleteView.block1 = { [weak self] in
+                guard let self = self else { return }
+                if isClickSure {
+                    self.dismiss(animated: true) {
+                        Task {
+                            await self.deleteInfo()
+                        }
+                    }
+                }else {
+                    KRProgressHUD.showMessage("Kindly confirm the account cancellation agreement before proceeding.")
+                }
+            }
+            
+            deleteView.block2 = { [weak self] in
+                self?.dismiss(animated: true)
+            }
+            
+            deleteView.block3 = { [weak self] grand in
+                self?.isClickSure = grand
+            }
+            
+        }).disposed(by: disposeBag)
+        
     }
     
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension CenterViewController {
+    
+    private func click(to tag: Int) {
+        if tag == 10 {
+            let olistVc = OrderViewController()
+            olistVc.flag = "4"
+            olistVc.isShoeHead = true
+            self.navigationController?.pushViewController(olistVc, animated: true)
+        }else if tag == 11 {
+            
+        }else if tag == 12 {
+            
+        }else if tag == 13 {
+            let outView = LogoutView(frame: self.view.bounds)
+            let alertVc = TYAlertController(alert: outView, preferredStyle: .actionSheet)!
+            self.present(alertVc, animated: true)
+            
+            //out
+            outView.block1 = { [weak self] in
+                self?.dismiss(animated: true) {
+                    Task {
+                        await self?.exitInfo()
+                    }
+                }
+            }
+            
+            //continu
+            outView.block2 = { [weak self] in
+                self?.dismiss(animated: true)
+            }
+            
+        }
     }
-    */
-
+    
+    private func exitInfo() async {
+        let man = NetworkManager()
+        let phone = UserDefaults.standard.object(forKey: "phone") as? String ?? ""
+        let dict = ["guard": "1", "engrossed": phone]
+        KRProgressHUD.show(withMessage: "loading...")
+        do {
+            let result =  try await man.request(.getData(endpoint: "/cbd/mostastonishing", parameters: dict), responseType: BaseModel.self)
+            let wanted = result.wanted ?? ""
+            let likesnake = result.likesnake ?? ""
+            if wanted == "0" || wanted == "00" {
+                UserDefaults.standard.set("", forKey: "phone")
+                UserDefaults.standard.set("", forKey: "token")
+                UserDefaults.standard.synchronize()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    NotificationCenter.default.post(name: NSNotification.Name("changeVc"), object: nil)
+                }
+            }
+            KRProgressHUD.showMessage(likesnake)
+        } catch  {
+            KRProgressHUD.dismiss()
+        }
+    }
+    
+    private func deleteInfo() async {
+        let man = NetworkManager()
+        let phone = UserDefaults.standard.object(forKey: "phone") as? String ?? ""
+        let dict = ["mustnt": "1", "engrossed": phone]
+        KRProgressHUD.show(withMessage: "loading...")
+        do {
+            let result =  try await man.request(.getData(endpoint: "/cbd/setssn", parameters: dict), responseType: BaseModel.self)
+            let wanted = result.wanted ?? ""
+            let likesnake = result.likesnake ?? ""
+            if wanted == "0" || wanted == "00" {
+                UserDefaults.standard.set("", forKey: "phone")
+                UserDefaults.standard.set("", forKey: "token")
+                UserDefaults.standard.synchronize()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    NotificationCenter.default.post(name: NSNotification.Name("changeVc"), object: nil)
+                }
+            }
+            KRProgressHUD.showMessage(likesnake)
+        } catch  {
+            KRProgressHUD.dismiss()
+        }
+    }
+    
 }
