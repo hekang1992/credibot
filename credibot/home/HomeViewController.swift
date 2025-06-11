@@ -8,6 +8,7 @@
 import UIKit
 import MJRefresh
 import KRProgressHUD
+import RxSwift
 
 class HomeViewController: BaseViewController {
     
@@ -17,6 +18,8 @@ class HomeViewController: BaseViewController {
     }()
     
     private var model: skinnyModel?
+    
+    private var locationFetcher: LocationFetcher?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +52,6 @@ class HomeViewController: BaseViewController {
             guard let self = self else { return }
         }
         
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +59,19 @@ class HomeViewController: BaseViewController {
         Task {
             await self.getHomeInfo()
         }
+        
+        locationFetcher = LocationFetcher()
+        locationFetcher?.requestLocationOnce()
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { location in
+                if let loc = location {
+                    print("✅ 🚀 home ==== Rx success======：\(loc.latitude ?? 0), \(loc.longitude ?? 0), \(loc.address ?? "")")
+                } else {
+                    print("❌ Rx error")
+                }
+            })
+            .disposed(by: disposeBag)
+        
     }
     
 }

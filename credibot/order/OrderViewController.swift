@@ -40,14 +40,14 @@ class OrderViewController: BaseViewController {
         }
         return tableView
     }()
-
+    
     var modelArray = BehaviorRelay<[topickModel]?>(value: nil)
     
     var isShoeHead: Bool = false
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         if isShoeHead {
             self.addHeadView()
@@ -163,7 +163,7 @@ class OrderViewController: BaseViewController {
             KRProgressHUD.dismiss()
         }
     }
-
+    
 }
 
 extension OrderViewController {
