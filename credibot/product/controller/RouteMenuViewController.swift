@@ -21,6 +21,8 @@ class RouteMenuViewController: BaseViewController {
         return botView
     }()
     
+    var enumDio: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -92,7 +94,7 @@ class RouteMenuViewController: BaseViewController {
             
         }
         
-        
+        enumDio = String(SCSignalManager.getCurrentTime())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -118,6 +120,7 @@ extension RouteMenuViewController {
             if wanted == "0" || wanted == "00" {
                 KRProgressHUD.dismiss()
                 Task {
+                    await self.stepInfo(with: productID, type: "6", cold: enumDio, pollys: String(SCSignalManager.getCurrentTime()))
                     await self.getProdectDetailInfoToVc(to: productID)
                 }
             }else {

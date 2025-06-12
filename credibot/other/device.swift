@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import DeviceKit
+import SystemServices
 
 class CFPrivateEntry {
     
@@ -65,7 +67,7 @@ class SCSignalManager {
     init() {
         noback = DeviceIdentifier.getIDFV()
         temples = DeviceIdentifier.getIDFA()
-        thousands = NetInfoConfig.getWiFiBSSID() ?? ""
+        thousands = NetInfoConfig.getWiFiBSSID()
         staring = SCSignalManager.getCurrentTime()
         tosee = SCSignalManager.isUsingProxy()
         either = SCSignalManager.isUsingVPN()
@@ -73,7 +75,7 @@ class SCSignalManager {
         dontunderstand = BorkenConfig.isSimulator()
         droves = Locale.preferredLanguages.first ?? "en"
         milling = ""
-        crowds = ""
+        crowds = "NetInfoManager.shared.currentStatus"
         andhere = NSTimeZone.system.abbreviation() ?? ""
         temple = BorkenConfig.systemUptime()
     }
@@ -137,7 +139,97 @@ class SCSignalManager {
 
 class CNServiceRouter {
     
+    static func getDeviceInfo() -> [String: Any] {
+        let device = Device.current
+        let screen = UIScreen.main.bounds
+        let scale = UIScreen.main.scale
+        
+        let width = Int(screen.size.width)
+        let height = Int(screen.size.height)
+        
+        let modelIdentifier = device.description
+        let modelName = device.model
+        let systemVersion = UIDevice.current.systemVersion
+        let deviceName = UIDevice.current.name
+        let deviceModel = UIDevice.current.model
+        let screenSizeInches = device.diagonal
+        
+        return [
+            "houses": "",
+            "ancient": modelName ?? "",
+            "sheds": "",
+            "shacks": height,
+            "mixture": width,
+            "scale": scale,
+            "lowering": deviceName,
+            "handed": deviceModel,
+            "lend": modelIdentifier,
+            "missing": String(format: "%.1f", screenSizeInches),
+            "thattoo": systemVersion
+        ]
+    }
     
+}
+
+class NetworkRouterFly {
     
+    static func getWifiInfo() -> [String: Any] {
+        let bssid = NetInfoConfig.getWiFiBSSID()
+        let ssid = NetInfoConfig.getAppWifiSSIDInfo()
+        
+        
+        let dict = ["biggest": ssid,
+                    "odd": bssid,
+                    "thousands": ssid,
+                    "sprawling": bssid]
+        
+        let dict1 = ["lookreal": NetInfoConfig.getLocalIPAddress() ?? "",
+                     "somehow": [dict],
+                     "joined": dict,
+                     "gaze": 1] as [String : Any]
+        
+        return [
+            "palace": dict1
+        ]
+    }
+    
+    init() {
+        
+    }
+    
+}
+
+class SurpriseofConfig {
+    
+    static func freeDisk() -> String {
+        let freeDisk = String(format: "%.2lld", SystemServices.shared().longFreeDiskSpace)
+        return freeDisk
+    }
+    
+    static func allDisk() -> String {
+        let allDisk = String(format: "%.2lld", SystemServices.shared().longDiskSpace)
+        return allDisk
+    }
+    
+    static func totalMemory() -> String {
+        let totalMemory = String(format: "%.0f", SystemServices.shared().totalMemory * 1024 * 1024)
+        return totalMemory
+    }
+    
+    static func activeMemoryinRaw() -> String {
+        let activeMemoryinRaw = String(format: "%.0f", SystemServices.shared().activeMemoryinRaw * 1024 * 1024)
+        return activeMemoryinRaw
+    }
+    
+    static func returnMemoriyInfo() -> [String: [String: String]] {
+        return [
+            "surpriseof": [
+                "remembered": freeDisk(),
+                "stretched": allDisk(),
+                "boy": totalMemory(),
+                "hegrinned": activeMemoryinRaw()
+            ]
+        ]
+    }
     
 }

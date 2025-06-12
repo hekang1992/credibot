@@ -29,6 +29,7 @@ class floatedModel: Codable {
     var topick: [topickModel]?
     var wander: wanderModel?
     var attendants: attendantsModel?
+    var group: groupModel?
 }
 
 class attendantsModel: Codable {
@@ -172,4 +173,11 @@ class calledtoModel: Codable {
             }
         }
     }
+}
+
+class groupModel: Codable {
+    var hanky: String?
+    var makethe: String?
+    var offered: String?
+    var realistic: String?
 }

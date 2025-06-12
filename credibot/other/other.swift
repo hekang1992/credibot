@@ -93,7 +93,16 @@ extension UIControl {
                     return
                 }
             }
-            
+            if button.accessibilityIdentifier == "loginIntercept" {
+                guard let phone = PhoneNumberManager.shared.phoneNumber, !phone.isEmpty else {
+                    KRProgressHUD.showMessage("Please enter your phone number first")
+                    return
+                }
+                guard let code = PhoneNumberManager.shared.codeNumber, !code.isEmpty else {
+                    KRProgressHUD.showMessage("Please enter your code number first")
+                    return
+                }
+            }
         }
         my_sendAction(action, to: target, for: event)
     }

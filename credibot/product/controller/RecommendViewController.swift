@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class RecommendViewController: BaseViewController {
     
@@ -17,7 +18,10 @@ class RecommendViewController: BaseViewController {
         let bgView = RecommendView()
         return bgView
     }()
-
+    
+    var min: String = ""
+    var max: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,11 +51,12 @@ class RecommendViewController: BaseViewController {
             make.top.equalTo(backBtn.snp.bottom).offset(15.pix())
         }
         
-        
         bgView.tableView.delegate = self
         bgView.tableView.dataSource = self
         
         bgView.tableView.reloadData()
+        
+        min = String(SCSignalManager.getCurrentTime())
         
     }
     
@@ -95,7 +100,13 @@ extension RecommendViewController: UITableViewDelegate, UITableViewDataSource {
         pageVc.type = type
         pageVc.productID = productID
         self.navigationController?.pushViewController(pageVc, animated: true)
+        max = String(SCSignalManager.getCurrentTime())
+        Task {
+            await stepInfo(with: productID, type: "2", cold: min, pollys: max)
+        }
         
     }
+    
+    
     
 }

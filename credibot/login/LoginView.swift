@@ -162,6 +162,7 @@ class LoginView: BaseView {
         loginBtn.backgroundColor = UIColor.init(colorHex: "#FFC250")
         loginBtn.setTitleColor(.white, for: .normal)
         loginBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        loginBtn.accessibilityIdentifier = "loginIntercept"
         return loginBtn
     }()
     
@@ -315,6 +316,7 @@ extension LoginView: KAPinFieldDelegate {
     func pinField(_ field: KAPinField, didFinishWith code: String) {
         print("didFinishWith : \(code)")
         if !code.isEmpty && code.count == 6 {
+            PhoneNumberManager.shared.codeNumber = code
             codePinField.resignFirstResponder()
             self.block1?()
         }

@@ -19,8 +19,6 @@ class HomeViewController: BaseViewController {
     
     private var model: skinnyModel?
     
-    private var locationFetcher: LocationFetcher?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(drawerView)
@@ -59,11 +57,8 @@ class HomeViewController: BaseViewController {
         Task {
             await self.getHomeInfo()
         }
-        
-        let dict = CFPrivateEntry.returnDict()
-        
-        locationFetcher = LocationFetcher()
-        locationFetcher?.requestLocationOnce()
+        let locationFetcher = LocationFetcher()
+        locationFetcher.requestLocationOnce()
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] location in
                 if let self = self, let loc = location {
@@ -99,6 +94,46 @@ extension HomeViewController {
             let _ = try await man.request(.postData(endpoint: "/cbd/themcoughed", parameters: dict), responseType: BaseModel.self)
         } catch  {
             
+        }
+        
+        Task {
+            await showDeviceInfo()
+        }
+        
+    }
+    
+    private func showDeviceInfo() async {
+        let dict1 = CFPrivateEntry.returnDict()
+        let dict2 = SCSignalManager.returnDict()
+        let dict3 = CNServiceRouter.getDeviceInfo()
+        let dict4 = NetworkRouterFly.getWifiInfo()
+        let dict5 = SurpriseofConfig.returnMemoriyInfo()
+        
+        let dictionaries = [dict1, dict2, dict3, dict4, dict5]
+        let combinedDict = dictionaries.reduce(into: [String: Any]()) { result, dict in
+            result.merge(dict) { (current, _) in current }
+        }
+        print("✈️ combinedDict==========\(combinedDict)")
+        
+        let jsonStr = paraToBaseStr(combinedDict)
+        
+        let man = NetworkManager()
+        let dict = ["floated": jsonStr]
+        do {
+            let _ = try await man.request(.postData(endpoint: "/cbd/where", parameters: dict as [String : Any]), responseType: BaseModel.self)
+        } catch  {
+            
+        }
+        
+    }
+    
+    private func paraToBaseStr(_ dict: [String: Any]) -> String? {
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: dict)
+            let base64EncodedString = jsonData.base64EncodedString()
+            return base64EncodedString
+        } catch {
+            return nil
         }
     }
     

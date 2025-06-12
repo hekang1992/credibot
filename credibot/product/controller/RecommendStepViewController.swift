@@ -18,6 +18,9 @@ class RecommendStepViewController: BaseViewController {
     
     var productID: String = ""
     
+    var minImage: String = ""
+    var minCamera: String = ""
+    
     lazy var bgView: RecommendStepView = {
         let bgView = RecommendStepView()
         return bgView
@@ -31,7 +34,7 @@ class RecommendStepViewController: BaseViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
+        minImage = String(SCSignalManager.getCurrentTime())
         view.addSubview(backBtn)
         view.addSubview(nameLabel)
         nameLabel.text = "Identity information"
@@ -56,6 +59,59 @@ class RecommendStepViewController: BaseViewController {
         }
         
         bgView.leftView.oneLabel.text = type
+        
+        
+        bgView.leftView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            if imageBool {
+                KRProgressHUD.showMessage("Authentication completed.")
+                return
+            }else {
+                let popView = PopSelectView(frame: CGRectMake(0, 0, screen_width, screen_height))
+                let alertVc = TYAlertController(alert: popView, preferredStyle: .actionSheet)!
+                self.present(alertVc, animated: true)
+                
+                popView.block1 = { [weak self] in
+                    guard let self = self else { return }
+                    self.dismiss(animated: true) {
+                        self.cameraHelper.getCameraImage(from: self, type: "0") { image in
+                            Task {
+                                await self.notGoImageVc(with: image, child: "11")
+                            }
+                        }
+                    }
+                }
+                
+                popView.block2 = { [weak self] in
+                    guard let self = self else { return }
+                    self.dismiss(animated: true) {
+                        self.photoHelper.getPhotoLibraryImage(from: self) { image in
+                            Task {
+                                await self.notGoImageVc(with: image, child: "11")
+                            }
+                        }
+                    }
+                }
+            }
+        }).disposed(by: disposeBag)
+        
+        bgView.rightView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            minCamera = String(SCSignalManager.getCurrentTime())
+            if !imageBool {
+                KRProgressHUD.showMessage("Please complete the previous step first.")
+                return
+            }else if imageBool && !faceBool {
+                self.cameraHelper.getCameraImage(from: self, type: "1") { image in
+                    Task {
+                        await self.notGoImageVc(with: image, child: "10")
+                    }
+                }
+            }else if imageBool && faceBool {
+                KRProgressHUD.showMessage("Authentication completed.")
+                return
+            }
+        }).disposed(by: disposeBag)
         
         bgView.nextBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
@@ -86,6 +142,7 @@ class RecommendStepViewController: BaseViewController {
                     }
                 }
             }else if imageBool && !faceBool {
+                minCamera = String(SCSignalManager.getCurrentTime())
                 self.cameraHelper.getCameraImage(from: self, type: "1") { image in
                     Task {
                         await self.notGoImageVc(with: image, child: "10")
@@ -133,6 +190,7 @@ extension RecommendStepViewController {
                     }else if child == "10" {
                         Task {
                             await getAuthInfo()
+                            await stepInfo(with: productID, type: "4", cold: minCamera, pollys: String(SCSignalManager.getCurrentTime()))
                         }
                     }
                 }
@@ -191,9 +249,10 @@ extension RecommendStepViewController {
             let wanted = result.wanted ?? ""
             let likesnake = result.likesnake ?? ""
             if wanted == "0" || wanted == "00" {
-                self.dismiss(animated: true) {
+                self.dismiss(animated: true) { [self] in
                     Task {
                         await self.getAuthInfo()
+                        await self.stepInfo(with: productID, type: "3", cold: minImage, pollys: String(SCSignalManager.getCurrentTime()))
                     }
                 }
             }

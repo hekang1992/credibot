@@ -101,7 +101,7 @@ class BaseViewController: UIViewController {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                                 let peolpeid = model.attendants?.chant ?? ""
                                 Task {
-                                    await self.sendToUplabubu(to: peolpeid)
+                                    await self.sendToUplabubu(to: peolpeid, productID: productID)
                                 }
                             }
                         }else {
@@ -141,20 +141,21 @@ class BaseViewController: UIViewController {
         }
     }
     
-     func awaidPage(with kycArray: [[String]], productID: String) {
+    func awaidPage(with kycArray: [[String]], productID: String) {
         let pageVc = RecommendViewController()
         pageVc.productID = productID
         pageVc.kycArray = kycArray
         self.navigationController?.pushViewController(pageVc, animated: true)
     }
     
-     func asaiFacePage(productID: String) {
+    func asaiFacePage(productID: String) {
         let pageVc = RecommendStepViewController()
         pageVc.productID = productID
         self.navigationController?.pushViewController(pageVc, animated: true)
     }
     
-    private func sendToUplabubu(to adcId: String) async {
+    private func sendToUplabubu(to adcId: String, productID: String) async {
+        let h5Str = String(SCSignalManager.getCurrentTime())
         KRProgressHUD.show(withMessage: "loading...")
         let man = NetworkManager()
         let dict = ["corner": adcId,
@@ -162,7 +163,7 @@ class BaseViewController: UIViewController {
                     "european": "1",
                     "orderId": adcId]
         do {
-          let result = try await man.request(.postData(endpoint: "/cbd/police", parameters: dict), responseType: BaseModel.self)
+            let result = try await man.request(.postData(endpoint: "/cbd/police", parameters: dict), responseType: BaseModel.self)
             let wanted = result.wanted ?? ""
             if wanted == "0" || wanted == "00" {
                 let pageUrl = result.floated?.admiration ?? ""
@@ -171,11 +172,37 @@ class BaseViewController: UIViewController {
                 let apiUrl = URLParameterHelper.appendQueryParameters(to: pageUrl, parameters: commonDict)!
                 webVc.pageUrl = apiUrl
                 self.navigationController?.pushViewController(webVc, animated: true)
+                Task {
+                    await self.stepInfo(with: productID, type: "9", cold: h5Str, pollys: String(SCSignalManager.getCurrentTime()))
+                }
             }
             KRProgressHUD.dismiss()
         } catch  {
             KRProgressHUD.dismiss()
         }
+    }
+    
+    func stepInfo(with productID: String,
+                  type: String,
+                  cold: String,
+                  pollys: String) async {
+        
+        let dict = ["women": productID,
+                    "sneeze": type,
+                    "cold": cold,
+                    "pollys": pollys]
+        
+        let locationFetcher: LocationFetcher = LocationFetcher()
+        locationFetcher.requestLocationOnce()
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { model in
+                guard let model = model else { return }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    Task {
+                        await ClickTracking.trackingAppInfo(model: model, para: dict)
+                    }
+                }
+            }).disposed(by: disposeBag)
     }
     
 }

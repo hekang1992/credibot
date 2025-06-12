@@ -20,6 +20,8 @@ class RouteWBViewController: BaseViewController {
     
     var flag = "0"
     
+    var bindTie: String = ""
+    
     lazy var bgView: UIView = {
         let bgView = UIView()
         bgView.layer.cornerRadius = 25.pix()
@@ -141,7 +143,7 @@ class RouteWBViewController: BaseViewController {
         bgView.addSubview(walletBtn)
         bgView.addSubview(lineView)
         bgView.addSubview(bankBtn)
-        
+        bindTie = String(SCSignalManager.getCurrentTime())
         walletBtn.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(25.pix())
             make.left.equalToSuperview().offset(15.pix())
@@ -296,6 +298,7 @@ class RouteWBViewController: BaseViewController {
             if wanted == "0" || wanted == "00" {
                 KRProgressHUD.dismiss()
                 Task {
+                    await self.stepInfo(with: productID, type: "8", cold: bindTie, pollys: String(SCSignalManager.getCurrentTime()))
                     await self.getProdectDetailInfoToVc(to: productID)
                 }
             }else {

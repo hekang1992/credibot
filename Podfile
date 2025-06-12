@@ -22,4 +22,6 @@ target 'credibot' do
   pod "KRProgressHUD"
   pod 'TYAlertController'
   pod 'BRPickerView'
+  pod 'SystemServices'
+  pod 'ReachabilitySwift'
 end

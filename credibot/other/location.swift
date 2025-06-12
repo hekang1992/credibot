@@ -25,7 +25,6 @@ struct LocationModel {
 class LocationFetcher: NSObject, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     private let subject = PublishSubject<LocationModel?>()
-    private let disposeBag = DisposeBag()
     
     override init() {
         super.init()
@@ -35,13 +34,13 @@ class LocationFetcher: NSObject, CLLocationManagerDelegate {
     
     func requestLocationOnce() -> Observable<LocationModel?> {
         checkAuthorizationStatus()
-        
-        return subject
+        let obs = subject
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
             .take(1)
-            .do(onDispose: { [weak self] in
-                self?.locationManager.stopUpdatingLocation()
+            .do(onDispose: {
+                self.locationManager.stopUpdatingLocation()
             })
+        return obs
     }
     
     private func checkAuthorizationStatus() {

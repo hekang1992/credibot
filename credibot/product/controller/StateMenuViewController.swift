@@ -21,6 +21,8 @@ class StateMenuViewController: BaseViewController {
         return botView
     }()
     
+    var mixTuype: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -93,7 +95,7 @@ class StateMenuViewController: BaseViewController {
             
         }
         
-        
+        mixTuype = String(SCSignalManager.getCurrentTime())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -119,6 +121,7 @@ extension StateMenuViewController {
             if wanted == "0" || wanted == "00" {
                 KRProgressHUD.dismiss()
                 Task {
+                    await self.stepInfo(with: productID, type: "5", cold: mixTuype, pollys: String(SCSignalManager.getCurrentTime()))
                     await self.getProdectDetailInfoToVc(to: productID)
                 }
             }else {

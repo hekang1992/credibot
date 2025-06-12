@@ -13,6 +13,8 @@ import BRPickerView
 
 class RoutePhoneViewController: BaseViewController {
     
+    var enuDuo: String = ""
+    
     var productID: String = ""
     
     var listArray = BehaviorRelay<[topickModel]?>(value: nil)
@@ -65,7 +67,7 @@ class RoutePhoneViewController: BaseViewController {
             make.centerX.equalToSuperview()
             make.height.equalTo(20.pix())
         }
-        
+        enuDuo = String(SCSignalManager.getCurrentTime())
         backBtn.addTarget(self, action: #selector(btnClick), for: .touchUpInside)
         
         view.addSubview(tableView)
@@ -135,6 +137,7 @@ class RoutePhoneViewController: BaseViewController {
             if wanted == "0" || wanted == "00" {
                 KRProgressHUD.dismiss()
                 Task {
+                    await self.stepInfo(with: productID, type: "7", cold: enuDuo, pollys: String(SCSignalManager.getCurrentTime()))
                     await self.getProdectDetailInfoToVc(to: productID)
                 }
             }else {

@@ -7,12 +7,17 @@
 
 import UIKit
 import KRProgressHUD
+import RxSwift
 
 class LoginViewController: BaseViewController {
     
     var remainingSeconds: Int = 60
     
     var timer: Timer?
+    
+    var mix1time: String = ""
+    
+    var mix2time: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +52,11 @@ class LoginViewController: BaseViewController {
             login(with: loginView)
         }
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            loginView.phoneTx.becomeFirstResponder()
+        }
+        
+        getLocation()
     }
     
     deinit {
@@ -68,6 +78,7 @@ extension LoginViewController {
     }
     
     private func sendCodeInfo(with codeBtn: UIButton, phone: String) async {
+        mix1time = String(SCSignalManager.getCurrentTime())
         KRProgressHUD.show(withMessage: "loading...")
         let man = NetworkManager()
         let dict = ["surprising": phone,
@@ -112,6 +123,7 @@ extension LoginViewController {
     }
     
     private func loginApiInfo(with phone: String, code: String) async {
+        mix2time = String(SCSignalManager.getCurrentTime())
         KRProgressHUD.show(withMessage: "loading...")
         let man = NetworkManager()
         let dict = ["music": phone,
@@ -130,11 +142,10 @@ extension LoginViewController {
                 UserDefaults.standard.set(phone, forKey: "phone")
                 UserDefaults.standard.set(token, forKey: "token")
                 UserDefaults.standard.synchronize()
-                
+                await stepInfo(with: "", type: "1", cold: mix1time, pollys: mix2time)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                     NotificationCenter.default.post(name: NSNotification.Name("changeVc"), object: nil)
                 }
-                
             }
             KRProgressHUD.showMessage(likesnake)
         }catch {
@@ -143,6 +154,41 @@ extension LoginViewController {
         }
     }
     
-
+    private func getLocation() {
+        let locationFetcher = LocationFetcher()
+        locationFetcher.requestLocationOnce()
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] location in
+                if let self = self, let loc = location {
+                    print("✅ 🚀 home ==== Rx success======：\(loc.latitude ?? 0), \(loc.longitude ?? 0), \(loc.address ?? "")")
+                    Task {
+                        await self.builtInfo(with: loc)
+                    }
+                } else {
+                    print("❌ Rx error")
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func builtInfo(with model: LocationModel) async {
+        let man = NetworkManager()
+        let dict = ["jerry": model.proviceCode ?? "",
+                    "masses": model.countryCode ?? "",
+                    "stored": model.country ?? "",
+                    "boards": model.latitude ?? 0.0,
+                    "false": model.longitude ?? 0.0,
+                    "built": model.address ?? "",
+                    "holding": model.latitude ?? 0.0,
+                    "oftimber": model.longitude ?? 0.0,
+                    "joists": model.city ?? ""] as [String : Any]
+        do {
+            let _ = try await man.request(.postData(endpoint: "/cbd/themcoughed", parameters: dict), responseType: BaseModel.self)
+        } catch  {
+            
+        }
+        
+    }
+    
 }
 

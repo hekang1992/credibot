@@ -2,7 +2,7 @@
 //  deviceinfo.swift
 //  credibot
 //
-//  Created by 何康 on 2025/6/12.
+//  Created by Kevin Morgan on 2025/6/12.
 //
 
 import UIKit
