@@ -48,6 +48,9 @@
 		73AB54092DF5CB7500EF94FC /* AboutBotNormalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AB54082DF5CB7500EF94FC /* AboutBotNormalViewCell.swift */; };
 		73AB540B2DF5CB8000EF94FC /* AboutBotSelectViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AB540A2DF5CB8000EF94FC /* AboutBotSelectViewCell.swift */; };
 		73AB540D2DF5D54B00EF94FC /* select.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AB540C2DF5D54400EF94FC /* select.swift */; };
+		73C064082DFA5DB500FF491C /* indersty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C064072DFA5DB500FF491C /* indersty.swift */; };
+		73C0640A2DFA60D300FF491C /* wifiinfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C064092DFA60CE00FF491C /* wifiinfo.swift */; };
+		73C0640C2DFA661700FF491C /* deviceinfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C0640B2DFA660C00FF491C /* deviceinfo.swift */; };
 		73F175162DF7D6FA006DC588 /* RoutePesoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F175152DF7D6FA006DC588 /* RoutePesoViewCell.swift */; };
 		73F175182DF8024D006DC588 /* contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F175172DF80247006DC588 /* contact.swift */; };
 		73F1751A2DF84EE8006DC588 /* RouteWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F175192DF84EE8006DC588 /* RouteWebViewController.swift */; };
@@ -106,6 +109,9 @@
 		73AB54082DF5CB7500EF94FC /* AboutBotNormalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutBotNormalViewCell.swift; sourceTree = "<group>"; };
 		73AB540A2DF5CB8000EF94FC /* AboutBotSelectViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutBotSelectViewCell.swift; sourceTree = "<group>"; };
 		73AB540C2DF5D54400EF94FC /* select.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = select.swift; sourceTree = "<group>"; };
+		73C064072DFA5DB500FF491C /* indersty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = indersty.swift; sourceTree = "<group>"; };
+		73C064092DFA60CE00FF491C /* wifiinfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wifiinfo.swift; sourceTree = "<group>"; };
+		73C0640B2DFA660C00FF491C /* deviceinfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = deviceinfo.swift; sourceTree = "<group>"; };
 		73F175152DF7D6FA006DC588 /* RoutePesoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePesoViewCell.swift; sourceTree = "<group>"; };
 		73F175172DF80247006DC588 /* contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contact.swift; sourceTree = "<group>"; };
 		73F175192DF84EE8006DC588 /* RouteWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteWebViewController.swift; sourceTree = "<group>"; };
@@ -206,6 +212,9 @@
 		735971212DE5ADED00CA01DC /* other */ = {
 			isa = PBXGroup;
 			children = (
+				73C0640B2DFA660C00FF491C /* deviceinfo.swift */,
+				73C064092DFA60CE00FF491C /* wifiinfo.swift */,
+				73C064072DFA5DB500FF491C /* indersty.swift */,
 				73F175272DF98F13006DC588 /* charging.swift */,
 				73F175252DF964B6006DC588 /* device.swift */,
 				73F175232DF933DB006DC588 /* location.swift */,
@@ -436,6 +445,7 @@
 				7359712F2DE5B64A00CA01DC /* CenterView.swift in Sources */,
 				73AB53E32DF5544500EF94FC /* RecommendViewController.swift in Sources */,
 				73F1751C2DF85A80006DC588 /* RouteOrderListCell.swift in Sources */,
+				73C064082DFA5DB500FF491C /* indersty.swift in Sources */,
 				73AB54012DF5A8A800EF94FC /* EnumListView.swift in Sources */,
 				73F175202DF919A5006DC588 /* RouteOrderTypeView.swift in Sources */,
 				735971272DE5B61000CA01DC /* network.swift in Sources */,
@@ -457,12 +467,14 @@
 				7359712B2DE5B63200CA01DC /* LoginView.swift in Sources */,
 				731B86792DE8515800F4374F /* OngoingView.swift in Sources */,
 				73F175242DF933DF006DC588 /* location.swift in Sources */,
+				73C0640A2DFA60D300FF491C /* wifiinfo.swift in Sources */,
 				73AB53E82DF55CE900EF94FC /* StateMenuViewController.swift in Sources */,
 				73AB53FF2DF58F3800EF94FC /* photo.swift in Sources */,
 				73AB54052DF5B60D00EF94FC /* timeConfig.swift in Sources */,
 				73AB53F92DF585F300EF94FC /* RecommendStepView.swift in Sources */,
 				73AB54092DF5CB7500EF94FC /* AboutBotNormalViewCell.swift in Sources */,
 				73AB54072DF5C48600EF94FC /* AboutBotView.swift in Sources */,
+				73C0640C2DFA661700FF491C /* deviceinfo.swift in Sources */,
 				73AB540D2DF5D54B00EF94FC /* select.swift in Sources */,
 				735971292DE5B61E00CA01DC /* model.swift in Sources */,
 				73F175162DF7D6FA006DC588 /* RoutePesoViewCell.swift in Sources */,
