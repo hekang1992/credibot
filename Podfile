@@ -14,7 +14,6 @@ target 'credibot' do
   pod 'RxGesture'
   pod 'MJRefresh'
   pod 'DeviceKit'
-  pod 'KAPinField'
   pod 'Kingfisher'
   pod 'FBSDKCoreKit'
   pod 'KeychainAccess'
@@ -24,4 +23,5 @@ target 'credibot' do
   pod 'BRPickerView'
   pod 'SystemServices'
   pod 'ReachabilitySwift'
+  pod "SGCodeTextField"
 end

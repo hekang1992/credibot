@@ -7,7 +7,7 @@
 
 import UIKit
 import RxGesture
-import KAPinField
+import SGCodeTextField
 
 typealias codeBtnBlock = ((UIButton) -> Void)
 typealias loginBtnBlock = (() -> Void)
@@ -73,16 +73,15 @@ class LoginView: BaseView {
         return codeView
     }()
     
-    lazy var codePinField: KAPinField = {
-        let codePinField = KAPinField()
-        codePinField.updateProperties { properties in
-            properties.numberOfCharacters = 6
-            properties.delegate = self
-        }
-        codePinField.updateAppearence { appearance in
-            appearance.tokenColor = UIColor.clear
-            appearance.backBorderWidth = 2
-            appearance.backBorderColor = UIColor.init(colorHex: "#E2E0CB")!
+    lazy var codePinField: SGCodeTextField = {
+        let codePinField = SGCodeTextField()
+        codePinField.textChangeHandler = { [weak self] text, completed in
+            guard let self = self, let text = text else { return }
+            if !text.isEmpty && text.count == 6 {
+                PhoneNumberManager.shared.codeNumber = text
+                codePinField.resignFirstResponder()
+                self.block1?()
+            }
         }
         return codePinField
     }()
@@ -219,9 +218,8 @@ class LoginView: BaseView {
         codePinField.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.height.equalTo(40.pix())
-            make.width.equalTo(300.pix())
+            make.width.equalTo(270.pix())
         }
-        
         
         addSubview(privacyView)
         privacyView.snp.makeConstraints { make in
@@ -307,19 +305,10 @@ class LoginView: BaseView {
     
 }
 
-extension LoginView: KAPinFieldDelegate {
+extension LoginView {
     
     @objc func btnClick() {
         self.block?(codeBtn)
-    }
-    
-    func pinField(_ field: KAPinField, didFinishWith code: String) {
-        print("didFinishWith : \(code)")
-        if !code.isEmpty && code.count == 6 {
-            PhoneNumberManager.shared.codeNumber = code
-            codePinField.resignFirstResponder()
-            self.block1?()
-        }
     }
     
 }

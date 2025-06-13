@@ -73,7 +73,6 @@ PODS:
     - IQKeyboardCore
   - IQTextView (1.0.5):
     - IQKeyboardToolbar/Placeholderable
-  - KAPinField (5.0.3)
   - KeychainAccess (4.2.2)
   - Kingfisher (8.3.2)
   - KRActivityIndicatorView (3.0.8)
@@ -94,6 +93,7 @@ PODS:
   - RxRelay (6.9.0):
     - RxSwift (= 6.9.0)
   - RxSwift (6.9.0)
+  - SGCodeTextField (0.1.4)
   - SnapKit (5.7.1)
   - SystemServices (2.0.1)
   - TYAlertController (1.2.0)
@@ -103,7 +103,6 @@ DEPENDENCIES:
   - DeviceKit
   - FBSDKCoreKit
   - IQKeyboardManagerSwift
-  - KAPinField
   - KeychainAccess
   - Kingfisher
   - KRProgressHUD
@@ -113,6 +112,7 @@ DEPENDENCIES:
   - RxCocoa
   - RxGesture
   - RxSwift
+  - SGCodeTextField
   - SnapKit
   - SystemServices
   - TYAlertController
@@ -133,7 +133,6 @@ SPEC REPOS:
     - IQKeyboardToolbarManager
     - IQTextInputViewNotification
     - IQTextView
-    - KAPinField
     - KeychainAccess
     - Kingfisher
     - KRActivityIndicatorView
@@ -145,6 +144,7 @@ SPEC REPOS:
     - RxGesture
     - RxRelay
     - RxSwift
+    - SGCodeTextField
     - SnapKit
     - SystemServices
     - TYAlertController
@@ -164,7 +164,6 @@ SPEC CHECKSUMS:
   IQKeyboardToolbarManager: 6c693c8478d6327a7ef2107528d29698b3514dbb
   IQTextInputViewNotification: f5e954d8881fd9808b744e49e024cc0d4bcfe572
   IQTextView: ae13b4922f22e6f027f62c557d9f4f236b19d5c7
-  KAPinField: 7a57b50c49263e74d295b1819cda1d869205e212
   KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
   Kingfisher: 0621d0ac0c78fecb19f6dc5303bde2b52abaf2f5
   KRActivityIndicatorView: c5c503bf56e54834382dd926b64ff47287ca0006
@@ -176,10 +175,11 @@ SPEC CHECKSUMS:
   RxGesture: f3efb47ed2d26a8082f7b660d4a59970e275a7f8
   RxRelay: 6b0c930e5cef57d5fe2032571e5e65b78e3cbdb1
   RxSwift: 31649ace6aceeb422e16ff71c60804f9c3281ed9
+  SGCodeTextField: 6b65291a52a092c24bd08cc32873e024223b2371
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SystemServices: 7af348493ece8951449b476c41532df72569b181
   TYAlertController: c121090edb0bea7426f987da94cdddd81eef4231
 
-PODFILE CHECKSUM: 9e53c18ff8b211b74a02aa64e174dd0a13446d25
+PODFILE CHECKSUM: 90505de89e027c8dbcf2e75b1628ac8c50507f70
 
 COCOAPODS: 1.16.2

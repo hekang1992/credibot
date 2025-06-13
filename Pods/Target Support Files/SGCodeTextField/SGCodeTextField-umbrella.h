@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double KAPinFieldVersionNumber;
-FOUNDATION_EXPORT const unsigned char KAPinFieldVersionString[];
+FOUNDATION_EXPORT double SGCodeTextFieldVersionNumber;
+FOUNDATION_EXPORT const unsigned char SGCodeTextFieldVersionString[];
 

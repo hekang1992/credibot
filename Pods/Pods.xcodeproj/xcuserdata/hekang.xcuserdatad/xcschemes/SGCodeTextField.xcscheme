@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "37AA4D1FDC146E7B8841AD4340AA7480"
-               BuildableName = "KAPinField.framework"
-               BlueprintName = "KAPinField"
+               BlueprintIdentifier = "9F56089D7E117F07A0C176D1620D24F4"
+               BuildableName = "SGCodeTextField.framework"
+               BlueprintName = "SGCodeTextField"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
