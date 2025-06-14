@@ -316,8 +316,7 @@ class RouteWBViewController: BaseViewController {
         addressPicker.dataSourceArr = provinces
         addressPicker.selectIndexs = [0]
         
-        addressPicker.resultBlock = { [weak self] selectedProvince, selectedCity, selectedArea in
-            guard let self = self else { return }
+        addressPicker.resultBlock = { selectedProvince, selectedCity, selectedArea in
             cell.imporyLabel.text = selectedProvince?.name ?? ""
             cell.imporyLabel.textColor = .black
             model.child = selectedProvince?.code ?? ""

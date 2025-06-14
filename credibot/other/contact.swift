@@ -31,7 +31,12 @@ class ContactManager: NSObject {
         case .notDetermined:
             store.requestAccess(for: .contacts) { granted, _ in
                 DispatchQueue.main.async {
-                    completion(granted)
+                    let status = CNContactStore.authorizationStatus(for: .contacts)
+                    if status == .authorized {
+                        completion(true)
+                    }else {
+                        completion(false)
+                    }
                 }
             }
         case .denied, .restricted:

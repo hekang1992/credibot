@@ -29,6 +29,7 @@
 		7396042E2DE5BDEC00818C9D /* CenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7396042D2DE5BDEC00818C9D /* CenterViewController.swift */; };
 		739604302DE5BF0600818C9D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7396042F2DE5BF0600818C9D /* LoginViewController.swift */; };
 		739604322DE5BF2C00818C9D /* other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739604312DE5BF2600818C9D /* other.swift */; };
+		739754422DFD29C3005A98DA /* HomeChildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739754412DFD29C3005A98DA /* HomeChildView.swift */; };
 		73AB53E32DF5544500EF94FC /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AB53E22DF5544500EF94FC /* RecommendViewController.swift */; };
 		73AB53E82DF55CE900EF94FC /* StateMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AB53E72DF55CE900EF94FC /* StateMenuViewController.swift */; };
 		73AB53EA2DF55CFC00EF94FC /* RouteMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AB53E92DF55CFC00EF94FC /* RouteMenuViewController.swift */; };
@@ -91,6 +92,7 @@
 		7396042D2DE5BDEC00818C9D /* CenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterViewController.swift; sourceTree = "<group>"; };
 		7396042F2DE5BF0600818C9D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		739604312DE5BF2600818C9D /* other.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = other.swift; sourceTree = "<group>"; };
+		739754412DFD29C3005A98DA /* HomeChildView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeChildView.swift; sourceTree = "<group>"; };
 		73AB53E22DF5544500EF94FC /* RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
 		73AB53E72DF55CE900EF94FC /* StateMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateMenuViewController.swift; sourceTree = "<group>"; };
 		73AB53E92DF55CFC00EF94FC /* RouteMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMenuViewController.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				7359712C2DE5B63F00CA01DC /* HomeView.swift */,
+				739754412DFD29C3005A98DA /* HomeChildView.swift */,
 				739604282DE5BD8B00818C9D /* HomeViewController.swift */,
 			);
 			path = home;
@@ -424,9 +427,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-credibot/Pods-credibot-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-credibot/Pods-credibot-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -452,6 +459,7 @@
 				735971272DE5B61000CA01DC /* network.swift in Sources */,
 				73AB53F72DF5845000EF94FC /* RecommendStepViewController.swift in Sources */,
 				739604232DE5BA4200818C9D /* FirstViewController.swift in Sources */,
+				739754422DFD29C3005A98DA /* HomeChildView.swift in Sources */,
 				73AB53EE2DF55D1300EF94FC /* RouteWBViewController.swift in Sources */,
 				73F175282DF98F1F006DC588 /* charging.swift in Sources */,
 				73F175222DF92DF1006DC588 /* outdel.swift in Sources */,

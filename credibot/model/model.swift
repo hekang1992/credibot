@@ -31,6 +31,12 @@ class floatedModel: Codable {
     var attendants: attendantsModel?
     var group: groupModel?
     var coinage: Int?
+    var lost: lostModel?
+}
+
+class lostModel: Codable {
+    var child: String?
+    var skinny: [skinnyModel]?
 }
 
 class attendantsModel: Codable {
@@ -89,6 +95,9 @@ class skinnyModel: Codable {
     var throwing: String?
     var turnedquickly: String?
     var loanRateUnit: String?
+    var andfro: String?
+    var impossible: String?
+    var shorts: String?
 }
 
 class americansModel: Codable {

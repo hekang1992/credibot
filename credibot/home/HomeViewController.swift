@@ -15,7 +15,14 @@ class HomeViewController: BaseViewController {
     
     lazy var drawerView: HomeView = {
         let drawerView = HomeView()
+        drawerView.isHidden = true
         return drawerView
+    }()
+    
+    lazy var childView: HomeChildView = {
+        let childView = HomeChildView()
+        childView.isHidden = true
+        return childView
     }()
     
     private var model: skinnyModel?
@@ -26,6 +33,11 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
         view.addSubview(drawerView)
         drawerView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        view.addSubview(childView)
+        childView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
@@ -146,7 +158,7 @@ extension HomeViewController {
         let combinedDict = dictionaries.reduce(into: [String: Any]()) { result, dict in
             result.merge(dict) { (current, _) in current }
         }
-        print("✈️ combinedDict==========\(combinedDict)")
+//        print("✈️ combinedDict==========\(combinedDict)")
         
         let jsonStr = paraToBaseStr(combinedDict)
         
@@ -212,19 +224,22 @@ extension HomeViewController {
             let result = try await man.request(.getData(endpoint: "/cbd/darkness", parameters: dict), responseType: BaseModel.self)
             let wanted = result.wanted ?? ""
             if wanted == "0" || wanted == "00" {
-                //a
                 self.floatModel = result.floated
-                if let wriggled = result.floated?.wriggled,
-                   let child = wriggled.child,
-                   child == "mycbdb"  {
+                if let lost = floatModel?.lost,
+                    let child = lost.child,
+                    child == "mycbde" {
+                    self.childView.isHidden = false
+                    self.drawerView.isHidden = true
+                }else if let wriggled = result.floated?.wriggled,
+                         let child = wriggled.child,
+                         child == "mycbdb" {
                     if let model = wriggled.skinny?.first {
                         self.model = model
+                        self.childView.isHidden = true
+                        self.drawerView.isHidden = false
                         changHomeUI(with: model)
                     }
-                }else {
-                    
                 }
-                //b
             }
             KRProgressHUD.dismiss()
             await self.drawerView.scrollView.mj_header?.endRefreshing()
