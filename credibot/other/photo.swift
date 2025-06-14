@@ -18,7 +18,7 @@ class CameraHelper: NSObject, UIImagePickerControllerDelegate, UINavigationContr
             DispatchQueue.main.async {
                 if granted {
                     guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
-                        self.showAlert("相机不可用", in: viewController)
+                        self.showAlert("Camera not available", in: viewController)
                         return
                     }
                     self.imagePickedHandler = completion
@@ -26,22 +26,25 @@ class CameraHelper: NSObject, UIImagePickerControllerDelegate, UINavigationContr
                     picker.sourceType = .camera
                     if type == "1" {
                         picker.cameraDevice = .front
+                        DispatchQueue.main.async {
+                            self.hideChangeButton(in: picker.view)
+                        }
                     }else {
                         picker.cameraDevice = .rear
                     }
                     picker.delegate = self
                     viewController.present(picker, animated: true)
                 } else {
-                    self.showSettingsAlert("无法访问相机", in: viewController)
+                    self.showSettingsAlert("Camera unavailable (Permission required)", in: viewController)
                 }
             }
         }
     }
     
     private func showSettingsAlert(_ message: String, in vc: UIViewController) {
-        let alert = UIAlertController(title: message, message: "请前往设置中开启相机权限", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "取消", style: .cancel))
-        alert.addAction(UIAlertAction(title: "去设置", style: .default) { _ in
+        let alert = UIAlertController(title: message, message: "Please enable camera permissions in Settings.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Go to setting", style: .default) { _ in
             if let url = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.open(url)
             }
@@ -51,7 +54,7 @@ class CameraHelper: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     
     private func showAlert(_ message: String, in vc: UIViewController) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "确定", style: .default))
+        alert.addAction(UIAlertAction(title: "Confirm", style: .default))
         vc.present(alert, animated: true)
     }
     
@@ -66,6 +69,17 @@ class CameraHelper: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
     }
+    
+    private func hideChangeButton(in view: UIView) {
+        for subview in view.subviews {
+            if let button = subview as? UIButton, String(describing: button).contains("CAMFlipButton") {
+                button.isHidden = true
+            } else {
+                hideChangeButton(in: subview)
+            }
+        }
+    }
+
 }
 
 
@@ -78,7 +92,7 @@ class PhotoLibraryHelper: NSObject, UIImagePickerControllerDelegate, UINavigatio
             DispatchQueue.main.async {
                 if status == .authorized || status == .limited {
                     guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
-                        self.showAlert("相册不可用", in: viewController)
+                        self.showAlert("Photos unavailable", in: viewController)
                         return
                     }
                     self.imagePickedHandler = completion
@@ -87,16 +101,16 @@ class PhotoLibraryHelper: NSObject, UIImagePickerControllerDelegate, UINavigatio
                     picker.delegate = self
                     viewController.present(picker, animated: true)
                 } else {
-                    self.showSettingsAlert("无法访问相册", in: viewController)
+                    self.showSettingsAlert("Photo album unavailable", in: viewController)
                 }
             }
         }
     }
     
     private func showSettingsAlert(_ message: String, in vc: UIViewController) {
-        let alert = UIAlertController(title: message, message: "请前往设置中开启相册权限", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "取消", style: .cancel))
-        alert.addAction(UIAlertAction(title: "去设置", style: .default) { _ in
+        let alert = UIAlertController(title: message, message: "To continue, please grant photo access in Settings", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Go to setting", style: .default) { _ in
             if let url = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.open(url)
             }
@@ -106,7 +120,7 @@ class PhotoLibraryHelper: NSObject, UIImagePickerControllerDelegate, UINavigatio
     
     private func showAlert(_ message: String, in vc: UIViewController) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "确定", style: .default))
+        alert.addAction(UIAlertAction(title: "Confirm", style: .default))
         vc.present(alert, animated: true)
     }
     
@@ -121,4 +135,5 @@ class PhotoLibraryHelper: NSObject, UIImagePickerControllerDelegate, UINavigatio
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
     }
+    
 }

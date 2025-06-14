@@ -9,6 +9,7 @@ import UIKit
 import MJRefresh
 import KRProgressHUD
 import RxSwift
+import CoreLocation
 
 class HomeViewController: BaseViewController {
     
@@ -18,6 +19,8 @@ class HomeViewController: BaseViewController {
     }()
     
     private var model: skinnyModel?
+    
+    private var floatModel: floatedModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,12 +39,18 @@ class HomeViewController: BaseViewController {
         ///apply
         self.drawerView.applyBlock = { [weak self] in
             guard let self = self else { return }
-            if let productID = self.model?.grabbed {
-                
-                Task {
-                    await self.applyInfo(with: String(productID))
+            //judge_location
+            let grand = self.floatModel?.coinage ?? 0
+            if grand == 1 {
+                let status = CLLocationManager().authorizationStatus
+                if status == .authorizedAlways || status == .authorizedWhenInUse {
+                    setAppIpoInfo()
+                }else {
+                    showSettingsAlert(from: self)
+                    return
                 }
-                
+            }else {
+                setAppIpoInfo()
             }
         }
         
@@ -57,6 +66,20 @@ class HomeViewController: BaseViewController {
         Task {
             await self.getHomeInfo()
         }
+        setAppInfo()
+    }
+    
+    private func setAppIpoInfo() {
+        setAppInfo()
+        if let productID = self.model?.grabbed {
+            Task {
+                await self.applyInfo(with: String(productID))
+            }
+            
+        }
+    }
+    
+    private func setAppInfo() {
         let locationFetcher = LocationFetcher()
         locationFetcher.requestLocationOnce()
             .observe(on: MainScheduler.instance)
@@ -71,13 +94,23 @@ class HomeViewController: BaseViewController {
                 }
             })
             .disposed(by: disposeBag)
-        
     }
     
 }
 
 
 extension HomeViewController {
+    
+    func showSettingsAlert(from vc: UIViewController, message: String? = "To provide you with better service, we need to access your location information. Rest assured, your privacy and security are our top priority.") {
+        let alert = UIAlertController(title: "Access Denied", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Setting", style: .default) { _ in
+            guard let settingsURL = URL(string: UIApplication.openSettingsURLString),
+                  UIApplication.shared.canOpenURL(settingsURL) else { return }
+            UIApplication.shared.open(settingsURL)
+        })
+        vc.present(alert, animated: true)
+    }
     
     private func builtInfo(with model: LocationModel) async {
         let man = NetworkManager()
@@ -180,6 +213,7 @@ extension HomeViewController {
             let wanted = result.wanted ?? ""
             if wanted == "0" || wanted == "00" {
                 //a
+                self.floatModel = result.floated
                 if let wriggled = result.floated?.wriggled,
                    let child = wriggled.child,
                    child == "mycbdb"  {

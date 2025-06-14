@@ -35,8 +35,30 @@ class OngoingView: BaseView {
         super.init(frame: frame)
         addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.left.right.top.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-80.pix())
         }
+        
+        
+        let btn = UIButton()
+        btn.backgroundColor = UIColor.init(colorHex: "#050647")
+        btn.layer.cornerRadius = 25.pix()
+        btn.layer.masksToBounds = true
+        btn.setTitle("Apply for a loan", for: .normal)
+        btn.setTitleColor(.white, for: .normal)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        addSubview(btn)
+        
+        btn.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-15.pix())
+            make.size.equalTo(CGSize(width: 345.pix(), height: 50.pix()))
+        }
+        btn.rx.tap.subscribe(onNext: { [weak self] in
+            self?.appleBlock?()
+        }).disposed(by: disposeBag)
+        
+        
         
         tableView.rx.setDelegate(self).disposed(by: disposeBag)
         
@@ -60,11 +82,6 @@ class OngoingView: BaseView {
                 cell.typeImageView.image = story == 0 ? UIImage(named: "ongongimge") : UIImage(named: "complegeimge")
                 
         }.disposed(by: disposeBag)
-        
-//        tableView.rx.itemSelected.asObservable().subscribe(onNext: { [weak self] indexPath in
-//            guard let self = self else { return }
-//        }).disposed(by: disposeBag)
-        
         
         tableView.rx.modelSelected(hutsModel.self).subscribe(onNext: { [weak self] model in
             guard let self = self else { return }
@@ -174,34 +191,6 @@ extension OngoingView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 95.pix()
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 80.pix()
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if let huts = self.model.value?.huts, huts.count > 0 {
-            let footerView = UIView()
-            let btn = UIButton()
-            btn.backgroundColor = UIColor.init(colorHex: "#050647")
-            btn.layer.cornerRadius = 25.pix()
-            btn.layer.masksToBounds = true
-            btn.setTitle("Apply for a loan", for: .normal)
-            btn.setTitleColor(.white, for: .normal)
-            btn.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-            footerView.addSubview(btn)
-            
-            btn.snp.makeConstraints { make in
-                make.center.equalToSuperview()
-                make.size.equalTo(CGSize(width: 345.pix(), height: 50.pix()))
-            }
-            btn.rx.tap.subscribe(onNext: { [weak self] in
-                self?.appleBlock?()
-            }).disposed(by: disposeBag)
-            return footerView
-        }
-        return nil
     }
     
 }

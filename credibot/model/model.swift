@@ -30,6 +30,7 @@ class floatedModel: Codable {
     var wander: wanderModel?
     var attendants: attendantsModel?
     var group: groupModel?
+    var coinage: Int?
 }
 
 class attendantsModel: Codable {
