@@ -33,6 +33,7 @@ PODS:
     - FBAEMKit (= 18.0.0)
     - FBSDKCoreKit_Basics (= 18.0.0)
   - FBSDKCoreKit_Basics (18.0.0)
+  - FSPagerView (0.8.3)
   - IQKeyboardCore (1.0.5)
   - IQKeyboardManagerSwift (8.0.1):
     - IQKeyboardManagerSwift/Appearance (= 8.0.1)
@@ -102,6 +103,7 @@ DEPENDENCIES:
   - BRPickerView
   - DeviceKit
   - FBSDKCoreKit
+  - FSPagerView
   - IQKeyboardManagerSwift
   - KeychainAccess
   - Kingfisher
@@ -125,6 +127,7 @@ SPEC REPOS:
     - FBAEMKit
     - FBSDKCoreKit
     - FBSDKCoreKit_Basics
+    - FSPagerView
     - IQKeyboardCore
     - IQKeyboardManagerSwift
     - IQKeyboardNotification
@@ -156,6 +159,7 @@ SPEC CHECKSUMS:
   FBAEMKit: e34530df538b8eb8aeb53c35867715ba6c63ef0c
   FBSDKCoreKit: d3f479a69127acebb1c6aad91c1a33907bcf6c2f
   FBSDKCoreKit_Basics: 017b6dc2a1862024815a8229e75661e627ac1e29
+  FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   IQKeyboardCore: 28c8bf3bcd8ba5aa1570b318cbc4da94b861711e
   IQKeyboardManagerSwift: 835fc9c6e4732398113406d84900ad2e8f141218
   IQKeyboardNotification: d7382c4466c5a5adef92c7452ebf861b36050088
@@ -180,6 +184,6 @@ SPEC CHECKSUMS:
   SystemServices: 7af348493ece8951449b476c41532df72569b181
   TYAlertController: c121090edb0bea7426f987da94cdddd81eef4231
 
-PODFILE CHECKSUM: 90505de89e027c8dbcf2e75b1628ac8c50507f70
+PODFILE CHECKSUM: d8df1ec881bd012aab5605d80d388cb314a60a33
 
 COCOAPODS: 1.16.2

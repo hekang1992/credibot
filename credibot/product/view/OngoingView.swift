@@ -67,7 +67,7 @@ class OngoingView: BaseView {
             .bind(to: tableView.rx.items(cellIdentifier:
                                             "OngoingListViewCell",
                                          cellType:
-                                            OngoingListViewCell.self)) { row, model, cell in
+                                            OngoingListViewCell.self)) { index, model, cell in
                 cell.selectionStyle = .none
                 cell.backgroundColor = .clear
                 let logoUrl = model.europeans ?? ""

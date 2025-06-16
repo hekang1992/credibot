@@ -24,4 +24,5 @@ target 'credibot' do
   pod 'SystemServices'
   pod 'ReachabilitySwift'
   pod "SGCodeTextField"
+  pod 'FSPagerView'
 end

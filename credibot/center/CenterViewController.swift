@@ -9,6 +9,7 @@ import UIKit
 import TYAlertController
 import KRProgressHUD
 
+let pro = "Products"
 class CenterViewController: BaseViewController {
     
     var isClickSure: Bool = false

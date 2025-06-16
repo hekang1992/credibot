@@ -71,6 +71,38 @@ class HomeViewController: BaseViewController {
             guard let self = self else { return }
         }
         
+        self.childView.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
+            guard let self = self else { return }
+            Task {
+                await self.getHomeInfo()
+            }
+        })
+        
+        
+        self.childView.pageBlock = { [weak self] pageUrl in
+            let commonDict = CommonParameter().toDictionary()
+            let apiUrl = URLParameterHelper.appendQueryParameters(to: baseurl, parameters: commonDict)!
+            let webVc = RouteWebViewController()
+            webVc.pageUrl = apiUrl
+            self?.navigationController?.pushViewController(webVc, animated: true)
+        }
+        
+        self.childView.productBlock = { [weak self] pageUrl in
+            guard let self = self else { return }
+            let grand = self.floatModel?.coinage ?? 0
+            if grand == 1 {
+                let status = CLLocationManager().authorizationStatus
+                if status == .authorizedAlways || status == .authorizedWhenInUse {
+                    setAppIpoInfo(with: pageUrl)
+                }else {
+                    showSettingsAlert(from: self)
+                    return
+                }
+            }else {
+                setAppIpoInfo()
+            }
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,13 +113,16 @@ class HomeViewController: BaseViewController {
         setAppInfo()
     }
     
-    private func setAppIpoInfo() {
+    private func setAppIpoInfo(with productID: String? = "") {
         setAppInfo()
         if let productID = self.model?.grabbed {
             Task {
                 await self.applyInfo(with: String(productID))
             }
-            
+        }else {
+            Task {
+                await self.applyInfo(with: String(productID ?? ""))
+            }
         }
     }
     
@@ -230,6 +265,8 @@ extension HomeViewController {
                     child == "mycbde" {
                     self.childView.isHidden = false
                     self.drawerView.isHidden = true
+                    self.childView.floatModel.accept(result.floated)
+                    self.childView.tableView.reloadData()
                 }else if let wriggled = result.floated?.wriggled,
                          let child = wriggled.child,
                          child == "mycbdb" {
@@ -242,9 +279,11 @@ extension HomeViewController {
                 }
             }
             KRProgressHUD.dismiss()
+            await self.childView.tableView.mj_header?.endRefreshing()
             await self.drawerView.scrollView.mj_header?.endRefreshing()
         } catch  {
             KRProgressHUD.dismiss()
+            await self.childView.tableView.mj_header?.endRefreshing()
             await self.drawerView.scrollView.mj_header?.endRefreshing()
         }
         

@@ -11,6 +11,8 @@
 		731B86772DE8417000F4374F /* OngoingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731B86762DE8417000F4374F /* OngoingViewController.swift */; };
 		731B86792DE8515800F4374F /* OngoingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731B86782DE8515800F4374F /* OngoingView.swift */; };
 		731B867B2DE860EA00F4374F /* OngoingListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731B867A2DE860EA00F4374F /* OngoingListViewCell.swift */; };
+		734B34372DFFBD1B00F76B3A /* ChildViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734B34362DFFBD1B00F76B3A /* ChildViewCell.swift */; };
+		734B343B2DFFE36F00F76B3A /* MarqueeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734B343A2DFFE36E00F76B3A /* MarqueeView.swift */; };
 		735971192DE5A71000CA01DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 735971142DE5A71000CA01DC /* Assets.xcassets */; };
 		7359711B2DE5A71000CA01DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 735971172DE5A71000CA01DC /* LaunchScreen.storyboard */; };
 		7359711C2DE5A71000CA01DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735971132DE5A71000CA01DC /* AppDelegate.swift */; };
@@ -72,6 +74,8 @@
 		731B86762DE8417000F4374F /* OngoingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingViewController.swift; sourceTree = "<group>"; };
 		731B86782DE8515800F4374F /* OngoingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingView.swift; sourceTree = "<group>"; };
 		731B867A2DE860EA00F4374F /* OngoingListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OngoingListViewCell.swift; sourceTree = "<group>"; };
+		734B34362DFFBD1B00F76B3A /* ChildViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildViewCell.swift; sourceTree = "<group>"; };
+		734B343A2DFFE36E00F76B3A /* MarqueeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarqueeView.swift; sourceTree = "<group>"; };
 		735970FB2DE5A6CC00CA01DC /* credibot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = credibot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		735971132DE5A71000CA01DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		735971142DE5A71000CA01DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -183,9 +187,11 @@
 		7359711D2DE5ADCF00CA01DC /* home */ = {
 			isa = PBXGroup;
 			children = (
+				734B343A2DFFE36E00F76B3A /* MarqueeView.swift */,
 				7359712C2DE5B63F00CA01DC /* HomeView.swift */,
 				739754412DFD29C3005A98DA /* HomeChildView.swift */,
 				739604282DE5BD8B00818C9D /* HomeViewController.swift */,
+				734B34362DFFBD1B00F76B3A /* ChildViewCell.swift */,
 			);
 			path = home;
 			sourceTree = "<group>";
@@ -470,6 +476,7 @@
 				739604292DE5BD9800818C9D /* HomeViewController.swift in Sources */,
 				7359712D2DE5B63F00CA01DC /* HomeView.swift in Sources */,
 				73F1751A2DF84EE8006DC588 /* RouteWebViewController.swift in Sources */,
+				734B34372DFFBD1B00F76B3A /* ChildViewCell.swift in Sources */,
 				731B86752DE7FBB000F4374F /* emptyView.swift in Sources */,
 				731B867B2DE860EA00F4374F /* OngoingListViewCell.swift in Sources */,
 				736936022DE707C900B83A43 /* orderheadview.swift in Sources */,
@@ -497,6 +504,7 @@
 				739604322DE5BF2C00818C9D /* other.swift in Sources */,
 				73AB54032DF5AB9D00EF94FC /* EnumListTextFieldView.swift in Sources */,
 				73AB53F42DF5634800EF94FC /* RecommendCell.swift in Sources */,
+				734B343B2DFFE36F00F76B3A /* MarqueeView.swift in Sources */,
 				739604272DE5BCE800818C9D /* CustomTabBarController.swift in Sources */,
 				731B86772DE8417000F4374F /* OngoingViewController.swift in Sources */,
 				736936002DE6F94300B83A43 /* common.swift in Sources */,

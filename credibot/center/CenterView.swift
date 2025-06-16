@@ -7,6 +7,7 @@
 
 import UIKit
 
+let desc = "More"
 class CenterListView: BaseView {
     
     lazy var bgView: UIView = {

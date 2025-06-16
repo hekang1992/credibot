@@ -110,7 +110,7 @@ class OrderViewController: BaseViewController {
             }
         }
         
-        self.modelArray.compactMap { $0 }.asObservable().bind(to: tableView.rx.items(cellIdentifier: "RouteOrderListCell", cellType: RouteOrderListCell.self)) { row, model, cell in
+        self.modelArray.compactMap { $0 }.asObservable().bind(to: tableView.rx.items(cellIdentifier: "RouteOrderListCell", cellType: RouteOrderListCell.self)) { index, model, cell in
             cell.selectionStyle = .none
             cell.backgroundColor = .clear
             cell.model.accept(model)

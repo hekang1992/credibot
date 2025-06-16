@@ -84,7 +84,7 @@ class RoutePhoneViewController: BaseViewController {
             make.size.equalTo(CGSize(width: 345.pix(), height: 50.pix()))
         }
         
-        self.listArray.compactMap { $0 }.asObservable().bind(to: tableView.rx.items(cellIdentifier: "RoutePesoViewCell", cellType: RoutePesoViewCell.self)) { row, model, cell in
+        self.listArray.compactMap { $0 }.asObservable().bind(to: tableView.rx.items(cellIdentifier: "RoutePesoViewCell", cellType: RoutePesoViewCell.self)) { index, model, cell in
             cell.selectionStyle = .none
             cell.backgroundColor = .clear
             cell.model.accept(model)

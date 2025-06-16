@@ -32,6 +32,7 @@ class floatedModel: Codable {
     var group: groupModel?
     var coinage: Int?
     var lost: lostModel?
+    var plates: platesModel?
 }
 
 class lostModel: Codable {
@@ -98,6 +99,10 @@ class skinnyModel: Codable {
     var andfro: String?
     var impossible: String?
     var shorts: String?
+    var admiration: String?
+    var likesnake: String?
+    var certainly: String?
+    var repay_amount: String?
 }
 
 class americansModel: Codable {
@@ -190,4 +195,9 @@ class groupModel: Codable {
     var makethe: String?
     var offered: String?
     var realistic: String?
+}
+
+class platesModel: Codable {
+    var child: String?
+    var skinny: [skinnyModel]?
 }
