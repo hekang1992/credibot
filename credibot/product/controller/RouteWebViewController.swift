@@ -9,6 +9,7 @@ import UIKit
 import WebKit
 import RxSwift
 import RxCocoa
+import StoreKit
 
 class RouteWebViewController: BaseViewController {
     
@@ -53,10 +54,10 @@ class RouteWebViewController: BaseViewController {
         progressView.progressTintColor = UIColor.init(colorHex: "#FFC250")
         return progressView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         view.backgroundColor = UIColor.init(colorHex: "#F1F5F9")
@@ -92,7 +93,7 @@ class RouteWebViewController: BaseViewController {
         if let url = URL(string: pageUrl.replacingOccurrences(of: " ", with: "")) {
             webView.load(URLRequest(url: url))
         }
-       
+        
         view.addSubview(progressView)
         progressView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
@@ -106,7 +107,7 @@ class RouteWebViewController: BaseViewController {
                 owner.nameLabel.text = title
             })
             .disposed(by: disposeBag)
-
+        
         webView.rx.observe(Double.self, "estimatedProgress")
             .compactMap { $0 }
             .share()
@@ -124,7 +125,7 @@ class RouteWebViewController: BaseViewController {
             .disposed(by: disposeBag)
         
     }
-
+    
 }
 
 extension RouteWebViewController: WKScriptMessageHandler, WKNavigationDelegate {
@@ -156,9 +157,73 @@ extension RouteWebViewController: WKScriptMessageHandler, WKNavigationDelegate {
                 await self.stepInfo(with: productID, type: "10", cold: coc, pollys: coc)
             }
             break
+        case "sorghumMa":
+            goRoutePage()
+            break
+        case "breadRadi":
+            let phone = UserDefaults.standard.object(forKey: "phone") as? String ?? ""
+            breadRadiEmail(with: phone)
+            break
+        case "yogurtVan":
+            startInfo()
+            break
+        case "jellyPapa":
+            let pageUrl = message.body as? String ?? ""
+            jellyPapaPageUrl(with: pageUrl)
+            break
+        case "iceUmbrel":
+            self.navigationController?.popToRootViewController(animated: true)
+            break
         default:
             break
         }
     }
+    
+}
+
+extension RouteWebViewController {
+    
+    private func startInfo() {
+        if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+            SKStoreReviewController.requestReview(in: scene)
+        }
+    }
+    
+    private func breadRadiEmail(with phone: String) {
+        
+    }
+    
+    private func jellyPapaPageUrl(with pageUrl: String) {
+        if pageUrl.contains(EnumList.fishAlmondQu) {
+            goRoutePage()
+        }else if pageUrl.contains(EnumList.xwatermelonS) {
+            if let url = URL(string: pageUrl), let productID = GestureParameter.producdUrlStr(url: url) {
+                Task {
+                    await self.getProdectDetailInfoToVc(to: productID)
+                }
+            }
+        }
+    }
+    
+    private func goRoutePage() {
+        NotificationCenter.default.post(name: NSNotification.Name("changeVc"), object: nil)
+    }
+    
+}
+
+
+class EnumList {
+    static let fishAlmondQu = "fishAlmondQu"
+    static let xwatermelonS = "xwatermelonS"
+}
+
+class GestureParameter {
+  static func producdUrlStr(url: URL) -> String? {
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            return nil
+        }
+        return components.queryItems?.last?.value
+    }
+
     
 }
