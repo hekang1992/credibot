@@ -19,7 +19,7 @@ class CFPrivateEntry {
     let jacksshoulder: String?
     let ashore: Int
     let ruins: Int
-    let dict: [String: [String: Any]]
+    let dict: [String: Int]
     
     init() {
         ordered = s1 + s2 + s3
@@ -28,7 +28,7 @@ class CFPrivateEntry {
         jacksshoulder = DebugInfo.getAppBundleIdentifier()
         ashore = DebugInfo.getBatteryPercentage() ?? -1
         ruins = DebugInfo.isCharging()
-        dict = ["leaving": ["ashore": ashore, "ruins": ruins]]
+        dict = ["ashore": ashore, "ruins": ruins]
     }
     
     static func returnDict() -> [String: Any] {
@@ -37,9 +37,7 @@ class CFPrivateEntry {
             "amusement": shared.amusement,
             "talkative": shared.talkative,
             "jacksshoulder": shared.jacksshoulder ?? "",
-            "ashore": shared.ashore,
-            "ruins": shared.ruins,
-            "nested_dict": shared.dict
+            "leaving": shared.dict
         ]
     }
     
@@ -139,7 +137,7 @@ class SCSignalManager {
 
 class CNServiceRouter {
     
-    static func getDeviceInfo() -> [String: Any] {
+    static func getDeviceInfo() -> [String: [String: Any]] {
         let device = Device.current
         let screen = UIScreen.main.bounds
         let scale = UIScreen.main.scale
@@ -154,19 +152,17 @@ class CNServiceRouter {
         let deviceModel = UIDevice.current.model
         let screenSizeInches = device.diagonal
         
-        return [
-            "houses": "",
-            "ancient": modelName ?? "",
-            "sheds": "",
-            "shacks": height,
-            "mixture": width,
-            "scale": scale,
-            "lowering": deviceName,
-            "handed": deviceModel,
-            "lend": modelIdentifier,
-            "missing": String(format: "%.1f", screenSizeInches),
-            "thattoo": systemVersion
-        ]
+        return ["remarkably": ["houses": "",
+                     "ancient": modelName ?? "",
+                     "sheds": "",
+                     "shacks": height,
+                     "mixture": width,
+                     "scale": scale,
+                     "lowering": deviceName,
+                     "handed": deviceModel,
+                     "lend": modelIdentifier,
+                     "missing": String(format: "%.1f", screenSizeInches),
+                     "thattoo": systemVersion]]
     }
     
 }
