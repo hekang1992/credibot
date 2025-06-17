@@ -40,7 +40,6 @@ class RouteWebViewController: BaseViewController {
         scrollView.alwaysBounceVertical = false
         scrollView.delaysContentTouches = false
         
-        // Rendering options
         webView.isOpaque = false
         webView.backgroundColor = .clear
         webView.allowsBackForwardNavigationGestures = true
@@ -153,8 +152,10 @@ extension RouteWebViewController: WKScriptMessageHandler, WKNavigationDelegate {
             let body = message.body as? [String]
             let productID = body?.first ?? ""
             let coc = String(SCSignalManager.getCurrentTime())
-            Task {
-                await self.stepInfo(with: productID, type: "10", cold: coc, pollys: coc)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                Task {
+                    await self.stepInfo(with: productID, type: "10", cold: coc, pollys: coc)
+                }
             }
             break
         case "sorghumMa":
@@ -211,7 +212,6 @@ extension RouteWebViewController {
     
 }
 
-
 class EnumList {
     static let fishAlmondQu = "fishAlmondQu"
     static let xwatermelonS = "xwatermelonS"
@@ -224,6 +224,4 @@ class GestureParameter {
         }
         return components.queryItems?.last?.value
     }
-
-    
 }

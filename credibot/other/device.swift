@@ -201,33 +201,32 @@ class NetworkRouterFly {
 
 class SurpriseofConfig {
     
-    static func freeDisk() -> String {
-        let freeDisk = String(format: "%.2lld", SystemServices.shared().longFreeDiskSpace)
-        return freeDisk
+    static func freeDisk() -> Int? {
+        return Int(exactly: SystemServices.shared().longFreeDiskSpace)
     }
-    
-    static func allDisk() -> String {
-        let allDisk = String(format: "%.2lld", SystemServices.shared().longDiskSpace)
-        return allDisk
+
+    static func allDisk() -> Int? {
+        return Int(exactly: SystemServices.shared().longDiskSpace)
     }
-    
-    static func totalMemory() -> String {
-        let totalMemory = String(format: "%.0f", SystemServices.shared().totalMemory * 1024 * 1024)
-        return totalMemory
+
+    static func totalMemory() -> Int? {
+        let total = SystemServices.shared().totalMemory * 1024 * 1024
+        return Int(exactly: NSNumber(value: total).intValue)
     }
-    
-    static func activeMemoryinRaw() -> String {
-        let activeMemoryinRaw = String(format: "%.0f", SystemServices.shared().activeMemoryinRaw * 1024 * 1024)
-        return activeMemoryinRaw
+
+    static func activeMemoryinRaw() -> Int? {
+        let active = SystemServices.shared().activeMemoryinRaw * 1024 * 1024
+        return Int(exactly: NSNumber(value: active).intValue)
     }
+
     
-    static func returnMemoriyInfo() -> [String: [String: String]] {
+    static func returnMemoriyInfo() -> [String: [String: Int]] {
         return [
             "surpriseof": [
-                "remembered": freeDisk(),
-                "stretched": allDisk(),
-                "boy": totalMemory(),
-                "hegrinned": activeMemoryinRaw()
+                "remembered": freeDisk() ?? 0,
+                "stretched": allDisk() ?? 0,
+                "boy": totalMemory() ?? 0,
+                "hegrinned": activeMemoryinRaw() ?? 0
             ]
         ]
     }
