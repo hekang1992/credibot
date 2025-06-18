@@ -62,3 +62,15 @@ class BorkenConfig {
     }
     
 }
+
+class DataAddressModelManager {
+    static let shared = DataAddressModelManager()
+    private init() {}
+    var lastModel: floatedModel?
+}
+
+class DataHomeModelManager {
+    static let shared = DataHomeModelManager()
+    private init() {}
+    var lastModel: floatedModel?
+}

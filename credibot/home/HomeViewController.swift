@@ -103,6 +103,10 @@ class HomeViewController: BaseViewController {
             }
         }
         
+        Task {
+            await self.getLastAmazement()
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -259,6 +263,7 @@ extension HomeViewController {
             let result = try await man.request(.getData(endpoint: "/cbd/darkness", parameters: dict), responseType: BaseModel.self)
             let wanted = result.wanted ?? ""
             if wanted == "0" || wanted == "00" {
+                DataHomeModelManager.shared.lastModel = result.floated
                 self.floatModel = result.floated
                 if let lost = floatModel?.lost,
                     let child = lost.child,
@@ -297,15 +302,36 @@ extension HomeViewController {
         self.drawerView.descLabel.text = model.orbreaking ?? ""
         self.drawerView.moneyLabel.text = model.clapping ?? ""
         let dropping = model.dropping ?? ""
-        let days = dropping.split(separator: "-").map { String($0) }
         let dw = model.legs ?? ""
-        if days.count == 2 {
-            self.drawerView.minLabel.text = "\(days.first ?? "")\(dw)"
-            self.drawerView.maxLabel.text = "\(days.last ?? "")\(dw)"
+        if dropping.contains("-") {
+            let days = dropping.split(separator: "-").map { String($0) }
+            if days.count == 2 {
+                self.drawerView.minLabel.text = "\(days.first ?? "")\(dw)"
+                self.drawerView.maxLabel.text = "\(days.last ?? "")\(dw)"
+            }
+        }else {
+            self.drawerView.minLabel.text = "\(dropping)\(dw)"
+            self.drawerView.maxLabel.text = "\(dropping)\(dw)"
         }
         self.drawerView.rate1Label.text = model.juggled ?? ""
         self.drawerView.rate2Label.text = (model.throwing ?? "") + (model.loanRateUnit ?? "")
         
+    }
+    
+    private func getLastAmazement() async {
+        let man = NetworkManager()
+        let dict = ["amazement": "1"]
+        do {
+            let result = try await man.request(.getData(endpoint: "/cbd/amazement", parameters: dict), responseType: BaseModel.self)
+            let wanted = result.wanted ?? ""
+            if wanted == "0" || wanted == "00" {
+                if let floatedModel = result.floated {
+                    DataAddressModelManager.shared.lastModel = floatedModel
+                }
+            }
+        } catch {
+            
+        }
     }
     
 }

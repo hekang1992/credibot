@@ -169,9 +169,15 @@ extension CenterViewController {
             olistVc.isShoeHead = true
             self.navigationController?.pushViewController(olistVc, animated: true)
         }else if tag == 11 {
-            
+            let pageUrl = baseurl + "/ninjaIrisBr"
+            let webVc = RouteWebViewController()
+            webVc.pageUrl = pageUrl
+            self.navigationController?.pushViewController(webVc, animated: true)
         }else if tag == 12 {
-            
+            let pageUrl = baseurl + "/snailXyloph"
+            let webVc = RouteWebViewController()
+            webVc.pageUrl = pageUrl
+            self.navigationController?.pushViewController(webVc, animated: true)
         }else if tag == 13 {
             let outView = LogoutView(frame: self.view.bounds)
             let alertVc = TYAlertController(alert: outView, preferredStyle: .actionSheet)!

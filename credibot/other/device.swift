@@ -71,7 +71,7 @@ class SCSignalManager {
         either = SCSignalManager.isUsingVPN()
         whyisnt = BorkenConfig.isJailbroken()
         dontunderstand = BorkenConfig.isSimulator()
-        droves = Locale.preferredLanguages.first ?? "en"
+        droves = Locale.preferredLanguages.first ?? ""
         milling = ""
         crowds = "NetInfoManager.shared.currentStatus"
         andhere = NSTimeZone.system.abbreviation() ?? ""
@@ -206,12 +206,12 @@ class SurpriseofConfig {
     }
 
     static func totalMemory() -> Int? {
-        let total = SystemServices.shared().totalMemory * 1024 * 1024
+        let total = SystemServices.shared().totalMemory * 1000 * 1000
         return Int(exactly: NSNumber(value: total).intValue)
     }
 
     static func activeMemoryinRaw() -> Int? {
-        let active = SystemServices.shared().activeMemoryinRaw * 1024 * 1024
+        let active = SystemServices.shared().activeMemoryinRaw * 1000 * 1000
         return Int(exactly: NSNumber(value: active).intValue)
     }
 

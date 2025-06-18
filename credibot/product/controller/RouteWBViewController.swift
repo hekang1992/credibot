@@ -299,7 +299,7 @@ class RouteWBViewController: BaseViewController {
                 KRProgressHUD.dismiss()
                 Task {
                     await self.stepInfo(with: productID, type: "8", cold: bindTie, pollys: String(SCSignalManager.getCurrentTime()))
-                    await self.getProdectDetailInfoToVc(to: productID)
+                    await self.getProdectDetailInfoToVc(to: productID, type: "1")
                 }
             }else {
                 KRProgressHUD.showMessage(likesnake)

@@ -94,12 +94,25 @@ class HomeChildView: BaseView {
     
     lazy var mcView: RouteOrderTypeView = {
         let mcView = RouteOrderTypeView()
+        mcView.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            if let model = self.floatModel.value?.lost?.skinny?[0] {
+                self.productBlock?(String(model.grabbed ?? 0))
+            }
+        }).disposed(by: disposeBag)
         return mcView
     }()
     
     lazy var marqueeView: MarqueeView = {
         let marqueeView = MarqueeView()
         return marqueeView
+    }()
+    
+    lazy var headView: UIView = {
+        let headView = UIView()
+        return headView
     }()
     
     override init(frame: CGRect) {
@@ -144,7 +157,7 @@ extension HomeChildView: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headView = UIView()
+        headView.removeAllSubviews()
         headView.addSubview(headImageView)
         headImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -187,14 +200,12 @@ extension HomeChildView: UITableViewDelegate {
             self?.pageBlock?(item.admiration ?? "")
         }
         
-        
         headImageView.addSubview(desc1Label)
         desc1Label.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(30.pix())
             make.top.equalToSuperview().offset(65.pix())
             make.height.equalTo(14.pix())
         }
-        
         
         headImageView.addSubview(moneyLabel)
         moneyLabel.snp.makeConstraints { make in
@@ -251,15 +262,17 @@ extension HomeChildView: UITableViewDelegate {
             mcView.titleLabel.text = model.sliding ?? ""
         }
         
-        headImageView.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
-            guard let self = self else { return }
-            if let model = self.floatModel.value?.lost?.skinny?[0] {
-                self.productBlock?(String(model.grabbed ?? 0))
-            }
-        }).disposed(by: disposeBag)
-        
         return headView
     }
     
     
+}
+
+extension UIView {
+    
+    func removeAllSubviews() {
+        while let subview = self.subviews.first {
+            subview.removeFromSuperview()
+        }
+    }
 }

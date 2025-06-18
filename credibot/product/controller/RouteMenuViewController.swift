@@ -63,11 +63,8 @@ class RouteMenuViewController: BaseViewController {
                     configurePickerView(with: listArray, title: model.madetheir ?? "", cell: cell, mode: .province, model: model)
                 }else if wares == "mycbdm" {//city
                     let cell = botView.tableView.cellForRow(at: indexPath) as! AboutBotSelectViewCell
-                    
-                    Task {
-                        await self.getAmazement(with: cell, model: model)
-                    }
-                    
+                    let listArray = PickerHelper.showThreePicker(dataSource: DataAddressModelManager.shared.lastModel?.topick ?? [])
+                    configurePickerView(with: listArray, title: "Select city", cell: cell, mode: .area, model: model)
                 }
             }
         }).disposed(by: disposeBag)
@@ -146,21 +143,6 @@ extension RouteMenuViewController {
             KRProgressHUD.dismiss()
         } catch  {
             KRProgressHUD.dismiss()
-        }
-    }
-    
-    private func getAmazement(with cell: AboutBotSelectViewCell, model: traysModel) async {
-        let man = NetworkManager()
-        let dict = ["amazement": "1"]
-        do {
-            let result = try await man.request(.getData(endpoint: "/cbd/amazement", parameters: dict), responseType: BaseModel.self)
-            let wanted = result.wanted ?? ""
-            if wanted == "0" || wanted == "00" {
-                let listArray = PickerHelper.showThreePicker(dataSource: result.floated?.topick ?? [])
-                configurePickerView(with: listArray, title: "Select city", cell: cell, mode: .area, model: model)
-            }
-        } catch {
-            
         }
     }
     
