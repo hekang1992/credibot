@@ -199,7 +199,7 @@ extension HomeViewController {
         }
 //        print("✈️ combinedDict==========\(combinedDict)")
         
-        let jsonStr = paraToBaseStr(combinedDict)
+        let jsonStr = paraToBaseStr(combinedDict) ?? ""
         
         let man = NetworkManager()
         let dict = ["floated": jsonStr]

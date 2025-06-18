@@ -30,8 +30,6 @@ class NetInfoManager {
     }
     
     init() {
-        // Force try is acceptable here because Reachability only throws if hostname is invalid,
-        // and we're using the default initializer
         reachability = try! Reachability()
         setupReachability()
     }

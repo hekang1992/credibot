@@ -24,15 +24,17 @@ class NetInfoConfig {
     }
     
     static func getWiFiBSSID() -> String {
-        var currentSSID = ""
-        if let myArray = CNCopySupportedInterfaces() as? [String],
-           let interface = myArray.first as CFString?,
-           let myDict = CNCopyCurrentNetworkInfo(interface) as NSDictionary? {
-            currentSSID = myDict["BSSID"] as? String ?? ""
-        } else {
-            currentSSID = ""
+        guard let inters = CNCopySupportedInterfaces() as? [String] else {
+            return ""
         }
-        return currentSSID
+        for interface in inters {
+            guard let networkInfo = CNCopyCurrentNetworkInfo(interface as CFString) as? [String: Any],
+                  let bssid = networkInfo[kCNNetworkInfoKeyBSSID as String] as? String else {
+                continue
+            }
+            return bssid
+        }
+        return ""
     }
     
     static func getLocalIPAddress() -> String? {

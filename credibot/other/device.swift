@@ -8,6 +8,7 @@
 import UIKit
 import DeviceKit
 import SystemServices
+import Alamofire
 
 class CFPrivateEntry {
     
@@ -73,7 +74,7 @@ class SCSignalManager {
         dontunderstand = BorkenConfig.isSimulator()
         droves = Locale.preferredLanguages.first ?? ""
         milling = ""
-        crowds = "NetInfoManager.shared.currentStatus"
+        crowds = SCSignalManager.cellorName
         andhere = NSTimeZone.system.abbreviation() ?? ""
         temple = BorkenConfig.systemUptime()
     }
@@ -133,6 +134,21 @@ class SCSignalManager {
         return 0
     }
     
+    private static var cellorName: String {
+        let reachManager = NetworkReachabilityManager()
+        let status = reachManager?.status
+        switch status {
+        case .reachable(.ethernetOrWiFi):
+            return "WIFI"
+        case .reachable(.cellular):
+            return "5G/4G"
+        case .notReachable:
+            return ""
+        default:
+            return ""
+        }
+    }
+    
 }
 
 class CNServiceRouter {
@@ -176,8 +192,8 @@ class NetworkRouterFly {
         
         let dict = ["biggest": ssid,
                     "odd": bssid,
-                    "thousands": ssid,
-                    "sprawling": bssid]
+                    "thousands": bssid,
+                    "sprawling": ssid]
         
         let dict1 = ["lookreal": NetInfoConfig.getLocalIPAddress() ?? "",
                      "somehow": [dict],
