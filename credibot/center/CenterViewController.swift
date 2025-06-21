@@ -169,12 +169,12 @@ extension CenterViewController {
             olistVc.isShoeHead = true
             self.navigationController?.pushViewController(olistVc, animated: true)
         }else if tag == 11 {
-            let pageUrl = baseurl + "/ninjaIrisBr"
+            let pageUrl = pageApiUrl + "/ninjaIrisBr"
             let webVc = RouteWebViewController()
             webVc.pageUrl = pageUrl
             self.navigationController?.pushViewController(webVc, animated: true)
         }else if tag == 12 {
-            let pageUrl = baseurl + "/snailXyloph"
+            let pageUrl = pageApiUrl + "/snailXyloph"
             let webVc = RouteWebViewController()
             webVc.pageUrl = pageUrl
             self.navigationController?.pushViewController(webVc, animated: true)
@@ -212,6 +212,8 @@ extension CenterViewController {
             if wanted == "0" || wanted == "00" {
                 UserDefaults.standard.set("", forKey: "phone")
                 UserDefaults.standard.set("", forKey: "token")
+                UserDefaults.standard.set("", forKey: "mix1time")
+                UserDefaults.standard.set("", forKey: "mix2time")
                 UserDefaults.standard.synchronize()
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
@@ -236,6 +238,8 @@ extension CenterViewController {
             if wanted == "0" || wanted == "00" {
                 UserDefaults.standard.set("", forKey: "phone")
                 UserDefaults.standard.set("", forKey: "token")
+                UserDefaults.standard.set("", forKey: "mix1time")
+                UserDefaults.standard.set("", forKey: "mix2time")
                 UserDefaults.standard.synchronize()
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {

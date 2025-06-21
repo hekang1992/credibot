@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import RxRelay
 
 class AboutBotNormalViewCell: BaseViewCell {
+    
+    var model = BehaviorRelay<traysModel?>(value: nil)
 
     lazy var nameLabel: UILabel = {
         let nameLabel = UILabel()
@@ -64,10 +67,50 @@ class AboutBotNormalViewCell: BaseViewCell {
             make.height.equalTo(40.pix())
             make.right.equalToSuperview().offset(-20.pix())
         }
+        
+        
+        model.asObservable().subscribe(onNext: { [weak self] model in
+            guard let self = self, let model = model else { return }
+            
+            let type = model.wares ?? ""
+            let name = model.madetheir ?? ""
+            let placeName = model.testament ?? ""
+            let passed = model.passed ?? 0
+            let noisy = model.noisy ?? ""
+            
+            
+            nameLabel.text = name
+            phoneTx.placeholder = placeName
+            phoneTx.text = ""
+            
+            if passed == 1 {
+                phoneTx.keyboardType = .numberPad
+            }else {
+                phoneTx.keyboardType = .default
+            }
+            
+            phoneTx.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+            
+            if noisy.isEmpty {
+                phoneTx.placeholder = placeName
+            }else {
+                phoneTx.text = noisy
+                print("noisy=======\(noisy)")
+            }
+            model.noisy = noisy.isEmpty ? "" : noisy
+            
+        }).disposed(by: disposeBag)
+        
     }
     
     @MainActor required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        if let listModel = self.model.value {
+            listModel.noisy = textField.text
+        }
     }
     
 }

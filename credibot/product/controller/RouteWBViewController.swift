@@ -22,6 +22,8 @@ class RouteWBViewController: BaseViewController {
     
     var bindTie: String = ""
     
+    var listModel: traysModel?
+    
     lazy var bgView: UIView = {
         let bgView = UIView()
         bgView.layer.cornerRadius = 25.pix()
@@ -167,16 +169,24 @@ class RouteWBViewController: BaseViewController {
             guard let self = self else { return }
             walletBtn.setTitleColor(.black, for: .normal)
             bankBtn.setTitleColor(.init(colorHex: "#999999"), for: .normal)
-            self.model.accept(self.listArrayModel.value?[0])
+            self.model.accept(nil)
+            if let model = self.listArrayModel.value?.first {
+                self.model.accept(model)
+            }
             self.flag = "0"
+            self.tableView.reloadData()
         }).disposed(by: disposeBag)
         
         bankBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
             bankBtn.setTitleColor(.black, for: .normal)
             walletBtn.setTitleColor(.init(colorHex: "#999999"), for: .normal)
-            self.model.accept(self.listArrayModel.value?[1])
+            self.model.accept(nil)
+            if let model = self.listArrayModel.value?.last {
+                self.model.accept(model)
+            }
             self.flag = "1"
+            self.tableView.reloadData()
         }).disposed(by: disposeBag)
         
         bgView.addSubview(titleLabel)
@@ -199,6 +209,8 @@ class RouteWBViewController: BaseViewController {
             let placeName = model.testament ?? ""
             let passed = model.passed ?? 0
             let noisy = model.noisy ?? ""
+            self.listModel = model
+            let madetheir = model.madetheir ?? ""
             if type == "mycbdk" || type == "mycbdm" {
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "AboutBotSelectViewCell", for: IndexPath(row: index, section: 0)) as? AboutBotSelectViewCell {
                     cell.nameLabel.text = name
@@ -210,27 +222,9 @@ class RouteWBViewController: BaseViewController {
                 }
             }else {
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "AboutBotNormalViewCell", for: IndexPath(row: index, section: 0)) as? AboutBotNormalViewCell {
-                    cell.nameLabel.text = name
-                    cell.phoneTx.placeholder = placeName
                     cell.selectionStyle = .none
                     cell.backgroundColor = .clear
-                    if passed == 1 {
-                        cell.phoneTx.keyboardType = .numberPad
-                    }else {
-                        cell.phoneTx.keyboardType = .default
-                    }
-                    cell.phoneTx.text = ""
-                    cell.phoneTx.rx.text
-                        .subscribe(onNext: { text in
-                            model.noisy = text
-                        })
-                        .disposed(by: self.disposeBag)
-                    if noisy.isEmpty {
-                        cell.phoneTx.placeholder = placeName
-                    }else {
-                        cell.phoneTx.text = noisy
-                    }
-                    model.noisy = noisy.isEmpty ? "" : noisy
+                    cell.model.accept(model)
                     return cell
                 }
             }
@@ -350,7 +344,5 @@ extension RouteWBViewController {
             KRProgressHUD.dismiss()
         }
     }
-    
-    
     
 }

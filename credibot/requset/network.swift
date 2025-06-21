@@ -8,7 +8,10 @@
 import Foundation
 import Moya
 
-let baseurl = "http://8.212.151.134:10493/credibotapi"
+
+let pageApiUrl = "http://8.212.151.134:10493"
+
+let baseurl = pageApiUrl + "/credi" + "botapi"
 
 let baseCommonUrl = "y.my.a"
 

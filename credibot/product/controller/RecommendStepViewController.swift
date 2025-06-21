@@ -222,6 +222,9 @@ extension RecommendStepViewController {
             }
         }).disposed(by: disposeBag)
         
+        listView.cancelBtn.rx.tap.subscribe(onNext: { [weak self] in
+            self?.dismiss(animated: true)
+        }).disposed(by: disposeBag)
         
         listView.nextBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }

@@ -26,7 +26,7 @@ class CameraHelper: NSObject, UIImagePickerControllerDelegate, UINavigationContr
                     picker.sourceType = .camera
                     if type == "1" {
                         picker.cameraDevice = .front
-                        DispatchQueue.main.async {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                             self.hideChangeButton(in: picker.view)
                         }
                     }else {

@@ -63,6 +63,15 @@ class EnumListView: BaseView {
         nextBtn.layer.masksToBounds = true
         return nextBtn
     }()
+    
+    lazy var cancelBtn: UIButton = {
+        let cancelBtn = UIButton(type: .custom)
+        cancelBtn.setImage(UIImage(named: "qrimgecha"), for: .normal)
+        cancelBtn.backgroundColor = .lightGray
+        cancelBtn.layer.cornerRadius = 17.pix()
+        cancelBtn.layer.masksToBounds = true
+        return cancelBtn
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -114,6 +123,13 @@ class EnumListView: BaseView {
             make.centerX.equalToSuperview()
             make.top.equalTo(threeListView.snp.bottom).offset(20.pix())
             make.height.equalTo(50.pix())
+        }
+        
+        bgView.addSubview(cancelBtn)
+        cancelBtn.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-15.pix())
+            make.centerY.equalTo(oneLabel.snp.centerY)
+            make.size.equalTo(CGSize(width: 34.pix(), height: 34.pix()))
         }
     }
     

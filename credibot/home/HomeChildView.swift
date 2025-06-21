@@ -124,9 +124,17 @@ class HomeChildView: BaseView {
         }
         
         floatModel.map({ $0?.lost?.skinny ?? [] }).bind(to: tableView.rx.items(cellIdentifier: "ChildViewCell", cellType: ChildViewCell.self)) { index, model, cell in
-            cell.model.accept(model)
             cell.selectionStyle = .none
             cell.backgroundColor = .clear
+            
+            let logoUrl = URL(string: model.shorts ?? "")
+            cell.iconImagView.kf.setImage(with: logoUrl, placeholder: UIImage(named: "logoplaceh"))
+            cell.productName.text = model.turnedquickly ?? ""
+            cell.descLabel.text = model.impossible ?? ""
+            cell.anotherLabel.text = model.sliding ?? ""
+            cell.pcName.text = model.orbreaking ?? ""
+            cell.pcbName.text = "₱\(model.clapping ?? "")"
+            
         }.disposed(by: disposeBag)
         
         

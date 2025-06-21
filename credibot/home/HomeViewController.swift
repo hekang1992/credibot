@@ -53,16 +53,17 @@ class HomeViewController: BaseViewController {
             guard let self = self else { return }
             //judge_location
             let grand = self.floatModel?.coinage ?? 0
+            let productID = self.floatModel?.wriggled?.skinny?[0].grabbed ?? 0
             if grand == 1 {
                 let status = CLLocationManager().authorizationStatus
                 if status == .authorizedAlways || status == .authorizedWhenInUse {
-                    setAppIpoInfo()
+                    setAppIpoInfo(with: String(productID))
                 }else {
                     showSettingsAlert(from: self)
                     return
                 }
             }else {
-                setAppIpoInfo()
+                setAppIpoInfo(with: String(productID))
             }
         }
         
@@ -81,25 +82,25 @@ class HomeViewController: BaseViewController {
         
         self.childView.pageBlock = { [weak self] pageUrl in
             let commonDict = CommonParameter().toDictionary()
-            let apiUrl = URLParameterHelper.appendQueryParameters(to: baseurl, parameters: commonDict)!
+            let apiUrl = URLParameterHelper.appendQueryParameters(to: pageUrl, parameters: commonDict)!
             let webVc = RouteWebViewController()
             webVc.pageUrl = apiUrl
             self?.navigationController?.pushViewController(webVc, animated: true)
         }
         
-        self.childView.productBlock = { [weak self] pageUrl in
+        self.childView.productBlock = { [weak self] pageid in
             guard let self = self else { return }
             let grand = self.floatModel?.coinage ?? 0
             if grand == 1 {
                 let status = CLLocationManager().authorizationStatus
                 if status == .authorizedAlways || status == .authorizedWhenInUse {
-                    setAppIpoInfo(with: pageUrl)
+                    setAppIpoInfo(with: pageid)
                 }else {
                     showSettingsAlert(from: self)
                     return
                 }
             }else {
-                setAppIpoInfo()
+                setAppIpoInfo(with: pageid)
             }
         }
         
@@ -117,16 +118,14 @@ class HomeViewController: BaseViewController {
         setAppInfo()
     }
     
-    private func setAppIpoInfo(with productID: String? = "") {
+    private func setAppIpoInfo(with productID: String) {
+        print("🚀  productID========\(productID)")
+        let mix1time = UserDefaults.standard.object(forKey: "mix1time") as? String ?? ""
+        let mix2time = UserDefaults.standard.object(forKey: "mix2time") as? String ?? ""
         setAppInfo()
-        if let productID = self.model?.grabbed {
-            Task {
-                await self.applyInfo(with: String(productID))
-            }
-        }else {
-            Task {
-                await self.applyInfo(with: String(productID ?? ""))
-            }
+        Task {
+            await self.applyInfo(with: String(productID))
+            await self.stepInfo(with: "", type: "1", cold: mix1time, pollys: mix2time)
         }
     }
     
@@ -145,6 +144,7 @@ class HomeViewController: BaseViewController {
                 }
             })
             .disposed(by: disposeBag)
+        
     }
     
 }

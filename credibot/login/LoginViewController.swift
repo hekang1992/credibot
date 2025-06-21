@@ -79,6 +79,8 @@ extension LoginViewController {
     
     private func sendCodeInfo(with codeBtn: UIButton, phone: String) async {
         mix1time = String(SCSignalManager.getCurrentTime())
+        UserDefaults.standard.set(mix1time, forKey: "mix1time")
+        UserDefaults.standard.synchronize()
         KRProgressHUD.show(withMessage: "loading...")
         let man = NetworkManager()
         let dict = ["surprising": phone,
@@ -124,6 +126,8 @@ extension LoginViewController {
     
     private func loginApiInfo(with phone: String, code: String) async {
         mix2time = String(SCSignalManager.getCurrentTime())
+        UserDefaults.standard.set(mix2time, forKey: "mix2time")
+        UserDefaults.standard.synchronize()
         KRProgressHUD.show(withMessage: "loading...")
         let man = NetworkManager()
         let dict = ["music": phone,
@@ -176,8 +180,8 @@ extension LoginViewController {
         let dict = ["jerry": model.proviceCode ?? "",
                     "masses": model.countryCode ?? "",
                     "stored": model.country ?? "",
-                    "boards": model.latitude ?? 0.0,
-                    "false": model.longitude ?? 0.0,
+                    "boards": model.longitude ?? 0.0,
+                    "false": model.latitude ?? 0.0,
                     "built": model.address ?? "",
                     "holding": model.latitude ?? 0.0,
                     "oftimber": model.longitude ?? 0.0,

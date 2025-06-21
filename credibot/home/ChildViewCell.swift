@@ -10,8 +10,6 @@ import RxRelay
 
 class ChildViewCell: BaseViewCell {
     
-    var model = BehaviorRelay<skinnyModel?>(value: nil)
-    
     lazy var bgView: UIView = {
         let bgView = UIView()
         bgView.backgroundColor = .init(colorHex: "#F1F5F9")
@@ -118,16 +116,7 @@ class ChildViewCell: BaseViewCell {
             make.top.equalTo(pcName.snp.bottom).offset(5.pix())
             make.height.equalTo(34.pix())
         }
-        model.asObservable().subscribe(onNext: { [weak self] model in
-            guard let self = self, let model = model else { return }
-            let logoUrl = URL(string: model.shorts ?? "")
-            iconImagView.kf.setImage(with: logoUrl, placeholder: UIImage(named: "logoplaceh"))
-            productName.text = model.turnedquickly ?? ""
-            descLabel.text = model.impossible ?? ""
-            anotherLabel.text = model.sliding ?? ""
-            pcName.text = model.orbreaking ?? ""
-            pcbName.text = "₱\(model.clapping ?? "")"
-        }).disposed(by: disposeBag)
+       
         
     }
     

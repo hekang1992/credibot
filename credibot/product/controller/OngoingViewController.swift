@@ -8,6 +8,7 @@
 import UIKit
 import RxRelay
 import KRProgressHUD
+import MJRefresh
 
 class OngoingViewController: BaseViewController {
     
@@ -58,6 +59,14 @@ class OngoingViewController: BaseViewController {
                 await self.getProdectDetailInfoToVc(to: productID, type: "1")
             }
         }
+        
+        self.listView.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
+            guard let self = self else { return }
+            Task {
+                let productID = self.productID.value
+                await self.getProdectDetailInfo(to: productID)
+            }
+        })
         
     }
     
@@ -155,8 +164,10 @@ extension OngoingViewController {
                 }
             }
             KRProgressHUD.dismiss()
+            await self.listView.tableView.mj_header?.endRefreshing()
         } catch {
             KRProgressHUD.dismiss()
+            await self.listView.tableView.mj_header?.endRefreshing()
         }
     }
     
