@@ -40,7 +40,7 @@ class MessageDetailViewController: BaseViewController {
         imgeView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(nameLabel.snp.bottom).offset(10.pix())
-            make.size.equalTo(CGSize(width: 345.pix(), height: 445.pix()))
+            make.size.equalTo(CGSize(width: 345.pix(), height: 420.pix()))
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + Double.random(in: 0.4...1.0)) {

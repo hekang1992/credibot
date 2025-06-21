@@ -63,18 +63,19 @@ class CenterViewController: BaseViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(28)
+            make.left.right.equalToSuperview()
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-5)
+        }
+        
         view.addSubview(deleteBtn)
         deleteBtn.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(5)
             make.right.equalToSuperview().offset(-15)
             make.size.equalTo(CGSize(width: 44, height: 44))
-        }
-        
-        view.addSubview(scrollView)
-        scrollView.snp.makeConstraints { make in
-            make.top.equalTo(deleteBtn.snp.top).offset(21)
-            make.left.right.equalToSuperview()
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-5)
         }
         
         scrollView.addSubview(centerLogoImageView)
