@@ -292,16 +292,20 @@ extension HomeViewController {
                     }
                 }
             }
+            endFresh()
             KRProgressHUD.dismiss()
-            await self.childView.tableView.mj_header?.endRefreshing()
-            await self.drawerView.scrollView.mj_header?.endRefreshing()
         } catch  {
+            endFresh()
             KRProgressHUD.dismiss()
-            await self.childView.tableView.mj_header?.endRefreshing()
-            await self.drawerView.scrollView.mj_header?.endRefreshing()
         }
         
     }
+    
+    private func endFresh() {
+        self.childView.tableView.mj_header?.endRefreshing()
+        self.drawerView.scrollView.mj_header?.endRefreshing()
+    }
+    
 }
 
 extension HomeViewController {
