@@ -10,13 +10,6 @@ target 'credibot' do
   pod 'Moya'
   pod 'SnapKit'
   pod 'RxSwift'
-  pod 'RxCocoa'
-  pod 'RxGesture'
-  pod 'MJRefresh'
-  pod 'DeviceKit'
-  pod 'Kingfisher'
-  pod 'FBSDKCoreKit'
-  pod 'KeychainAccess'
   pod 'IQKeyboardManagerSwift'
   pod "KRProgressHUD"
   pod 'TYAlertController'
@@ -24,5 +17,11 @@ target 'credibot' do
   pod 'SystemServices'
   pod 'ReachabilitySwift'
   pod "SGCodeTextField"
-  pod 'FSPagerView'
+  pod 'RxCocoa'
+  pod 'RxGesture'
+  pod 'MJRefresh'
+  pod 'DeviceKit'
+  pod 'Kingfisher'
+  pod 'FBSDKCoreKit'
+  pod 'KeychainAccess'
 end

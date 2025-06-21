@@ -70,6 +70,15 @@ class HomeViewController: BaseViewController {
         ///seaall
         self.drawerView.selAllBlock = { [weak self] in
             guard let self = self else { return }
+            let detailVc = MessageDetailViewController()
+            self.navigationController?.pushViewController(detailVc, animated: true)
+        }
+        
+        self.drawerView.serviceBlock = { [weak self] in
+            let pageUrl = pageApiUrl + "/ninjaIrisBr"
+            let webVc = RouteWebViewController()
+            webVc.pageUrl = pageUrl
+            self?.navigationController?.pushViewController(webVc, animated: true)
         }
         
         self.childView.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in

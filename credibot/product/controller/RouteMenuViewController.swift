@@ -32,7 +32,7 @@ class RouteMenuViewController: BaseViewController {
         view.addSubview(nameLabel)
         nameLabel.text = "Work Information"
         backBtn.snp.makeConstraints { make in
-            make.size.equalTo(CGSize(width: 18.pix(), height: 26.pix()))
+            make.size.equalTo(CGSize(width: 21.5.pix(), height: 31.pix()))
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(5)
             make.left.equalToSuperview().offset(12.pix())
         }

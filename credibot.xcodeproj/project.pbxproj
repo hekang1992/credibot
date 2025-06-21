@@ -22,6 +22,7 @@
 		7359712B2DE5B63200CA01DC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7359712A2DE5B63200CA01DC /* LoginView.swift */; };
 		7359712D2DE5B63F00CA01DC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7359712C2DE5B63F00CA01DC /* HomeView.swift */; };
 		7359712F2DE5B64A00CA01DC /* CenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7359712E2DE5B64A00CA01DC /* CenterView.swift */; };
+		7366C3442E0674C20063C70C /* MessageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7366C3432E0674C20063C70C /* MessageDetailViewController.swift */; };
 		736936002DE6F94300B83A43 /* common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736935FF2DE6F93D00B83A43 /* common.swift */; };
 		736936022DE707C900B83A43 /* orderheadview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736936012DE707BA00B83A43 /* orderheadview.swift */; };
 		739604232DE5BA4200818C9D /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739604222DE5BA4200818C9D /* FirstViewController.swift */; };
@@ -87,6 +88,7 @@
 		7359712A2DE5B63200CA01DC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		7359712C2DE5B63F00CA01DC /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7359712E2DE5B64A00CA01DC /* CenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterView.swift; sourceTree = "<group>"; };
+		7366C3432E0674C20063C70C /* MessageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailViewController.swift; sourceTree = "<group>"; };
 		736935FF2DE6F93D00B83A43 /* common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = common.swift; sourceTree = "<group>"; };
 		736936012DE707BA00B83A43 /* orderheadview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = orderheadview.swift; sourceTree = "<group>"; };
 		739604222DE5BA4200818C9D /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				739754412DFD29C3005A98DA /* HomeChildView.swift */,
 				739604282DE5BD8B00818C9D /* HomeViewController.swift */,
 				734B34362DFFBD1B00F76B3A /* ChildViewCell.swift */,
+				7366C3432E0674C20063C70C /* MessageDetailViewController.swift */,
 			);
 			path = home;
 			sourceTree = "<group>";
@@ -433,13 +436,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-credibot/Pods-credibot-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-credibot/Pods-credibot-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -478,6 +477,7 @@
 				73F1751A2DF84EE8006DC588 /* RouteWebViewController.swift in Sources */,
 				734B34372DFFBD1B00F76B3A /* ChildViewCell.swift in Sources */,
 				731B86752DE7FBB000F4374F /* emptyView.swift in Sources */,
+				7366C3442E0674C20063C70C /* MessageDetailViewController.swift in Sources */,
 				731B867B2DE860EA00F4374F /* OngoingListViewCell.swift in Sources */,
 				736936022DE707C900B83A43 /* orderheadview.swift in Sources */,
 				7359712B2DE5B63200CA01DC /* LoginView.swift in Sources */,

@@ -10,6 +10,7 @@ import WebKit
 import RxSwift
 import RxCocoa
 import StoreKit
+import KRProgressHUD
 
 class RouteWebViewController: BaseViewController {
     
@@ -63,7 +64,7 @@ class RouteWebViewController: BaseViewController {
         view.addSubview(backBtn)
         view.addSubview(nameLabel)
         backBtn.snp.makeConstraints { make in
-            make.size.equalTo(CGSize(width: 18.pix(), height: 26.pix()))
+            make.size.equalTo(CGSize(width: 21.5.pix(), height: 31.pix()))
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(5)
             make.left.equalToSuperview().offset(12.pix())
         }
@@ -163,7 +164,8 @@ extension RouteWebViewController: WKScriptMessageHandler, WKNavigationDelegate {
             break
         case "breadRadi":
             let phone = UserDefaults.standard.object(forKey: "phone") as? String ?? ""
-            breadRadiEmail(with: phone)
+            let body = message.body as? String ?? ""
+            breadRadiEmail(with: phone, code: body)
             break
         case "yogurtVan":
             startInfo()
@@ -190,8 +192,33 @@ extension RouteWebViewController {
         }
     }
     
-    private func breadRadiEmail(with phone: String) {
-        
+    private func breadRadiEmail(with phone: String, code: String) {
+        if code.contains("email:"),
+           let emailRange = code.range(of: "email:"),
+           let colonRange = code.range(of: ":", range: emailRange.upperBound..<code.endIndex) {
+            
+            let email = String(code[colonRange.upperBound...])
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+                .components(separatedBy: .whitespacesAndNewlines)
+                .first ?? ""
+            
+            guard !email.isEmpty else {
+                return
+            }
+            
+            let bodyContent = "CrediBot: \(phone)"
+            guard let encodedBody = bodyContent.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+                  let mailtoURL = URL(string: "mailto:\(email)?body=\(encodedBody)") else {
+                return
+            }
+            
+            if UIApplication.shared.canOpenURL(mailtoURL) {
+                UIApplication.shared.open(mailtoURL, options: [:])
+            } else {
+                UIPasteboard.general.string = email
+                KRProgressHUD.showMessage("The email was successfully copied.\n\(email)")
+            }
+        }
     }
     
     private func jellyPapaPageUrl(with pageUrl: String) {

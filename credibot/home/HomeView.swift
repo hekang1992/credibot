@@ -13,6 +13,8 @@ class HomeView: BaseView {
     var applyBlock: completeBlock?
     var selAllBlock: completeBlock?
     
+    var serviceBlock: completeBlock?
+    
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .clear
@@ -38,6 +40,7 @@ class HomeView: BaseView {
     lazy var rightImageView: UIImageView = {
         let rightImageView = UIImageView()
         rightImageView.image = UIImage(named: "rightimge")
+        rightImageView.isUserInteractionEnabled = true
         return rightImageView
     }()
     
@@ -161,9 +164,9 @@ class HomeView: BaseView {
         return descImageView
     }()
     
-    lazy var bannerView: UIView = {
-        let bannerView = UIView()
-        bannerView.backgroundColor = .systemBlue
+    lazy var bannerView: UIImageView = {
+        let bannerView = UIImageView()
+        bannerView.image = UIImage(named: "bannimge")
         return bannerView
     }()
     
@@ -182,6 +185,7 @@ class HomeView: BaseView {
         dwd1Label.textAlignment = .right
         dwd1Label.font = UIFont.boldSystemFont(ofSize: 12)
         dwd1Label.text = "See all"
+        dwd1Label.isUserInteractionEnabled = true
         return dwd1Label
     }()
     
@@ -363,7 +367,7 @@ class HomeView: BaseView {
         scrollView.addSubview(bannerView)
         bannerView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(descImageView.snp.bottom).offset(12.pix())
+            make.top.equalTo(descImageView.snp.bottom)
             make.left.equalTo(headImageView.snp.left)
             make.height.equalTo(120.pix())
         }
@@ -424,6 +428,15 @@ class HomeView: BaseView {
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.selAllBlock?()
+            }).disposed(by: disposeBag)
+        
+        rightImageView
+            .rx
+            .tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.serviceBlock?()
             }).disposed(by: disposeBag)
         
     }
