@@ -193,9 +193,7 @@ extension RouteWebViewController {
     }
     
     private func breadRadiEmail(with phone: String, code: String) {
-        if code.contains("email:"),
-           let emailRange = code.range(of: "email:"),
-           let colonRange = code.range(of: ":", range: emailRange.upperBound..<code.endIndex) {
+        if code.contains("email:"), let colonRange = code.range(of: ":") {
             
             let email = String(code[colonRange.upperBound...])
                 .trimmingCharacters(in: .whitespacesAndNewlines)
