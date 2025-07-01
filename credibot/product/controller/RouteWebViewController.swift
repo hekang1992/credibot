@@ -90,10 +90,11 @@ class RouteWebViewController: BaseViewController {
             }
         }).disposed(by: disposeBag)
         
-        if let url = URL(string: pageUrl.replacingOccurrences(of: " ", with: "")) {
+        
+        if let webUrl = pageUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed), let url = URL(string: webUrl) {
             webView.load(URLRequest(url: url))
         }
-        
+    
         view.addSubview(progressView)
         progressView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
