@@ -295,6 +295,8 @@ class RouteWBViewController: BaseViewController {
                     await self.stepInfo(with: productID, type: "8", cold: bindTie, pollys: String(SCSignalManager.getCurrentTime()))
                     await self.getProdectDetailInfoToVc(to: productID, type: "1")
                 }
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }else {
                 KRProgressHUD.showMessage(likesnake)
             }
@@ -338,6 +340,8 @@ extension RouteWBViewController {
                 let trays = result.floated?.trays ?? []
                 self.listArrayModel.accept(trays)
                 self.model.accept(trays[0])
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
             KRProgressHUD.dismiss()
         } catch  {

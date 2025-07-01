@@ -157,6 +157,8 @@ class OrderViewController: BaseViewController {
                     webVc.pageUrl = apiUrl
                     self.navigationController?.pushViewController(webVc, animated: true)
                 }
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
             KRProgressHUD.dismiss()
         } catch  {
@@ -194,6 +196,8 @@ extension OrderViewController {
                         self.modelArray.accept(listArray)
                     }
                 }
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
             KRProgressHUD.dismiss()
             await self.tableView.mj_header?.endRefreshing()

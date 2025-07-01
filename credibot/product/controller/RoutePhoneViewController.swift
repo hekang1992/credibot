@@ -131,7 +131,7 @@ class RoutePhoneViewController: BaseViewController {
         KRProgressHUD.show(withMessage: "loading...")
         let man = NetworkManager()
         do {
-           let result = try await man.request(.postData(endpoint: "/cbd/shown", parameters: dict), responseType: BaseModel.self)
+            let result = try await man.request(.postData(endpoint: "/cbd/shown", parameters: dict), responseType: BaseModel.self)
             let wanted = result.wanted ?? ""
             let likesnake = result.likesnake ?? ""
             if wanted == "0" || wanted == "00" {
@@ -140,6 +140,8 @@ class RoutePhoneViewController: BaseViewController {
                     await self.stepInfo(with: productID, type: "7", cold: enuDuo, pollys: String(SCSignalManager.getCurrentTime()))
                     await self.getProdectDetailInfoToVc(to: productID)
                 }
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }else {
                 KRProgressHUD.showMessage(likesnake)
             }
@@ -189,9 +191,14 @@ class RoutePhoneViewController: BaseViewController {
                     }else {
                         var phoneListArray: [[String: Any]] = []
                         for contact in contacts {
-                            let fullName = "\(contact.givenName)  \(contact.familyName)"
+                            let fullName = "\(contact.givenName)\(contact.familyName)"
                             let phoneNumbers = contact.phoneNumbers.map { $0.value.stringValue }
-                            let phoneString = phoneNumbers.joined(separator: ", ")
+                            var phoneString: String = ""
+                            if phoneNumbers.count > 1 {
+                                phoneString = phoneNumbers.joined(separator: ", ")
+                            }else {
+                                phoneString = phoneNumbers.first ?? ""
+                            }
                             let phone = ["surprising": phoneString, "biggest": fullName]
                             phoneListArray.append(phone as [String : Any])
                         }
@@ -220,6 +227,8 @@ extension RoutePhoneViewController {
             if wanted == "0" || wanted == "00" {
                 let listArray = result.floated?.wander?.topick ?? []
                 self.listArray.accept(listArray)
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
             KRProgressHUD.dismiss()
         } catch  {
@@ -258,8 +267,16 @@ extension RoutePhoneViewController {
 extension RoutePhoneViewController: ContactManagerDelegate {
     
     func contactManagerDidSelect(contact: CNContact) {
-        let name = "\(contact.givenName) \(contact.familyName)"
+        let name = contact.givenName + " " + contact.familyName
         let phoneNumber = contact.phoneNumbers.first?.value.stringValue ?? ""
+        if name.isEmpty || name == " " {
+            KRProgressHUD.showMessage("Name cannot be empty.")
+            return
+        }
+        if phoneNumber.isEmpty {
+            KRProgressHUD.showMessage("phone number cannot be empty.")
+            return
+        }
         self.selectCell?.impory1Label.text = "\(name)-\(phoneNumber)"
         self.selectCell?.impory1Label.textColor = .black
         self.selectModel?.biggest = name

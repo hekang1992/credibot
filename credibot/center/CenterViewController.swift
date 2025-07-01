@@ -211,15 +211,9 @@ extension CenterViewController {
             let wanted = result.wanted ?? ""
             let likesnake = result.likesnake ?? ""
             if wanted == "0" || wanted == "00" {
-                UserDefaults.standard.set("", forKey: "phone")
-                UserDefaults.standard.set("", forKey: "token")
-                UserDefaults.standard.set("", forKey: "mix1time")
-                UserDefaults.standard.set("", forKey: "mix2time")
-                UserDefaults.standard.synchronize()
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                    NotificationCenter.default.post(name: NSNotification.Name("changeVc"), object: nil)
-                }
+                removeLoginInfo()
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
             KRProgressHUD.showMessage(likesnake)
         } catch  {
@@ -237,15 +231,9 @@ extension CenterViewController {
             let wanted = result.wanted ?? ""
             let likesnake = result.likesnake ?? ""
             if wanted == "0" || wanted == "00" {
-                UserDefaults.standard.set("", forKey: "phone")
-                UserDefaults.standard.set("", forKey: "token")
-                UserDefaults.standard.set("", forKey: "mix1time")
-                UserDefaults.standard.set("", forKey: "mix2time")
-                UserDefaults.standard.synchronize()
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                    NotificationCenter.default.post(name: NSNotification.Name("changeVc"), object: nil)
-                }
+                removeLoginInfo()
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
             KRProgressHUD.showMessage(likesnake)
         } catch  {

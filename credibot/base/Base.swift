@@ -112,6 +112,8 @@ class BaseViewController: UIViewController {
                         break
                     }
                 }
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
             KRProgressHUD.dismiss()
             
@@ -134,6 +136,8 @@ class BaseViewController: UIViewController {
                     let acting = model.acting ?? [[]]
                     story == 0 ? awaidPage(with: acting, productID: productID) : asaiFacePage(productID: productID)
                 }
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
             KRProgressHUD.dismiss()
         } catch {
@@ -175,6 +179,8 @@ class BaseViewController: UIViewController {
                 Task {
                     await self.stepInfo(with: productID, type: "9", cold: h5Str, pollys: String(SCSignalManager.getCurrentTime()))
                 }
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
             KRProgressHUD.dismiss()
         } catch  {
@@ -201,11 +207,25 @@ class BaseViewController: UIViewController {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                     Task {
                         if let localModel = GgLocationModelManager.shared.currentModel {
-                            await ClickTracking.trackingAppInfo(model: localModel, para: dict)
+                            if localModel.latitude != 0.0 || localModel.longitude != 0.0 {
+                                await ClickTracking.trackingAppInfo(model: localModel, para: dict)
+                            }
                         }
                     }
                 }
             }).disposed(by: disposeBag)
+    }
+    
+    func removeLoginInfo() {
+        UserDefaults.standard.set("", forKey: "phone")
+        UserDefaults.standard.set("", forKey: "token")
+        UserDefaults.standard.set("", forKey: "mix1time")
+        UserDefaults.standard.set("", forKey: "mix2time")
+        UserDefaults.standard.synchronize()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            NotificationCenter.default.post(name: NSNotification.Name("changeVc"), object: nil)
+        }
     }
     
 }

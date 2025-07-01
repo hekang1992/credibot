@@ -77,8 +77,8 @@ class LoginView: BaseView {
         let codePinField = SGCodeTextField()
         codePinField.textChangeHandler = { [weak self] text, completed in
             guard let self = self, let text = text else { return }
+            PhoneNumberManager.shared.codeNumber = text
             if !text.isEmpty && text.count == 6 {
-                PhoneNumberManager.shared.codeNumber = text
                 codePinField.resignFirstResponder()
                 self.block1?()
             }

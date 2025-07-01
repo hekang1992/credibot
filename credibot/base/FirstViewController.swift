@@ -74,6 +74,8 @@ extension FirstViewController {
                 if let model = result.floated?.group {
                     faceBookModel(from: model)
                 }
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
             NotificationCenter.default.post(name: NSNotification.Name("changeVc"), object: nil)
         } catch  {

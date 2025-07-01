@@ -120,6 +120,8 @@ extension RouteMenuViewController {
                     await self.stepInfo(with: productID, type: "6", cold: enumDio, pollys: String(SCSignalManager.getCurrentTime()))
                     await self.getProdectDetailInfoToVc(to: productID)
                 }
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }else {
                 KRProgressHUD.showMessage(likesnake)
             }
@@ -139,6 +141,8 @@ extension RouteMenuViewController {
                 let listArray = result.floated?.trays ?? []
                 self.botView.listArray.accept(listArray)
                 self.listArray.accept(listArray)
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
             KRProgressHUD.dismiss()
         } catch  {

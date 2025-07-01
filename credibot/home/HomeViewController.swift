@@ -255,6 +255,8 @@ extension HomeViewController {
                     webVc.pageUrl = apiUrl
                     self.navigationController?.pushViewController(webVc, animated: true)
                 }
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
             KRProgressHUD.dismiss()
         } catch  {
@@ -291,6 +293,8 @@ extension HomeViewController {
                         changHomeUI(with: model)
                     }
                 }
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
             endFresh()
             KRProgressHUD.dismiss()
@@ -341,6 +345,8 @@ extension HomeViewController {
                 if let floatedModel = result.floated {
                     DataAddressModelManager.shared.lastModel = floatedModel
                 }
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
         } catch {
             

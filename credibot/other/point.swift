@@ -11,8 +11,8 @@ class ClickTracking {
     
     static func trackingAppInfo(model: LocationModel, para: [String: String]) async {
         let man = NetworkManager()
-        let dict1 = ["oftimber": String(model.latitude ?? 0),
-                     "holding": String(model.longitude ?? 0),
+        let dict1 = ["holding": String(model.latitude),
+                     "oftimber": String(model.longitude),
                      "chant": "",
                      "choo": DeviceIdentifier.getIDFV(),
                      "hoo": DeviceIdentifier.getIDFA()]

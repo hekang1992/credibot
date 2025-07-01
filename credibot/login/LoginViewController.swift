@@ -102,6 +102,8 @@ extension LoginViewController {
                         self.stopCountdown(with: codeBtn)
                     }
                 }
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
             KRProgressHUD.showMessage(likesnake)
         }catch {
@@ -150,6 +152,8 @@ extension LoginViewController {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                     NotificationCenter.default.post(name: NSNotification.Name("changeVc"), object: nil)
                 }
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
             KRProgressHUD.showMessage(likesnake)
         }catch {

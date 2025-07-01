@@ -194,6 +194,8 @@ extension RecommendStepViewController {
                         }
                     }
                 }
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
             KRProgressHUD.showMessage(likesnake)
         }catch {
@@ -258,6 +260,8 @@ extension RecommendStepViewController {
                         await self.stepInfo(with: productID, type: "3", cold: minImage, pollys: String(SCSignalManager.getCurrentTime()))
                     }
                 }
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
             KRProgressHUD.showMessage(likesnake)
         } catch  {
@@ -286,6 +290,8 @@ extension RecommendStepViewController {
                         bgView.rightView.leftImageView.kf.setImage(with: URL(string: admiration))
                     }
                 }
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
             KRProgressHUD.dismiss()
         } catch {

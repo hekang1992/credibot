@@ -162,6 +162,8 @@ extension OngoingViewController {
                 if let model = result.floated {
                     self.listView.model.accept(model)
                 }
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
             KRProgressHUD.dismiss()
             await self.listView.tableView.mj_header?.endRefreshing()
@@ -211,6 +213,8 @@ extension OngoingViewController {
                         break
                     }
                 }
+            }else if wanted == "-2" {
+                removeLoginInfo()
             }
             KRProgressHUD.dismiss()
         } catch {

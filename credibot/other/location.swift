@@ -16,8 +16,8 @@ struct LocationModel {
     var proviceCode: String?
     var country: String?
     var street: String?
-    var latitude: Double?
-    var longitude: Double?
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
     var address: String?
     var city: String?
 }
