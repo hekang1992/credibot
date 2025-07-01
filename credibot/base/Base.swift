@@ -197,9 +197,12 @@ class BaseViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { model in
                 guard let model = model else { return }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                GgLocationModelManager.shared.currentModel = model
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                     Task {
-                        await ClickTracking.trackingAppInfo(model: model, para: dict)
+                        if let localModel = GgLocationModelManager.shared.currentModel {
+                            await ClickTracking.trackingAppInfo(model: localModel, para: dict)
+                        }
                     }
                 }
             }).disposed(by: disposeBag)

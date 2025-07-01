@@ -52,3 +52,9 @@ class GetColorConfig: NSObject {
         return attributedString
     }
 }
+
+class GgLocationModelManager {
+    static let shared = GgLocationModelManager()
+    private init() {}
+    var currentModel: LocationModel?
+}
