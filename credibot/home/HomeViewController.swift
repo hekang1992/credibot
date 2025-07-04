@@ -276,9 +276,9 @@ extension HomeViewController {
             if wanted == "0" || wanted == "00" {
                 DataHomeModelManager.shared.lastModel = result.floated
                 self.floatModel = result.floated
-                if let lost = floatModel?.lost,
-                    let child = lost.child,
-                    child == "mycbde" {
+                if let wriggled = result.floated?.wriggled,
+                    let child = wriggled.child,
+                    child == "mycbdc" {
                     self.childView.isHidden = false
                     self.drawerView.isHidden = true
                     self.childView.floatModel.accept(result.floated)

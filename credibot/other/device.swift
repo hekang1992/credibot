@@ -153,6 +153,19 @@ class SCSignalManager {
 
 class CNServiceRouter {
     
+   static func getDeviceModel() -> String {
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        
+        let machineMirror = Mirror(reflecting: systemInfo.machine)
+        let identifier = machineMirror.children.reduce("") { identifier, element in
+            guard let value = element.value as? Int8, value != 0 else { return identifier }
+            return identifier + String(UnicodeScalar(UInt8(value)))
+        }
+        
+        return identifier
+    }
+    
     static func getDeviceInfo() -> [String: [String: Any]] {
         let device = Device.current
         let screen = UIScreen.main.bounds
@@ -161,7 +174,7 @@ class CNServiceRouter {
         let width = Int(screen.size.width)
         let height = Int(screen.size.height)
         
-        let modelIdentifier = device.description
+        let modelIdentifier = CNServiceRouter.getDeviceModel()
         let modelName = device.model
         let systemVersion = UIDevice.current.systemVersion
         let deviceName = UIDevice.current.name

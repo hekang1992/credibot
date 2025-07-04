@@ -54,7 +54,7 @@ class RoutePesoViewCell: BaseViewCell {
     
     lazy var imporyLabel: UILabel = {
         let imporyLabel = UILabel()
-        imporyLabel.textColor = UIColor.init(colorHex: "#999999")
+        imporyLabel.textColor = UIColor.gray
         imporyLabel.textAlignment = .left
         imporyLabel.font = UIFont.systemFont(ofSize: 14.pix(), weight: .regular)
         return imporyLabel
@@ -86,7 +86,7 @@ class RoutePesoViewCell: BaseViewCell {
     
     lazy var impory1Label: UILabel = {
         let impory1Label = UILabel()
-        impory1Label.textColor = UIColor.init(colorHex: "#999999")
+        impory1Label.textColor = UIColor.gray
         impory1Label.textAlignment = .left
         impory1Label.font = UIFont.systemFont(ofSize: 14.pix(), weight: .regular)
         return impory1Label
@@ -204,9 +204,9 @@ class RoutePesoViewCell: BaseViewCell {
             
             impory1Label.text = name.isEmpty ? "Name -Phone Number" : listName
             
-            imporyLabel.textColor = relationText.isEmpty ? UIColor.init(colorHex: "#999999") : .black
+            imporyLabel.textColor = relationText.isEmpty ? UIColor.gray : .black
             
-            impory1Label.textColor = name.isEmpty ? UIColor.init(colorHex: "#999999") : .black
+            impory1Label.textColor = name.isEmpty ? UIColor.gray : .black
             
         }).disposed(by: disposeBag)
         

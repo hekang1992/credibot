@@ -32,12 +32,7 @@ class AboutBotNormalViewCell: BaseViewCell {
     
     lazy var phoneTx: UITextField = {
         let phoneTx = UITextField()
-        let attrString = NSMutableAttributedString(string: "", attributes: [
-            .foregroundColor: UIColor.init(colorHex: "#999999") as Any,
-            .font: UIFont.systemFont(ofSize: 12, weight: .bold)
-        ])
-        phoneTx.attributedPlaceholder = attrString
-        phoneTx.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        phoneTx.font = UIFont.systemFont(ofSize: 14.pix(), weight: .regular)
         phoneTx.textColor = UIColor.init(colorHex: "#000000")
         return phoneTx
     }()
@@ -88,6 +83,7 @@ class AboutBotNormalViewCell: BaseViewCell {
             }else {
                 phoneTx.keyboardType = .default
             }
+           
             
             phoneTx.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
             

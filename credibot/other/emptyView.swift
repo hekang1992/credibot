@@ -22,7 +22,7 @@ class EmptyView: BaseView {
     lazy var nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.text = "There are currently no orders"
-        nameLabel.textColor = UIColor.init(colorHex: "#999999")
+        nameLabel.textColor = UIColor.gray
         nameLabel.font = UIFont.systemFont(ofSize: 14.pix(), weight: .thin)
         nameLabel.textAlignment = .center
         return nameLabel

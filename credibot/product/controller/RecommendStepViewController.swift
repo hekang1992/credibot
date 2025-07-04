@@ -168,11 +168,56 @@ class RecommendStepViewController: BaseViewController {
 }
 
 extension RecommendStepViewController {
+
+    func compressImageToMaxSize(_ image: UIImage, maxSizeKB: Int = 500) -> Data? {
+        let maxSize = maxSizeKB * 1024
+        var compression: CGFloat = 1.0
+        var resizedImage = image
+        var imageData = resizedImage.jpegData(compressionQuality: compression)
+
+        if let data = imageData, data.count <= maxSize {
+            return data
+        }
+
+        while let data = resizedImage.jpegData(compressionQuality: compression),
+              data.count > maxSize, compression > 0.1 {
+            compression -= 0.1
+            imageData = data
+        }
+
+        while let data = imageData, data.count > maxSize {
+            let scale = sqrt(Double(maxSize) / Double(data.count))
+            let newSize = CGSize(
+                width: resizedImage.size.width * CGFloat(scale),
+                height: resizedImage.size.height * CGFloat(scale)
+            )
+            resizedImage = resizeImage(resizedImage, targetSize: newSize)
+            compression = 0.9
+            imageData = resizedImage.jpegData(compressionQuality: compression)
+
+            if newSize.width < 50 || newSize.height < 50 {
+                break
+            }
+        }
+
+        if let finalData = imageData, finalData.count <= maxSize {
+            return finalData
+        }
+
+        return nil
+    }
+
+    func resizeImage(_ image: UIImage, targetSize: CGSize) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: targetSize)
+        return renderer.image { _ in
+            image.draw(in: CGRect(origin: .zero, size: targetSize))
+        }
+    }
     
     private func notGoImageVc(with image: UIImage, child: String) async {
         KRProgressHUD.show(withMessage: "loading...")
         let man = NetworkManager()
-        let imageData = image.jpegData(compressionQuality: 0.2)
+        let imageData = compressImageToMaxSize(image)
         let dict = ["presumably": "1",
                     "test": productID,
                     "child": child,
@@ -281,8 +326,9 @@ extension RecommendStepViewController {
                     let story = model.babies?.story ?? 0
                     let admiration = model.admiration ?? ""
                     if story == 1 {
+                        let pageUrl = model.babies?.admiration ?? ""
                         bgView.leftView.oneLabel.text = model.babies?.tobuy ?? ""
-                        bgView.leftView.leftImageView.image = UIImage(named: "compolegeimge")
+                        bgView.leftView.leftImageView.kf.setImage(with: URL(string: pageUrl))
                         self.imageBool = true
                     }
                     if !admiration.isEmpty {

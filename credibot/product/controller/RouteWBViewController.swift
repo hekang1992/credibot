@@ -217,7 +217,7 @@ class RouteWBViewController: BaseViewController {
                     cell.selectionStyle = .none
                     cell.backgroundColor = .clear
                     cell.imporyLabel.text = noisy.isEmpty ? placeName : noisy
-                    cell.imporyLabel.textColor = noisy.isEmpty ? UIColor.init(colorHex: "#999999"): .black
+                    cell.imporyLabel.textColor = noisy.isEmpty ? UIColor.gray : .black
                     return cell
                 }
             }else {

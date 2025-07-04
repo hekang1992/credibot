@@ -150,7 +150,7 @@ class HomeView: BaseView {
     
     lazy var dwdLabel: UILabel = {
         let dwdLabel = UILabel()
-        dwdLabel.textColor = UIColor.init(colorHex: "#999999")
+        dwdLabel.textColor = UIColor.gray
         dwdLabel.textAlignment = .right
         dwdLabel.font = UIFont.boldSystemFont(ofSize: 12)
         dwdLabel.text = "Go to Apply"
@@ -181,7 +181,7 @@ class HomeView: BaseView {
     
     lazy var dwd1Label: UILabel = {
         let dwd1Label = UILabel()
-        dwd1Label.textColor = UIColor.init(colorHex: "#999999")
+        dwd1Label.textColor = UIColor.gray
         dwd1Label.textAlignment = .right
         dwd1Label.font = UIFont.boldSystemFont(ofSize: 12)
         dwd1Label.text = "See all"

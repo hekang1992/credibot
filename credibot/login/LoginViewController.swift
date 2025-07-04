@@ -8,6 +8,8 @@
 import UIKit
 import KRProgressHUD
 import RxSwift
+import FBSDKCoreKit
+import AppTrackingTransparency
 
 class LoginViewController: BaseViewController {
     
@@ -39,6 +41,7 @@ class LoginViewController: BaseViewController {
             let phone = loginView.phoneTx.text ?? ""
             Task {
                 await self.sendCodeInfo(with: codeBtn, phone: phone)
+                await self.getAppAdvInfo()
             }
         }
         
@@ -56,6 +59,13 @@ class LoginViewController: BaseViewController {
             loginView.phoneTx.becomeFirstResponder()
         }
         
+        loginView.privacyLabel.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            let webVc = RouteWebViewController()
+            webVc.pageUrl = pageApiUrl + "/snailXyloph"
+            self.navigationController?.pushViewController(webVc, animated: true)
+        }).disposed(by: disposeBag)
+        
         getLocation()
     }
     
@@ -66,6 +76,36 @@ class LoginViewController: BaseViewController {
 }
 
 extension LoginViewController {
+    
+    private func getAppAdvInfo() async {
+        let man = NetworkManager()
+        let dict = ["flimsy": "1",
+                    "noback": DeviceIdentifier.getIDFV(),
+                    "temples": DeviceIdentifier.getIDFA()]
+        do {
+            let result = try await man.request(.postData(endpoint: "/cbd/enormous", parameters: dict), responseType: BaseModel.self)
+            let wanted = result.wanted ?? ""
+            if wanted == "0" || wanted == "00" {
+                if let model = result.floated?.group {
+                    faceBookModel(from: model)
+                }
+            }else if wanted == "-2" {
+                removeLoginInfo()
+            }
+            NotificationCenter.default.post(name: NSNotification.Name("changeVc"), object: nil)
+        } catch  {
+            print("🚀===============")
+            NotificationCenter.default.post(name: NSNotification.Name("changeVc"), object: nil)
+        }
+    }
+    
+    private func faceBookModel(from model: groupModel) {
+        Settings.shared.appID = model.hanky ?? ""
+        Settings.shared.clientToken = model.realistic ?? ""
+        Settings.shared.displayName = model.offered ?? ""
+        Settings.shared.appURLSchemeSuffix = model.makethe ?? ""
+        ApplicationDelegate.shared.application(UIApplication.shared, didFinishLaunchingWithOptions: nil)
+    }
     
     private func login(with loginView: LoginView) {
         if !loginView.isClickPrivacy {

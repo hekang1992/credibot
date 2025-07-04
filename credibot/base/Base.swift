@@ -204,16 +204,18 @@ class BaseViewController: UIViewController {
             .subscribe(onNext: { model in
                 guard let model = model else { return }
                 GgLocationModelManager.shared.currentModel = model
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                    Task {
-                        if let localModel = GgLocationModelManager.shared.currentModel {
-                            if localModel.latitude != 0.0 || localModel.longitude != 0.0 {
-                                await ClickTracking.trackingAppInfo(model: localModel, para: dict)
-                            }
-                        }
+            }).disposed(by: disposeBag)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            Task {
+                if let localModel = GgLocationModelManager.shared.currentModel {
+                    if localModel.latitude != 0.0 || localModel.longitude != 0.0 {
+                        await ClickTracking.trackingAppInfo(model: localModel, para: dict)
                     }
                 }
-            }).disposed(by: disposeBag)
+            }
+        }
+        
     }
     
     func removeLoginInfo() {

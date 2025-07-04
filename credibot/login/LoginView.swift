@@ -132,7 +132,7 @@ class LoginView: BaseView {
         let phoneTx = UITextField()
         phoneTx.keyboardType = .numberPad
         let attrString = NSMutableAttributedString(string: "Enter mobile number", attributes: [
-            .foregroundColor: UIColor.init(colorHex: "#999999") as Any,
+            .foregroundColor: UIColor.gray,
             .font: UIFont.systemFont(ofSize: 15, weight: .regular)
         ])
         phoneTx.attributedPlaceholder = attrString

@@ -32,7 +32,7 @@ class OngoingListViewCell: BaseViewCell {
     
     lazy var descLabel: UILabel = {
         let descLabel = UILabel()
-        descLabel.textColor = UIColor.init(colorHex: "#999999")
+        descLabel.textColor = UIColor.gray
         descLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         descLabel.textAlignment = .left
         descLabel.numberOfLines = 0

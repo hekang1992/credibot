@@ -77,6 +77,7 @@ class mostlydressedModel: Codable {
 class babiesModel: Codable {
     var story: Int?
     var tobuy: String?
+    var admiration: String?
 }
 
 class wriggledModel: Codable {

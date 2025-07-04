@@ -77,7 +77,7 @@ class HomeChildView: BaseView {
     }()
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         tableView.register(ChildViewCell.self, forCellReuseIdentifier: "ChildViewCell")
@@ -120,7 +120,8 @@ class HomeChildView: BaseView {
         addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide.snp.top)
-            make.left.right.bottom.equalToSuperview()
+            make.left.right.equalToSuperview()
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
         
         floatModel.map({ $0?.lost?.skinny ?? [] }).bind(to: tableView.rx.items(cellIdentifier: "ChildViewCell", cellType: ChildViewCell.self)) { index, model, cell in

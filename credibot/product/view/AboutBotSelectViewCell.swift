@@ -29,7 +29,7 @@ class AboutBotSelectViewCell: BaseViewCell {
     
     lazy var imporyLabel: UILabel = {
         let imporyLabel = UILabel()
-        imporyLabel.textColor = UIColor.init(colorHex: "#999999")
+        imporyLabel.textColor = UIColor.gray
         imporyLabel.textAlignment = .left
         imporyLabel.font = UIFont.systemFont(ofSize: 14.pix(), weight: .regular)
         return imporyLabel

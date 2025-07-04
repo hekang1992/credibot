@@ -10,7 +10,7 @@ import RxRelay
 
 class RouteOrderListCell: BaseViewCell {
     
-    var model = BehaviorRelay<topickModel?>(value: nil)
+//    var model = BehaviorRelay<topickModel?>(value: nil)
     
     lazy var bgView: UIView = {
         let bgView = UIView()
@@ -203,35 +203,13 @@ class RouteOrderListCell: BaseViewCell {
         typeMenuView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
-        model.asObservable().subscribe(onNext: { [weak self] model in
-            guard let self = self, let model = model else { return }
-            iconImageView.kf.setImage(with: URL(string: model.mostlydressed?.shorts ?? ""))
-            nameLabel.text = model.mostlydressed?.turnedquickly ?? ""
-            typeLabel.text = model.mostlydressed?.curiously ?? ""
-            descLabel.text = "\(model.mostlydressed?.soldgroceries ?? "")"
-            desc1Label.text = "\(model.mostlydressed?.soft ?? ""):"
-            
-            moneyLabel.text = model.mostlydressed?.drinks ?? ""
-            timeLabel.text = model.mostlydressed?.cigarettes ?? ""
-            mkLabel.text = model.mostlydressed?.purposes ?? ""
-            typeMenuView.titleLabel.text = model.mostlydressed?.sold ?? ""
-            
-            let sorts = model.mostlydressed?.sorts ?? 0
-            if sorts == 1 {
-                typeLabel.backgroundColor = UIColor.init(colorHex: ColorsConfig.oneColor)
-            }else if sorts == 2 {
-                typeLabel.backgroundColor = UIColor.init(colorHex: ColorsConfig.twoColor)
-            }else if sorts == 3 {
-                typeLabel.backgroundColor = UIColor.init(colorHex: ColorsConfig.threeColor)
-            }else if sorts == 4 {
-                typeLabel.backgroundColor = UIColor.init(colorHex: ColorsConfig.fourColor)
-            }else if sorts == 5 {
-                typeLabel.backgroundColor = UIColor.init(colorHex: ColorsConfig.fiveColor)
-            }
-            
-        }).disposed(by: disposeBag)
-        
+//        
+//        model.asObservable().subscribe(onNext: { [weak self] model in
+//            guard let self = self, let model = model else { return }
+//            
+//            
+//        }).disposed(by: disposeBag)
+//        
     }
     
     @MainActor required init?(coder: NSCoder) {
