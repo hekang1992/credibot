@@ -263,6 +263,12 @@ extension HomeChildView: UITableViewDelegate {
         }
         
         if let model = self.floatModel.value?.lost?.skinny?[0] {
+            desc1Label.text = ""
+            moneyLabel.text = ""
+            productName.text = ""
+            rateLabel.text = ""
+            mcView.titleLabel.text = ""
+            
             desc1Label.text = model.orbreaking ?? ""
             moneyLabel.text = "₱\(model.clapping ?? "")"
             productName.text = model.turnedquickly ?? ""

@@ -88,20 +88,34 @@ class RoutePhoneViewController: BaseViewController {
             cell.selectionStyle = .none
             cell.backgroundColor = .clear
             cell.model.accept(model)
+            
+            cell.nameBlock = {  [weak self] in
+                self?.selectCell = cell
+                self?.selectModel = model
+                let listArray = PickerHelper.showSinglePicker(dataSource: model.pictures ?? [])
+                self?.configurePickerView(with: listArray, title: "Relationship With Customers", cell: cell, model: model)
+            }
+            
+            cell.phoneBlock = { [weak self] in
+                self?.selectCell = cell
+                self?.selectModel = model
+                self?.getTextInfo()
+            }
+            
         }.disposed(by: disposeBag)
         
         ContactManager.shared.delegate = self
         
-        self.tableView.rx.itemSelected.subscribe(onNext: { [weak self] indexPath in
-            guard let self = self else { return }
-            let cell = tableView.cellForRow(at: indexPath) as! RoutePesoViewCell
-            if let model = self.listArray.value?[indexPath.row] {
-                self.selectCell = cell
-                self.selectModel = model
-                let listArray = PickerHelper.showSinglePicker(dataSource: model.pictures ?? [])
-                configurePickerView(with: listArray, title: "Relationship With Customers", cell: cell, model: model)
-            }
-        }).disposed(by: disposeBag)
+//        self.tableView.rx.itemSelected.subscribe(onNext: { [weak self] indexPath in
+//            guard let self = self else { return }
+//            let cell = tableView.cellForRow(at: indexPath) as! RoutePesoViewCell
+//            if let model = self.listArray.value?[indexPath.row] {
+//                self.selectCell = cell
+//                self.selectModel = model
+//                let listArray = PickerHelper.showSinglePicker(dataSource: model.pictures ?? [])
+//                configurePickerView(with: listArray, title: "Relationship With Customers", cell: cell, model: model)
+//            }
+//        }).disposed(by: disposeBag)
         
         nextBtn.rx.tap.subscribe(onNext: { [weak self] in
             guard let self = self else { return }
@@ -173,7 +187,7 @@ class RoutePhoneViewController: BaseViewController {
             cell.imporyLabel.textColor = .black
             model.relationText = selectedProvince?.name ?? ""
             model.interesting = selectedProvince?.code ?? ""
-            getTextInfo()
+//            self.getTextInfo()
         }
         
         let pickerStyle = BRPickerStyle()

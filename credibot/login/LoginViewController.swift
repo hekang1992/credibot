@@ -21,16 +21,19 @@ class LoginViewController: BaseViewController {
     
     var mix2time: String = ""
     
+    lazy var loginView: LoginView = {
+        let loginView = LoginView()
+        return loginView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
-        let loginView = LoginView()
+                
+        loginView.frame = self.view.bounds
         view.addSubview(loginView)
-        loginView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        
         
         loginView.block = { [weak self] codeBtn in
             guard let self = self else { return }
@@ -56,7 +59,7 @@ class LoginViewController: BaseViewController {
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-            loginView.phoneTx.becomeFirstResponder()
+            self.loginView.phoneTx.becomeFirstResponder()
         }
         
         loginView.privacyLabel.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
@@ -66,7 +69,7 @@ class LoginViewController: BaseViewController {
             self.navigationController?.pushViewController(webVc, animated: true)
         }).disposed(by: disposeBag)
         
-        getLocation()
+//        getLocation()
     }
     
     deinit {
@@ -92,10 +95,8 @@ extension LoginViewController {
             }else if wanted == "-2" {
                 removeLoginInfo()
             }
-            NotificationCenter.default.post(name: NSNotification.Name("changeVc"), object: nil)
         } catch  {
             print("🚀===============")
-            NotificationCenter.default.post(name: NSNotification.Name("changeVc"), object: nil)
         }
     }
     
@@ -137,7 +138,7 @@ extension LoginViewController {
                     guard let self = self else { return }
                     codeBtn.setImage(nil, for: .normal)
                     self.remainingSeconds -= 1
-                    self.updateTitle(with: codeBtn)
+                    self.updateaTitle(with: codeBtn)
                     if self.remainingSeconds <= 0 {
                         self.stopCountdown(with: codeBtn)
                     }
@@ -161,7 +162,7 @@ extension LoginViewController {
         codeBtn.setImage(UIImage(named: "sendcodeimage"), for: .normal)
     }
     
-    private func updateTitle(with codeBtn: UIButton) {
+    private func updateaTitle(with codeBtn: UIButton) {
         codeBtn.isEnabled = false
         codeBtn.setTitle("\(remainingSeconds)s", for: .normal)
     }

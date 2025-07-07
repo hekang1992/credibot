@@ -9,6 +9,7 @@ import UIKit
 import RxRelay
 import KRProgressHUD
 import MJRefresh
+import TYAlertController
 
 class OngoingViewController: BaseViewController {
     
@@ -81,7 +82,16 @@ class OngoingViewController: BaseViewController {
     }
     
     @objc override func btnClick() {
-        self.navigationController?.popToRootViewController(animated: true)
+        let alertVc = TYAlertController(alert: outView, preferredStyle: .actionSheet)!
+        self.present(alertVc, animated: true)
+        outView.block1 = { [weak self] in
+            self?.dismiss(animated: true, completion: {
+                self?.navigationController?.popToRootViewController(animated: true)
+            })
+        }
+        outView.block2 = { [weak self] in
+            self?.dismiss(animated: true)
+        }
     }
 
 }

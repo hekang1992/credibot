@@ -10,6 +10,9 @@ import RxRelay
 
 class RoutePesoViewCell: BaseViewCell {
     
+    var nameBlock: (() -> Void)?
+    var phoneBlock: (() -> Void)?
+    
     var model = BehaviorRelay<topickModel?>(value: nil)
 
     lazy var bgView: UIView = {
@@ -52,6 +55,7 @@ class RoutePesoViewCell: BaseViewCell {
         return cornerView
     }()
     
+    //name-click
     lazy var imporyLabel: UILabel = {
         let imporyLabel = UILabel()
         imporyLabel.textColor = UIColor.gray
@@ -84,6 +88,7 @@ class RoutePesoViewCell: BaseViewCell {
         return corner1View
     }()
     
+    //phone-click
     lazy var impory1Label: UILabel = {
         let impory1Label = UILabel()
         impory1Label.textColor = UIColor.gray
@@ -209,6 +214,16 @@ class RoutePesoViewCell: BaseViewCell {
             impory1Label.textColor = name.isEmpty ? UIColor.gray : .black
             
         }).disposed(by: disposeBag)
+        
+        
+        imporyLabel.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
+            self?.nameBlock?()
+        }).disposed(by: disposeBag)
+        
+        impory1Label.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
+            self?.phoneBlock?()
+        }).disposed(by: disposeBag)
+        
         
     }
     

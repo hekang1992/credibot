@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import KRProgressHUD
+import TYAlertController
 
 class BaseNavigationController: UINavigationController {
     
@@ -28,6 +29,12 @@ class BaseNavigationController: UINavigationController {
 }
 
 class BaseViewController: UIViewController {
+    
+    lazy var outView: LogoutView = {
+        let outView = LogoutView(frame: self.view.bounds)
+        outView.imgeView.image = UIImage(named: "wanliimge")
+        return outView
+    }()
     
     lazy var backBtn: UIButton = {
         let backBtn = UIButton(type: .custom)
@@ -53,9 +60,27 @@ class BaseViewController: UIViewController {
     @objc func btnClick() {
         if let viewControllers = navigationController?.viewControllers {
             if let targetVC = viewControllers.first(where: { $0 is OngoingViewController }) {
-                navigationController?.popToViewController(targetVC, animated: true)
+                let alertVc = TYAlertController(alert: outView, preferredStyle: .actionSheet)!
+                self.present(alertVc, animated: true)
+                outView.block1 = { [weak self] in
+                    self?.dismiss(animated: true, completion: {
+                        self?.navigationController?.popToViewController(targetVC, animated: true)
+                    })
+                }
+                outView.block2 = { [weak self] in
+                    self?.dismiss(animated: true)
+                }
             } else {
-                navigationController?.popToRootViewController(animated: true)
+                let alertVc = TYAlertController(alert: outView, preferredStyle: .actionSheet)!
+                self.present(alertVc, animated: true)
+                outView.block1 = { [weak self] in
+                    self?.dismiss(animated: true, completion: {
+                        self?.navigationController?.popToRootViewController(animated: true)
+                    })
+                }
+                outView.block2 = { [weak self] in
+                    self?.dismiss(animated: true)
+                }
             }
         }
     }

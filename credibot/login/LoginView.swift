@@ -39,7 +39,7 @@ class LoginView: BaseView {
     
     lazy var phoneLabel: UILabel = {
         let phoneLabel = UILabel()
-        phoneLabel.text = "PhoneNumber"
+        phoneLabel.text = "Phone Number"
         phoneLabel.font = UIFont.boldSystemFont(ofSize: 18)
         phoneLabel.textAlignment = .center
         phoneLabel.textColor = UIColor.init(colorHex: "#000000")
@@ -137,6 +137,7 @@ class LoginView: BaseView {
         ])
         phoneTx.attributedPlaceholder = attrString
         phoneTx.textColor = UIColor.init(colorHex: "#000000")
+        phoneTx.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         return phoneTx
     }()
     
@@ -289,14 +290,6 @@ class LoginView: BaseView {
             self.block2?()
         }).disposed(by: disposeBag)
         
-        
-        phoneTx.rx.text
-            .orEmpty
-            .subscribe(onNext: { text in
-                print("🚀text=====\(text)")
-                PhoneNumberManager.shared.phoneNumber = text
-            })
-            .disposed(by: disposeBag)
     }
     
     @MainActor required init?(coder: NSCoder) {
@@ -309,6 +302,11 @@ extension LoginView {
     
     @objc func btnClick() {
         self.block?(codeBtn)
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        print("🚀 Text changed: \(textField.text ?? "")")
+        PhoneNumberManager.shared.phoneNumber = textField.text
     }
     
 }

@@ -328,12 +328,14 @@ extension RecommendStepViewController {
                     if story == 1 {
                         let pageUrl = model.babies?.admiration ?? ""
                         bgView.leftView.oneLabel.text = model.babies?.tobuy ?? ""
-                        bgView.leftView.leftImageView.kf.setImage(with: URL(string: pageUrl))
+//                        bgView.leftView.leftImageView.kf.setImage(with: URL(string: pageUrl))
+                        bgView.leftView.leftImageView.image = UIImage(named: "compolegeimge")
                         self.imageBool = true
                     }
                     if !admiration.isEmpty {
                         self.faceBool = true
-                        bgView.rightView.leftImageView.kf.setImage(with: URL(string: admiration))
+//                        bgView.rightView.leftImageView.kf.setImage(with: URL(string: admiration))
+                        bgView.rightView.leftImageView.image = UIImage(named: "compolegeimge")
                     }
                 }
             }else if wanted == "-2" {
