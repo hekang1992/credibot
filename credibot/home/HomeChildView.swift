@@ -98,7 +98,7 @@ class HomeChildView: BaseView {
             .when(.recognized)
             .subscribe(onNext: { [weak self] _ in
             guard let self = self else { return }
-            if let model = self.floatModel.value?.lost?.skinny?[0] {
+            if let model = self.floatModel.value?.wriggled?.skinny?[0] {
                 self.productBlock?(String(model.grabbed ?? 0))
             }
         }).disposed(by: disposeBag)
@@ -270,7 +270,7 @@ extension HomeChildView: UITableViewDelegate {
             mcView.titleLabel.text = ""
             
             desc1Label.text = model.orbreaking ?? ""
-            moneyLabel.text = "₱\(model.clapping ?? "")"
+            moneyLabel.text = model.clapping ?? ""
             productName.text = model.turnedquickly ?? ""
             iconImagView.kf.setImage(with: URL(string: model.shorts ?? ""), placeholder: UIImage(named: "logoplaceh"))
             rateLabel.text = (model.throwing ?? "") + (model.loanRateUnit ?? "")

@@ -157,9 +157,7 @@ extension OngoingViewController {
         }
     }
     
-    
-    
-    private func getProdectDetailInfo(to productID: String) async {
+     func getProdectDetailInfo(to productID: String) async -> String? {
         KRProgressHUD.show(withMessage: "loading...")
         let man = NetworkManager()
         let dict = ["test": productID,
@@ -177,10 +175,13 @@ extension OngoingViewController {
             }
             KRProgressHUD.dismiss()
             await self.listView.tableView.mj_header?.endRefreshing()
+            return result.floated?.admiration ?? ""
         } catch {
             KRProgressHUD.dismiss()
             await self.listView.tableView.mj_header?.endRefreshing()
+            return ""
         }
+        
     }
     
     private func getProductGoVc(to productID: String) async {

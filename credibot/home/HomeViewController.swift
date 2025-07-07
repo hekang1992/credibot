@@ -246,8 +246,17 @@ extension HomeViewController {
                     let dict = SchemeUrlParameter.getParameters(from: admiration) ?? [:]
                     let ongVc = OngoingViewController()
                     let productID = dict["test"] ?? ""
-                    ongVc.productID.accept(productID)
-                    self.navigationController?.pushViewController(ongVc, animated: true)
+                    let pageURL = await ongVc.getProdectDetailInfo(to: productID) ?? ""
+                    if !pageURL.isEmpty && pageURL.contains("http") {
+                        let pc = RouteWebViewController()
+                        let commonDict = CommonParameter().toDictionary()
+                        let apiUrl = URLParameterHelper.appendQueryParameters(to: pageURL, parameters: commonDict)!
+                        pc.pageUrl = apiUrl
+                        self.navigationController?.pushViewController(pc, animated: true)
+                    }else {
+                        ongVc.productID.accept(productID)
+                        self.navigationController?.pushViewController(ongVc, animated: true)
+                    }               
                 }else {
                     let webVc = RouteWebViewController()
                     let commonDict = CommonParameter().toDictionary()
