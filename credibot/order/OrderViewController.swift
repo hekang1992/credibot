@@ -142,8 +142,17 @@ class OrderViewController: BaseViewController {
         
         tableView.rx.modelSelected(topickModel.self).subscribe(onNext: { [weak self] model in
             let appid = model.women ?? 0
-            Task {
-                await self?.applyInfo(with: String(appid))
+            let served = model.served ?? ""
+            if served.contains(personalizedUrl) {
+                Task {
+                    await self?.applyInfo(with: String(appid))
+                }
+            }else {
+                let commonDict = CommonParameter().toDictionary()
+                let apiUrl = URLParameterHelper.appendQueryParameters(to: served, parameters: commonDict)!
+                let webVc = RouteWebViewController()
+                webVc.pageUrl = apiUrl
+                self?.navigationController?.pushViewController(webVc, animated: true)
             }
         }).disposed(by: disposeBag)
         

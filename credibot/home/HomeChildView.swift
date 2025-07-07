@@ -262,7 +262,7 @@ extension HomeChildView: UITableViewDelegate {
             make.top.equalTo(moneyLabel.snp.bottom).offset(7.pix())
         }
         
-        if let model = self.floatModel.value?.lost?.skinny?[0] {
+        if let model = self.floatModel.value?.wriggled?.skinny?[0] {
             desc1Label.text = ""
             moneyLabel.text = ""
             productName.text = ""
@@ -273,7 +273,7 @@ extension HomeChildView: UITableViewDelegate {
             moneyLabel.text = "₱\(model.clapping ?? "")"
             productName.text = model.turnedquickly ?? ""
             iconImagView.kf.setImage(with: URL(string: model.shorts ?? ""), placeholder: UIImage(named: "logoplaceh"))
-            rateLabel.text = model.impossible ?? ""
+            rateLabel.text = (model.throwing ?? "") + (model.loanRateUnit ?? "")
             mcView.titleLabel.text = model.sliding ?? ""
         }
         

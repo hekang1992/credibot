@@ -33,6 +33,7 @@ class floatedModel: Codable {
     var coinage: Int?
     var lost: lostModel?
     var plates: platesModel?
+    var probablychange: Int?
 }
 
 class lostModel: Codable {
@@ -58,6 +59,7 @@ class topickModel: Codable {
     var jolly: String?//phone
     var interesting: String?
     var women: Int?
+    var served : String?
     var mostlydressed: mostlydressedModel?
 }
 

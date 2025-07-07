@@ -139,6 +139,12 @@ class HomeView: BaseView {
         return detailBtn
     }()
     
+    lazy var cdcView: UIView = {
+        let cdcView = UIView()
+        cdcView.backgroundColor = .white
+        return cdcView
+    }()
+    
     lazy var dataLabel: UILabel = {
         let dataLabel = UILabel()
         dataLabel.textColor = .black
@@ -393,6 +399,14 @@ class HomeView: BaseView {
             make.size.equalTo(CGSize(width: 345.pix(), height: 204.pix()))
             make.top.equalTo(data1Label.snp.bottom).offset(15.pix())
             make.bottom.equalToSuperview().offset(-20)
+        }
+        
+        scrollView.addSubview(cdcView)
+        cdcView.snp.makeConstraints { make in
+            make.top.equalTo(headImageView.snp.bottom)
+            make.left.equalToSuperview()
+            make.width.equalTo(screen_width)
+            make.bottom.equalToSuperview()
         }
         
         headImageView

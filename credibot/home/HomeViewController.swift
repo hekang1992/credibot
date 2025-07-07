@@ -206,7 +206,7 @@ extension HomeViewController {
         let combinedDict = dictionaries.reduce(into: [String: Any]()) { result, dict in
             result.merge(dict) { (current, _) in current }
         }
-//        print("✈️ combinedDict==========\(combinedDict)")
+        //        print("✈️ combinedDict==========\(combinedDict)")
         
         let jsonStr = paraToBaseStr(combinedDict) ?? ""
         
@@ -276,9 +276,16 @@ extension HomeViewController {
             if wanted == "0" || wanted == "00" {
                 DataHomeModelManager.shared.lastModel = result.floated
                 self.floatModel = result.floated
+                let probablychange = result.floated?.probablychange ?? 0
+                self.drawerView.scrollView.delegate = self
+                if probablychange == 1 {
+                    self.drawerView.cdcView.isHidden = true
+                }else {
+                    self.drawerView.cdcView.isHidden = false
+                }
                 if let wriggled = result.floated?.wriggled,
-                    let child = wriggled.child,
-                    child == "mycbdc" {
+                   let child = wriggled.child,
+                   child == "mycbdc" {
                     self.childView.isHidden = false
                     self.drawerView.isHidden = true
                     self.childView.floatModel.accept(result.floated)
@@ -312,7 +319,7 @@ extension HomeViewController {
     
 }
 
-extension HomeViewController {
+extension HomeViewController: UIScrollViewDelegate {
     
     private func changHomeUI(with model: skinnyModel) {
         self.drawerView.appNameLabel.text = model.turnedquickly ?? ""
@@ -350,6 +357,13 @@ extension HomeViewController {
             }
         } catch {
             
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let probablychange = self.floatModel?.probablychange ?? 0
+        if probablychange == 0 && scrollView.contentOffset.y > 0 {
+            scrollView.contentOffset = .zero
         }
     }
     

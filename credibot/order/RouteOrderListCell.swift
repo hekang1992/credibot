@@ -216,8 +216,6 @@ class RouteOrderListCell: BaseViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-
 }
 
 
