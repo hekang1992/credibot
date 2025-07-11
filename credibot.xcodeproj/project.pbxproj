@@ -436,9 +436,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-credibot/Pods-credibot-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-credibot/Pods-credibot-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -541,12 +545,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = credibot/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CrediBot;
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
-				INFOPLIST_KEY_NSContactsUsageDescription = "";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "CrediBot requires access to your camera to take a photo for identity verification purposes.";
+				INFOPLIST_KEY_NSContactsUsageDescription = "To verify your identity, we need to access your contact information for authentication purposes.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "CrediBot would like to request access to your location permissions in order to provide you with personalized service recommendations and enhance fraud prevention measures based on your location information.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "CrediBot would like to request access to your location permissions in order to provide you with personalized service recommendations and enhance fraud prevention measures based on your location information.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "CrediBot requires access to your photo library to retrieve images for identity verification and account authentication.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "CrediBot needs to use your ad tracking permission to recommend loan products that match your needs and improve our service quality.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -588,12 +592,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = credibot/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CrediBot;
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
-				INFOPLIST_KEY_NSContactsUsageDescription = "";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "CrediBot requires access to your camera to take a photo for identity verification purposes.";
+				INFOPLIST_KEY_NSContactsUsageDescription = "To verify your identity, we need to access your contact information for authentication purposes.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "CrediBot would like to request access to your location permissions in order to provide you with personalized service recommendations and enhance fraud prevention measures based on your location information.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "CrediBot would like to request access to your location permissions in order to provide you with personalized service recommendations and enhance fraud prevention measures based on your location information.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "CrediBot requires access to your photo library to retrieve images for identity verification and account authentication.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "CrediBot needs to use your ad tracking permission to recommend loan products that match your needs and improve our service quality.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

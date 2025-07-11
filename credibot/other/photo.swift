@@ -18,7 +18,7 @@ class CameraHelper: NSObject, UIImagePickerControllerDelegate, UINavigationContr
             DispatchQueue.main.async {
                 if granted {
                     guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
-                        self.showAlert("Camera not available", in: viewController)
+                        self.showSettingsAlert("Camera unavailable (Permission required)", in: viewController)
                         return
                     }
                     self.imagePickedHandler = completion
@@ -42,19 +42,13 @@ class CameraHelper: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     }
     
     private func showSettingsAlert(_ message: String, in vc: UIViewController) {
-        let alert = UIAlertController(title: message, message: "Please enable camera permissions in Settings.", preferredStyle: .alert)
+        let alert = UIAlertController(title: message, message: "CrediBot requires access to your camera to take a photo for identity verification purposes.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Go to setting", style: .default) { _ in
             if let url = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.open(url)
             }
         })
-        vc.present(alert, animated: true)
-    }
-    
-    private func showAlert(_ message: String, in vc: UIViewController) {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Confirm", style: .default))
         vc.present(alert, animated: true)
     }
     
@@ -92,7 +86,7 @@ class PhotoLibraryHelper: NSObject, UIImagePickerControllerDelegate, UINavigatio
             DispatchQueue.main.async {
                 if status == .authorized || status == .limited {
                     guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
-                        self.showAlert("Photos unavailable", in: viewController)
+                        self.showSettingsAlert("Photo library unavailable", in: viewController)
                         return
                     }
                     self.imagePickedHandler = completion
@@ -101,26 +95,20 @@ class PhotoLibraryHelper: NSObject, UIImagePickerControllerDelegate, UINavigatio
                     picker.delegate = self
                     viewController.present(picker, animated: true)
                 } else {
-                    self.showSettingsAlert("Photo album unavailable", in: viewController)
+                    self.showSettingsAlert("Photo library unavailable", in: viewController)
                 }
             }
         }
     }
     
     private func showSettingsAlert(_ message: String, in vc: UIViewController) {
-        let alert = UIAlertController(title: message, message: "To continue, please grant photo access in Settings", preferredStyle: .alert)
+        let alert = UIAlertController(title: message, message: "CrediBot requires access to your photo library to retrieve images for identity verification and account authentication.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Go to setting", style: .default) { _ in
             if let url = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.open(url)
             }
         })
-        vc.present(alert, animated: true)
-    }
-    
-    private func showAlert(_ message: String, in vc: UIViewController) {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Confirm", style: .default))
         vc.present(alert, animated: true)
     }
     

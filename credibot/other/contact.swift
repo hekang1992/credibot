@@ -80,7 +80,7 @@ class ContactManager: NSObject {
         viewController.present(picker, animated: true)
     }
 
-    func showSettingsAlert(from vc: UIViewController, message: String = "Please allow access to Contacts in Settings.") {
+    func showSettingsAlert(from vc: UIViewController, message: String = "To verify your identity, please set your contact permission to \"Allow All\" and avoid selecting other restricted options.") {
         let alert = UIAlertController(title: "Access Denied", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Setting", style: .default) { _ in

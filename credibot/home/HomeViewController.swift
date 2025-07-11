@@ -161,7 +161,7 @@ class HomeViewController: BaseViewController {
 
 extension HomeViewController {
     
-    func showSettingsAlert(from vc: UIViewController, message: String? = "To provide you with better service, we need to access your location information. Rest assured, your privacy and security are our top priority.") {
+    func showSettingsAlert(from vc: UIViewController, message: String? = "CrediBot would like to request access to your location permissions in order to provide you with personalized service recommendations and enhance fraud prevention measures based on your location information.") {
         let alert = UIAlertController(title: "Access Denied", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Setting", style: .default) { _ in
@@ -177,11 +177,11 @@ extension HomeViewController {
         let dict = ["jerry": model.proviceCode ?? "",
                     "masses": model.countryCode ?? "",
                     "stored": model.country ?? "",
-                    "boards": model.latitude ?? 0.0,
-                    "false": model.longitude ?? 0.0,
+                    "boards": model.latitude,
+                    "false": model.longitude,
                     "built": model.address ?? "",
-                    "holding": model.latitude ?? 0.0,
-                    "oftimber": model.longitude ?? 0.0,
+                    "holding": model.latitude,
+                    "oftimber": model.longitude,
                     "joists": model.city ?? ""] as [String : Any]
         do {
             let _ = try await man.request(.postData(endpoint: "/cbd/themcoughed", parameters: dict), responseType: BaseModel.self)
