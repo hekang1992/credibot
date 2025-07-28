@@ -8,7 +8,6 @@
 import UIKit
 import FBSDKCoreKit
 import AppTrackingTransparency
-import RxSwift
 
 class FirstViewController: BaseViewController {
     
@@ -19,7 +18,7 @@ class FirstViewController: BaseViewController {
         
         let bgImageView = UIImageView(frame: self.view.bounds)
         bgImageView.image = UIImage(named: "launch")
-        bgImageView.contentMode = .scaleAspectFill
+        bgImageView.contentMode = .scaleToFill
         view.addSubview(bgImageView)
         
         
@@ -33,16 +32,20 @@ extension FirstViewController {
     
     private func getInitInfo() {
         
-        NetInfoManager.shared.observeNetworkStatus { status in
-            if status != .none {
-                self.getAppInit()
-            }
-        }
+//        NetInfoManager.shared.observeNetworkStatus { status in
+//            if status != .none {
+//                self.getAppInit()
+//            }
+//        }
+        
+//        self.getAppInit()
+        
+        NotificationCenter.default.post(name: NSNotification.Name("changeVc"), object: nil)
         
     }
     
     private func getAppInit() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             if #available(iOS 14.0, *) {
                 ATTrackingManager.requestTrackingAuthorization { status in
                     switch status {

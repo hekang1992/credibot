@@ -58,9 +58,9 @@ class LoginViewController: BaseViewController {
             login(with: loginView)
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-            self.loginView.phoneTx.becomeFirstResponder()
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+//            self.loginView.phoneTx.becomeFirstResponder()
+//        }
         
         loginView.privacyLabel.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
             guard let self = self else { return }
@@ -70,6 +70,9 @@ class LoginViewController: BaseViewController {
         }).disposed(by: disposeBag)
         
 //        getLocation()
+        
+        
+        getAppInit()
     }
     
     deinit {
@@ -79,6 +82,35 @@ class LoginViewController: BaseViewController {
 }
 
 extension LoginViewController {
+    
+    private func getAppInit() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            if #available(iOS 14.0, *) {
+                ATTrackingManager.requestTrackingAuthorization { status in
+                    switch status {
+                    case .restricted:
+                        break
+                    case .authorized, .notDetermined, .denied:
+                        Task {
+                            await self.getAppAdvInfo()
+                        }
+                        break
+                    @unknown default:
+                        break
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    private func faceBookModel(from model: groupModel) {
+        Settings.shared.appID = model.hanky ?? ""
+        Settings.shared.clientToken = model.realistic ?? ""
+        Settings.shared.displayName = model.offered ?? ""
+        Settings.shared.appURLSchemeSuffix = model.makethe ?? ""
+        ApplicationDelegate.shared.application(UIApplication.shared, didFinishLaunchingWithOptions: nil)
+    }
     
     private func getAppAdvInfo() async {
         let man = NetworkManager()
@@ -95,18 +127,13 @@ extension LoginViewController {
             }else if wanted == "-2" {
                 removeLoginInfo()
             }
+//            NotificationCenter.default.post(name: NSNotification.Name("changeVc"), object: nil)
         } catch  {
             print("🚀===============")
+//            NotificationCenter.default.post(name: NSNotification.Name("changeVc"), object: nil)
         }
     }
     
-    private func faceBookModel(from model: groupModel) {
-        Settings.shared.appID = model.hanky ?? ""
-        Settings.shared.clientToken = model.realistic ?? ""
-        Settings.shared.displayName = model.offered ?? ""
-        Settings.shared.appURLSchemeSuffix = model.makethe ?? ""
-        ApplicationDelegate.shared.application(UIApplication.shared, didFinishLaunchingWithOptions: nil)
-    }
     
     private func login(with loginView: LoginView) {
         if !loginView.isClickPrivacy {

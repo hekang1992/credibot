@@ -19,21 +19,33 @@ class LoginView: BaseView {
     
     var isClickPrivacy: Bool = true
     
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = .clear
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.contentInsetAdjustmentBehavior = .never
+        return scrollView
+    }()
+    
     lazy var topImageView: UIImageView = {
         let topImageView = UIImageView()
         topImageView.image = UIImage(named: "loginimge")
+        topImageView.isUserInteractionEnabled = true
         return topImageView
     }()
     
     lazy var welcomeImageView: UIImageView = {
         let welcomeImageView = UIImageView()
         welcomeImageView.image = UIImage(named: "welcomeimge")
+        welcomeImageView.isUserInteractionEnabled = true
         return welcomeImageView
     }()
     
     lazy var logoImageView: UIImageView = {
         let logoImageView = UIImageView()
         logoImageView.image = UIImage(named: "logowel")
+        logoImageView.isUserInteractionEnabled = true
         return logoImageView
     }()
     
@@ -187,30 +199,38 @@ class LoginView: BaseView {
             make.size.equalTo(CGSize(width: 62, height: 62))
         }
         
-        addSubview(phoneLabel)
+        addSubview(scrollView)
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(logoImageView.snp.bottom)
+            make.left.bottom.equalToSuperview()
+            make.width.equalTo(screen_width)
+        }
+        
+        scrollView.addSubview(phoneLabel)
         phoneLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(logoImageView.snp.bottom).offset(75)
+            make.left.equalToSuperview()
+            make.width.equalTo(screen_width)
+            make.top.equalToSuperview().offset(75)
             make.height.equalTo(18)
         }
         
-        addSubview(phoneView)
+        scrollView.addSubview(phoneView)
         phoneView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
+            make.centerX.equalTo(phoneLabel.snp.centerX)
             make.top.equalTo(phoneLabel.snp.bottom).offset(10)
             make.size.equalTo(CGSize(width: 303.pix(), height: 70.pix()))
         }
         
-        addSubview(codeLabel)
+        scrollView.addSubview(codeLabel)
         codeLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
+            make.centerX.equalTo(phoneLabel.snp.centerX)
             make.top.equalTo(phoneView.snp.bottom).offset(25)
             make.height.equalTo(18)
         }
         
-        addSubview(codeView)
+        scrollView.addSubview(codeView)
         codeView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
+            make.centerX.equalTo(phoneLabel.snp.centerX)
             make.top.equalTo(codeLabel.snp.bottom).offset(10)
             make.size.equalTo(CGSize(width: 303.pix(), height: 70.pix()))
         }
@@ -222,26 +242,7 @@ class LoginView: BaseView {
             make.width.equalTo(270.pix())
         }
         
-        addSubview(privacyView)
-        privacyView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-20)
-            make.size.equalTo(CGSize(width: 303.pix(), height: 50.pix()))
-        }
         
-        privacyView.addSubview(clickBtn)
-        clickBtn.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.size.equalTo(CGSize(width: 31, height: 31))
-            make.left.equalToSuperview().offset(15)
-        }
-        
-        privacyView.addSubview(privacyLabel)
-        privacyLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.left.equalTo(clickBtn.snp.right).offset(10)
-            make.right.equalToSuperview().offset(-30)
-        }
         
         phoneView.addSubview(thLabel)
         thLabel.snp.makeConstraints { make in
@@ -276,13 +277,34 @@ class LoginView: BaseView {
             isClickPrivacy = clickBtn.isSelected
         }).disposed(by: disposeBag)
         
-        addSubview(loginBtn)
+        scrollView.addSubview(loginBtn)
         loginBtn.snp.makeConstraints { make in
             make.height.equalTo(60)
-            make.centerX.equalToSuperview()
-            make.left.equalTo(codeView.snp.left)
-            make.right.equalTo(codeView.snp.right)
+            make.centerX.equalTo(codeView.snp.centerX)
+            make.width.equalTo(codeView.snp.width)
             make.top.equalTo(codeView.snp.bottom).offset(40)
+        }
+        
+        scrollView.addSubview(privacyView)
+        privacyView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(loginBtn.snp.bottom).offset(40.pix())
+            make.size.equalTo(CGSize(width: 303.pix(), height: 50.pix()))
+            make.bottom.equalToSuperview().offset(-15.pix())
+        }
+        
+        privacyView.addSubview(clickBtn)
+        clickBtn.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.size.equalTo(CGSize(width: 31, height: 31))
+            make.left.equalToSuperview().offset(15)
+        }
+        
+        privacyView.addSubview(privacyLabel)
+        privacyLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.left.equalTo(clickBtn.snp.right).offset(10)
+            make.right.equalToSuperview().offset(-30)
         }
         
         loginBtn.rx.tap.subscribe(onNext: { [weak self] in
